@@ -1,0 +1,150 @@
+%& -shell-escape
+%\documentclass[a4paper]{aa}
+\documentclass[printer]{aa}
+% \documentclass{article}
+\usepackage[pagebackref,colorlinks,citecolor=blue,urlcolor=blue,linkcolor=blue]{hyperref}
+\usepackage[varg]{txfonts}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{tabularx}
+\usepackage{hhline}
+\usepackage{makecell}
+\usepackage{placeins}
+\usepackage{tikz}
+\usepackage{subcaption}
+\usepackage{lipsum}
+\usetikzlibrary{arrows,positioning,shapes} %,optics}
+\usepackage{xspace}
+\usepackage{mathtools}
+
+
+%\usepackage[squaren,Gray]{SIunits}
+\usepackage{siunitx}
+%\usepackage{units} % nicefrac
+%\newcommand{\units}[1]{$\mathrm{#1}$}
+
+%instrument 
+\newcommand{\SD}{StarDICE\xspace}
+\newcommand{\Oldthorlabs}{SM05PD1B\xspace}
+\newcommand{\Newthorlabs}{SM05PD3A\xspace}
+\newcommand{\Qsolar}{Q_{\mathrm{solar}}}
+
+\newcommand{\Qphot}{Q_{\mathrm{phot}}}
+\newcommand{\Qphotmes}{Q_{\mathrm{phot}}{}_{\mathrm{, \, mes}}}
+\newcommand{\Qphotcont}{Q_{\mathrm{phot}}{}_{\mathrm{, \, 532}}}
+
+\newcommand{\Qccd}{Q_{\mathrm{ccd}}}
+\newcommand{\Qccdmes}{Q_{\mathrm{ccd}}{}_{\mathrm{, \, mes}}}
+\newcommand{\Qccdcont}{Q_{\mathrm{ccd}}{}_{\mathrm{, \, 532}}}
+
+\newcommand{\Qspectro}{Q_{\mathrm{spectro}}}
+\newcommand{\Qspectrocont}{Q_{\mathrm{spectro}}{}_{\mathrm{, \, 532}}}
+
+\newcommand{\Ssolarstat}{\sigma_{\mathrm{solar}}^{\mathrm{stat}}}
+\newcommand{\Sphotstat}{\sigma_{\mathrm{phot}}^{\mathrm{stat}}}
+\newcommand{\Qghost}{Q_{\mathrm{ghost}}}
+\newcommand{\Rspectro}{R_{\mathrm{spectro}}}
+\newcommand{\Rcbp}{R_{\mathrm{CBP}}}
+\newcommand{\Rtel}{R_{\mathrm{tel}}}
+
+\newcommand{\Esolar}{\epsilon_{\mathrm{SC}}}
+\newcommand{\Espectro}{\epsilon_{\mathrm{spectro}}}
+\newcommand{\Espectrocont}{\epsilon_{\mathrm{spectro}}{}_{\mathrm{, \, 532}}}
+\newcommand{\Ephot}{\epsilon_{\mathrm{phot}}}
+\newcommand{\Ephotcont}{\epsilon_{\mathrm{phot}}{}_{\mathrm{, \, 532}}}
+\newcommand{\Eccd}{\epsilon_{\mathrm{ccd}}}
+
+\newcommand{\spinhole}{\SI{75}{\micro\meter}\xspace}
+\newcommand{\bpinhole}{\SI{5}{\milli\meter}\xspace}
+
+\newcommand{\mes}{{}_{\mathrm{, \, mes}}}
+\newcommand{\cont}{{}_{\mathrm{, \, 532}}}  %cont plutôt que 532 ?
+\newcommand{\contcomp}{{}_{\mathrm{, \, comp}}}  %cont plutôt que 532 ?
+
+\newcommand{\Kghost}{K_{G_1/G_0}}
+\newcommand{\Kpinholes}{K_\mathrm{\spinhole/\bpinhole}}
+
+\newcommand{\Rwindow}{R_{\mathrm{window}}\xspace}
+\newcommand{\Rccd}{R_{\mathrm{ccd}}\xspace}
+
+\newcommand{\todo}[1]{\textbf{\textcolor{red}{[#1]}}\xspace}
+\newcommand{\com}[1]{\textbf{\textcolor{orange}{(#1)}}\xspace}
+\newcommand{\up}[1]{\textsuperscript{#1}}
+\renewcommand\tabularxcolumn[1]{m{#1}}
+
+
+\usepackage[outputdir={fig},debug]{dot2texi}
+\usepackage{draftwatermark}
+\usepackage{xspace}
+\SetWatermarkText{DRAFT}
+\SetWatermarkScale{6}
+\SetWatermarkLightness{0.9}
+\newcommand{\angexp}{\circ{a}}
+\newcommand{\texp}{\ensuremath{\tau}\xspace}
+\newcommand{\FixMe}[1]{\textbf{\textcolor{red}{[#1]}}\xspace}
+\newcommand{\SZF}[1]{\textbf{\textcolor{blue}{[#1]}}\xspace}
+\newcommand{\MARC}[1]{\textbf{\textcolor{green}{[#1]}}\xspace}
+
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+\renewcommand{\arraystretch}{2}
+\setlength{\arrayrulewidth}{1.25pt}
+
+\graphicspath{{fig/}}
+\makeatletter
+\newcommand*\ExpandableInput[1]{\@@input#1 }
+\makeatother
+\DeclareMathOperator*{\med}{med}
+\title{The StarDICE absolute flux calibration experiment: Characterisation of the photometric instrument with a collimated beam projector}
+
+\author{Collaboration Boston Paris}
+
+\abstract{}{}{}{}
+
+\begin{document}
+
+\maketitle
+
+%\section{Currently happening}
+%
+%\begin{itemize}
+%\item SC linearity
+%\item pinhole choice
+%\item dark current caracterization
+%\item Photo-diode change
+%\end{itemize}
+
+\tableofcontents
+
+\input{sections/1_introduction}
+\clearpage
+
+\input{sections/2_laboratory_setup}
+\clearpage
+
+\input{sections/3_cbp_response}
+\clearpage
+
+%\input{sections/4_intstrument_model}
+%\clearpage
+
+\input{sections/4_stardice_response}
+\clearpage
+
+%\input{sections/5_discussion}
+\clearpage
+
+%\input{sections/6_conclusion}
+\clearpage
+
+\begin{acknowledgements}
+We are grateful to ...
+\end{acknowledgements}
+
+\bibliographystyle{aa}
+\bibliography{cbp}
+
+\appendix
+
+\end{document}
