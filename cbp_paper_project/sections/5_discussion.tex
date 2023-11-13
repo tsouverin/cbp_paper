@@ -22,8 +22,8 @@ be translated in errors in colors and color-terms.
 
 The open transmission of the telescope is modeled as a smooth fonction
 of wavelength and incidence angle. The function is developped on a 2D
-cubic B-spline basis, with \num{35} wavelength nodes regularly
-spaced between \SIrange{350}{1100}{nm}, and 2 nodes in angles between
+cubic B-spline basis, with \num{35} wavelength nodes regularly spaced
+between \SIrange{350}{1100}{nm}, and 2 nodes in angles between
 \SI{1.97}{\degree} and \SI{7.24}{\degree}. The two angles corresponds
 to the inner and outer edge of the occultation free primary mirror,
 set at \SIrange{55}{203}{mm} in radius assuming a \SI{1600}{mm} focal
@@ -38,64 +38,87 @@ T(\lambda, \theta) = \mathcal T\left(\frac{\lambda}{\sqrt{1 -
     (\sin(\theta) / n_\text{eff})^2}}\right)
 \end{equation}
 where $n_\text{eff}$ is an effective index for the inserted filter,
-and $\mathcal T$ is the sum of a trapezoidal function which captures
-the bulk of the shape, and a spline function which capture residual
-features, such as leaks. The trapezoidal function is parametrized by 4
-wavelengthes marking the beginning and end of its rising and falling
-fronts at normal incidence, and the height of its plateau. The spline
-function is developped on bspline basis with 70 nodes in wavelength.
+and $\mathcal T$ is a piece-wise linear function of wavelength. The
+piece-wise linear function is first developped on a regular grid with
+\num{150} nodes between \SIrange{350}{1100}{nm}, giving a general
+resolution of \SI{5}{nm} and is then further refined where needed by
+equally splitting in two intervall where the local mean chi-square
+exceeds the global mean chi-square by more than $3$ standard
+deviations. This refinement process is repeated \num{4} times so that
+filter fronts typically end-up being modeled with up to \SI{\sim
+  0.3}{nm} resolution.
 
 Last photometry of the grating zeroth and first orders are adjusted
-with the open transmission multiplied by a spline decomposed on
-the same basis as the open transmission.
+with the open transmission multiplied by a cubic B-spline decomposed
+on 105 nodes in wavelength.
 
-The composite model is fit to the TX dataset, encompassing data at 4
+The composite model is fit to dataset number 2, encompassing data at 4
 different radii and successive observations without filters and with
-all 7 filters and grating. The baseline model has 1324 free
-parameters, \num{288} for each of the 3 smooth transmissions,
-$6+72$ for each of the $grizy$ filters and $4+72$ for the $u$ band
-filters whose blue edge cannot be reliably determined by the data and
-which is set arbitrarily to rise between \SI{340}{345}{nm}. Fit
-results are shown in Fig.~\ref{fig:lambdathetafitresults}.
+all 7 filters and grating. The baseline model has \num{1979} free
+parameters, \num{148} to describe the open transmission, \num{420} to
+describe each of the grating order, and about $6\times165$ to describe
+each of the $ugrizy$ filters. The $u$ band filters blue edge cannot be
+reliably determined by the data. Fit results are shown in
+Fig.~\ref{fig:lambdathetafitresults}.
 
 \begin{figure*}
   \centering
   \includegraphics[width=1\linewidth]{./fig/lambdathetafitresults.pdf}
-  \caption{Fit results}
+  \caption{Model of the wavelength and radial dependency of the
+    StarDICE response to CBP illumination $R(\lambda)$ (see
+    Eq.~\ref{eq:rtot}). Each pannel display the raw measurements at
+    the 4 sampled position for each of the filter configurations: no
+    filters (Open), with one of the 6 photometric filters ($ugrizy$)
+    or with the grating looking either at the zeroth order or the
+    first order spots. The pannel immediately below each pannel
+    display the residuals to the model. All pannels are normalized to
+    the peak of the response, reached in the open configuration at
+    \SI{398}{nm} and \SI{6.2}{\degree}.  }
   \label{fig:lambdathetafitresults}
 \end{figure*}
-\MARC{The spline still struggles on the fronts of some filters. Looks
-  bad on the plot but I suspect this has little practical
-  consequences. I cannot increase infinitly the resolution of the
-  spline in the current framework. If to be solved, splines with
-  adapted sampling may be the way to go. }
 
-Difference in central wavelength betwen the model and the measurement
-is show for all 4 radius in the central panel of
-Fig.~\ref{fig:metrics}. The model successfully reproduces the central
-wavelength of all filters at better than \SI{0.2}{nm}, which delivers
-an improvement by an order of magnitude with respect to a model
-neglecting the wavelength shift.
+The model satisfactorilly describes the dataset. The most significant
+discrepancy is a noticeable gray decrease of the transmission of the
+$r$ filters for the sample measurement at \SI{3.7}{\degree} with
+respect to the average of the other three. Investigating this issue,
+we found that the PSF tails in the corresponding images display a
+diffraction figure consistent with the beam being intercepted by a
+\SI{200}{\micro\meter} diameter dust particle on the filter
+surface. The approximate size of the beam spot being \SI{3}{mm}, the
+estimated particule sizes predicts a decrease in transmission of
+around \SI{0.4}{\percent}, very consistent with the observed
+decrease. Very similar decrease are observed for some observations in
+$u,g$ and $y$. Although in these cases it was not possible to estimate
+the particule size from diffraction features in the images, we think
+that similar dust contamination is at play. The size of the ``gray''
+discrepancies are easier to read on the top pannel of
+Fig.~\ref{fig:metrics}, which displays the difference in the
+transmission integral between the measurement and the model at each
+position. The standard deviation of the model/measurement
+discrepancies is \SI{10.2}{mmag}. Taking this number as an estimate of
+dust-induced dispersion, we can deduce that the corresponding
+uncertainty on the per-filter normalisation of the model, which
+average 4 independant samples, is of the order of \SI{5}{mmag}.
 
-Regarding the assumption that the filter transmission does not depend
-on the incidence angle, however, evidences for a departure are visible
-from both the fit residuals in Fig.~\ref{fig:lambdathetafitresults} or
-from the comparison between model and raw data integrals in the left
-panel of Fig.~\ref{fig:metrics}. The discrepancies are nevertheless
-contained below the percent level for the core filters $griz$.
+The bottom panel in Fig.~\ref{fig:metrics} displays the difference in
+central wavelength between the model and the measurement for all 4
+radius in the central panel of Fig.~\ref{fig:metrics}. The model
+successfully reproduces the central wavelength of all filters at
+better than \SI{\pm 0.2}{nm}, with a standard deviation of \SI{0.13}{nm}
+which delivers an improvement by an order of magnitude with respect to
+a model neglecting the wavelength shift.
+
 
 We also tested the model against the 4 remaining mirror samples that
 are not part of the training dataset. The result of the test is
 summarized in Fig.\ref{fig:metrics}.
 
-\begin{figure*}
+\begin{figure}
   \centering
   \includegraphics[width=1\linewidth]{fig/metrics.pdf}
   \caption{Discrepancies between model and raw measurements at different mirror locations summarized according to 3 metrics: summarize}
   \label{fig:metrics}
-\end{figure*}
-\MARC{I am back working on the geometrical model of the telescope and
-  precise measurement of the impact parameter}
+\end{figure}
 
 \subsection{Full pupil synthetic transmission curves}
 
