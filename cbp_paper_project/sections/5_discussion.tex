@@ -1,4 +1,4 @@
-\section{Synthesis of the equivalent transmission for full pupil illumination}
+\section{Synthesis of the equivalent transmi,ssion for full pupil illumination}
 \label{sec:discussion}
 
 Both the telescope reflectivity and filter transmission display a very
@@ -22,11 +22,11 @@ be translated in errors in colors and color-terms.
 
 The open transmission of the telescope is modeled as a smooth fonction
 of wavelength and incidence angle. The function is developped on a 2D
-third-order B-spline basis, with 70 wavelength nodes regularly spaced
-between \SIrange{350}{1100}{nm}, and 2 nodes in angles between
-\SI{1.97}{\degree} and \SI{7.24}{\degree}. The two angles corresponds to
-the inner and outer edge of the occultation free primary mirror, set
-at \SIrange{55}{203}{mm} in radius assuming a \SI{1600}{mm} focal
+cubic B-spline basis, with \num{35} wavelength nodes regularly
+spaced between \SIrange{350}{1100}{nm}, and 2 nodes in angles between
+\SI{1.97}{\degree} and \SI{7.24}{\degree}. The two angles corresponds
+to the inner and outer edge of the occultation free primary mirror,
+set at \SIrange{55}{203}{mm} in radius assuming a \SI{1600}{mm} focal
 length.
 
 For data acquired with a filter in the path, the open transmission
@@ -34,8 +34,8 @@ model is multiplied by a model of the interference filter transmission
 build as follows:
 \begin{equation}
   \label{eq:filtertransmission}
-T(\lambda, \theta) = \mathcal T(\frac{\lambda}{\sqrt{1 -
-    (\sin(\theta) / n_\text{eff})^2}}
+T(\lambda, \theta) = \mathcal T\left(\frac{\lambda}{\sqrt{1 -
+    (\sin(\theta) / n_\text{eff})^2}}\right)
 \end{equation}
 where $n_\text{eff}$ is an effective index for the inserted filter,
 and $\mathcal T$ is the sum of a trapezoidal function which captures
@@ -52,7 +52,7 @@ the same basis as the open transmission.
 The composite model is fit to the TX dataset, encompassing data at 4
 different radii and successive observations without filters and with
 all 7 filters and grating. The baseline model has 1324 free
-parameters, \number{288} for each of the 3 smooth transmissions,
+parameters, \num{288} for each of the 3 smooth transmissions,
 $6+72$ for each of the $grizy$ filters and $4+72$ for the $u$ band
 filters whose blue edge cannot be reliably determined by the data and
 which is set arbitrarily to rise between \SI{340}{345}{nm}. Fit
@@ -104,7 +104,7 @@ the above model assuming that the pupil is a perfect annulus with an
 inner radius of \SI{55}{mm} and an outer radius of \SI{203}{mm}. A
 rectangular quadrature with 100 evenly sampled points in radius as
 been used for the averaging. The curve are then normalized using the
-CBP response from Sect. TX corrected for the 5mm to 75\micron pinhole
+CBP response from Sect. TX corrected for the \SI{5}{mm} to \SI{75}{\micro\meter} pinhole
 response change determined in Sect. TX. An estimate of the absolute
 transmission curve is then computed assuming an effective mirror area
 of TX. The resulting transmission curves are shown in
