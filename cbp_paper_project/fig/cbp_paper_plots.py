@@ -365,6 +365,7 @@ for k, path in enumerate(datapaths):
     ax[k].set_ylabel(r"$\sigma_{\lambda}$ [nm]")
 fig.tight_layout()
 fig.savefig("spectrograph_error_budget.pdf")
+fig.savefig("spectrograph_error_budget.png")
 plt.show()
 
 # +
@@ -933,6 +934,7 @@ ax.set_xlabel(f'$\lambda_L$ [nm]')
 ax.set_ylabel(r"$Q_{\mathrm{solar}}^{\mathrm{dark}}/Q_{\mathrm{phot}}^{\mathrm{dark}}$")
 fig.tight_layout()
 plt.savefig("sc_dark_qswmax.pdf")
+plt.savefig("sc_dark_qswmax.png")
 plt.show()
 # -
 
@@ -1301,6 +1303,7 @@ plt.ylabel("Relative uncertainties on CBP response")
 plt.legend(ncol=2, loc="lower right")
 fig.tight_layout()
 plt.savefig("cbp_error_budget.pdf")
+plt.savefig("cbp_error_budget.png")
 plt.show()
 
 # +
