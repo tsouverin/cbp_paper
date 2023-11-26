@@ -690,7 +690,7 @@ plt.show()
 # ## Number of pulses
 
 # +
-aa_plot(twocols=False, height=2)
+aa_plot(twocols=False, height=1.5)
 
 data_dir = "/data/STARDICE/cbp/cbp_bench2/golden_sample/2022_03_06_solar_cell_5mm"  
 run_sc= SolarCellRun(directory_path=data_dir)
@@ -1095,7 +1095,7 @@ for k, lbda in enumerate(cbp_lambdas_qswmax):
     cbp_response_mean_err[k] = np.sqrt(response_err) / n
 
 # +
-aa_plot(twocols=False, height=3)
+aa_plot(twocols=False, height=2.5)
 fig, ax = plt.subplots(2, 1, sharex="all", height_ratios=[3, 1])
 
 alpha=0.5
@@ -1198,12 +1198,12 @@ ax[1].fill_between(cbp_lambdas_qswmax_3[ind], ratio[ind]+ratio_err[ind], ratio[i
 ax[0].axhline(1+1e-3, color='k', linestyle='--')
 ax[0].axhline(1, color='k', linestyle='-')
 ax[0].axhline(1-1e-3, color='k', linestyle='--')
-ax[0].set_ylabel("CBP charge ratios\n$r_{\mathrm{CBP}}^{\mathrm{run}\ i}\;/\;\overline{r_{\mathrm{CBP}}}$")
+ax[0].set_ylabel("$r_{\mathrm{CBP}}^{\mathrm{run}\ i}\;/\;\overline{r_{\mathrm{CBP}}}$")
 ax[0].set_xlabel("$\lambda_L$ [nm]")
 #ax[0].set_title("Solar cell run 2022/03/04")
 ax[0].legend()
 ax[0].set_xlim(350, 1100)
-ax[0].set_ylim(0.98, 1.02)
+ax[0].set_ylim(0.988, 1.012)
 
 ax[1].axhline(1+1e-3, color='k', linestyle='--')
 ax[1].axhline(1, color='k', linestyle='-')
@@ -1212,13 +1212,14 @@ ax[1].set_ylabel("Binned")
 ax[1].set_xlabel("$\lambda_L$ [nm]")
 #ax[1].legend()
 ax[1].set_xlim(350, 1100)
-ax[1].set_ylim(0.997, 1.003)
+ax[1].set_ylim(0.9975, 1.0025)
 
 
 
 fig.tight_layout()
 fig.subplots_adjust(hspace=0)
 plt.savefig("sc_runi_ratios.pdf")
+plt.savefig("sc_runi_ratios.png")
 plt.show()
 # -
 
@@ -1262,6 +1263,7 @@ plt.legend()
 plt.xlabel("$\lambda_L$ [nm]")
 plt.ylabel(r"$r_{\mathrm{CBP}}^{\mathrm{long\ distance}} / r_{\mathrm{CBP}}^{\mathrm{short\ distance}}$")
 fig.tight_layout()
+fig.savefig("sc_distance.pdf")
 plt.show()
 # -
 
@@ -1286,7 +1288,7 @@ wl_bins, tr_cbp, tr_cbp_syst_alpha_beta = compute_binned_values(full_cat_cbp, wl
                                                     indices=good_indices, sigma_clip=sigma_clip)
 
 # +
-aa_plot(twocols=False, height=3)
+aa_plot(twocols=False, height=2.5)
 
 fig = plt.figure()
 plt.plot(wl_bins_stat, tr_cbp_stat/tr_cbp, '.', label="statistics")
@@ -1299,7 +1301,7 @@ plt.plot(full_cat_cbp["set_wl"][ind], full_cat_cbp["ratio_cbp_cal_syst"][ind]/fu
 plt.yscale("log")
 plt.xlim(350, 1100)
 plt.xlabel("$\lambda_L$ [nm]")
-plt.ylabel("Relative uncertainties on CBP response")
+plt.ylabel("Relative uncertainties on the CBP response")
 plt.legend(ncol=2, loc="lower right")
 fig.tight_layout()
 plt.savefig("cbp_error_budget.pdf")
@@ -1343,9 +1345,9 @@ ax[1].plot(wl_bins_syst, 100*tr_cbp_stat/tr_cbp, marker='none', linestyle='-', c
 ax[1].set_yscale("log")
 ax[1].set_ylim(2e-3, 0.1*100)
 ax[1].set_xlim(350, 1050)
-ax[1].set_ylabel('Relative uncertainties [%]')
+ax[1].set_ylabel(r'Relative uncertainties [$\%$]')
 ax[1].set_xlabel('$\lambda_c$ [nm]')
-ax[1].legend()
+ax[1].legend(loc="upper right")
 plt.tight_layout()
 #fig.savefig("cbp_response.pdf")
 plt.savefig("cbp_response.pdf")
