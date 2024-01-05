@@ -6,7 +6,7 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.14.0
+#       jupytext_version: 1.15.2
 #   kernelspec:
 #     display_name: Python 3 (ipykernel)
 #     language: python
@@ -30,10 +30,10 @@ sys.path.insert(1, '../../../stardice-master/analysis/cbp_paper/')
 
 from cbp_dataset import CBPDataSet, SolarCellRun #, calculate_npulses, get_info_from_filename, from_detected_to_calibrated_wavelengths
 
-from cbp_dr4 import *
-data_release = "dr4/"
+from cbp_dr5 import *
+data_release = "dr5"
 
-# %matplotlib notebook
+# %matplotlib widget
 
 #plt_params["figure.dpi"] = 100
 plt.rcParams.update(plt_params)
@@ -195,9 +195,21 @@ for c in catalogs:
 
 
 # +
+set_wl, wls_blue, wls_blue_err = np.load(spectro_blue_stacked_filename)
+wl_cal, wl_cal_stat, wl_cal_syst = from_detected_to_calibrated_wavelengths(
+    wls_blue, wls_blue_err,
+    spectro_wl_psf_error=spectro_wl_psf_error,
+    spectro_calib_filename=spectro_calib_filename,
+    spectro_calib_cov_filename=spectro_calib_cov_filename)
+
+wl_blue_f = interp1d(set_wl, wl_cal)
+wl_blue_err_f = interp1d(set_wl, wls_blue_err)
+
+# +
 aa_plot(twocols=False, height=2.2)
 
 fig  = plt.figure()
+plt.errorbar(set_wl, wl_cal-set_wl, yerr=np.sqrt(wl_cal_syst**2+wl_cal_stat**2), marker="+", linestyle="none", label="from stacked spectra", color="k", zorder=42)
 counter = 0
 for c in cats.keys():
     print(c)
@@ -591,7 +603,7 @@ run5mm= SolarCellRun(directory_path=data_dir)
 run5mm.load_from_file(os.path.join(data_dir, f"catalog_method_C3_spectro.npy"))
 
 run_cal = apply_calibration_to_solarcell_catalog(run5mm.data, sc_532=False, sc_dark=False, pd_532=False, 
-                                                  sc_1064=False, pd_1064=False)
+                                                  sc_1064=False, pd_1064=False, sc_fluo=False, pd_fluo=False)
 
 
 # -
@@ -630,10 +642,11 @@ plt.show()
 
 # ## Solar cell dark current
 
+# + jupyter={"outputs_hidden": true}
 datapath="/data/STARDICE/cbp/cbp_bench2/golden_sample/2022_02_22_2022_02_22_stardice_transmission_75um/"
 #datapath="/data/STARDICE/cbp/cbp_bench2/solarcell/2022_02_24_solarcell_goldensample/"
 #catalog_C3 = np.load(os.path.join(datapath, 'catalog_method_C3.npy'))
-# %ls {datapath}
+# #%ls {datapath}
 
 # +
 filenames = os.listdir(datapath)
@@ -715,26 +728,40 @@ plt.show()
 # ## Sensor QEs
 
 # +
-pd_qe_data_file = "/data/STARDICE/cbp/solarcell/refCalData/SM05PD1B_QE.csv"
+pd_qe_data_file = "/data/STARDICE/cbp/solarcell/refCalData/thorlabs_SM05PD3A.npy"
 spectro_qe_data_file = "/data/STARDICE/cbp/solarcell/refCalData/ocean65000_qe.npy"
-pd_qe = np.loadtxt(pd_qe_data_file, skiprows=1, delimiter=",").T
-pd_qe[1] *= (const.h * const.c / (pd_qe[0] * 1e-9 * u.meter * const.e.value)).value
-pd_qe_f = interp1d(pd_qe[0], pd_qe[1], bounds_error=False, fill_value=np.min(pd_qe[1]))
+#pd_qe = np.loadtxt(pd_qe_data_file, skiprows=1, delimiter=",").T
+#pd_qe[1] *= (const.h * const.c / (pd_qe[0] * 1e-9 * u.meter * const.e.value)).value
+#pd_qe_f = interp1d(pd_qe[0], pd_qe[1], bounds_error=False, fill_value=np.min(pd_qe[1]))
+PD_QE = np.load(pd_qe_data_file).T #, skiprows=1, delimiter=",").T
+PD_QE["Response"] *= (const.h * const.c / (PD_QE["wavelength"] * 1e-9 * u.meter * const.e.value)).value
+pd_qe_f = interp1d(PD_QE["wavelength"], PD_QE["Response"], bounds_error=False, fill_value=np.min(PD_QE["Response"]))
 spectro_qe = np.load(spectro_qe_data_file)
 sp_qe_f = interp1d(spectro_qe['wavelengths'], spectro_qe['spectro_qe'], bounds_error=False)
+fiber_att_data_file = "/data/STARDICE/cbp/solarcell/refCalData/cbp_spectro_fiber_transmission.csv"
+fiber_att_wl, fiber_att = np.loadtxt(fiber_att_data_file, skiprows=1, delimiter=",").T
+fiber_qe_f = interp1d(fiber_att_wl, 10**(-fiber_att*2e-3/10), bounds_error=False)
+
+wl_conv, conversion_ADUperC, conversion_ADUperC_err = np.load(f"/data/STARDICE/cbp/cbp_bench2/golden_sample/dr5/spectrophotometer_ADUperC_{data_release}.npy")
+conversion_ADUperC_f = interp1d(wl_conv, conversion_ADUperC)
+conversion_ADUperC_err_f = interp1d(wl_conv, conversion_ADUperC_err)
 
 wl_tot = np.arange(350, 1101, 1)
 
 aa_plot(twocols=False, height=2)
 
 fig = plt.figure() #figsize=(15,7))
-plt.plot(wl_tot, pd_qe_f(wl_tot), '+', label='Spectrograph', color=instrument_colors['spectro'])
-plt.plot(wl_tot, sp_qe_f(wl_tot), '+', label='Photodiode', color=instrument_colors['photodiode'])
-plt.ylabel('Quantum efficiency') #, fontsize=20)
-plt.xlabel('Wavelength [nm]') #, fontsize=20)
+plt.plot(wl_tot, pd_qe_f(wl_tot), '+', label='spectrograph', color=instrument_colors['spectro'])
+plt.plot(wl_tot, sp_qe_f(wl_tot), '+', label='photodiode', color=instrument_colors['photodiode'])
+plt.ylabel('Quantum efficiencies $\epsilon(\lambda)$ [e$^-$/$\gamma$]') #, fontsize=20)
+plt.xlabel('$\lambda_L$ [nm]') #, fontsize=20)
 #plt.xticks(fontsize=18)
 #plt.yticks(fontsize=18)
 plt.legend() #fontsize=18)
+
+ax2 = plt.gca().twinx()  # instantiate a second axes that shares the same x-axis
+ax2.errorbar(wl_tot, conversion_ADUperC_f(wl_tot), yerr=conversion_ADUperC_err_f(wl_tot), color='k')
+ax2.set_ylabel("$\eta(\lambda)$ [spectrograph ADU/C]")
 plt.tight_layout()
 fig.savefig("qe_phototiode_spectro.pdf")
 plt.show()
@@ -748,7 +775,7 @@ run5mm= SolarCellRun(directory_path=data_dir)
 run5mm.load_from_file(os.path.join(data_dir, f"catalog_method_C3_spectro.npy"))
 
 catalog = apply_calibration_to_solarcell_catalog(run5mm.data, sc_532=False, sc_dark=False, pd_532=False, 
-                                                  sc_1064=False, pd_1064=False)
+                                                  sc_1064=False, pd_1064=False, sc_fluo=False, pd_fluo=False)
 
 # +
 wls = np.arange(350, 1101, 1)
@@ -772,7 +799,7 @@ ax[0].errorbar(catalog["set_wl"][good_indices], catalog["ratio_cbp_cal"][good_in
 ax[0].plot(wl_bins, tr_cbp, color="b", alpha=1, marker='+', linestyle="none", label=rf"${sigma_clip}\sigma$ clip average")
 ax[0].fill_between(wl_bins, tr_cbp - tr_cbp_err, tr_cbp + tr_cbp_err, color="b", alpha=0.3)
 ax[0].set_xlabel(f'$\lambda_L$ [nm]')
-ax[0].set_ylabel(r"$Q_{\mathrm{solar}}/Q_{\mathrm{phot}}$")
+ax[0].set_ylabel(r"$Q_{\mathrm{solar}}^{\rm mes}/Q_{\mathrm{phot}}^{\rm mes}$")
 ax[0].set_ylim(30,170)
 ax[0].set_xlim(350, 1100)
 #plt.grid()
@@ -790,9 +817,9 @@ residuals = opentr - (A*P)
 ax[1].errorbar(wl, 100*opentr_err/opentr, marker='.', linestyle='', color='k', alpha=0.3)
 ax[1].errorbar(wl_bins, 100*tr_cbp_err/tr_cbp, marker='.', linestyle='', color='b', alpha=1)
 ax[1].set_xlabel(f'$\lambda_L$ [nm]')
-ax[1].set_ylabel("Relative statistical\nuncertainties [%]")
+ax[1].set_ylabel("Relative statistical\nuncertainties [\%]")
 ax[1].set_yscale("log")
-ax[1].set_ylim(0.7e-2,5)
+#ax[1].set_ylim(0.7e-2,5)
 #ax[1].grid()
 
 ax[2].errorbar(wl, residuals/opentr_err, yerr=opentr_err/opentr_err, marker='.', linestyle='', color='k', alpha=0.3)
@@ -876,36 +903,59 @@ sd_wl_532, SD_tr_532, SD_tr_532_err = compute_binned_values(catalog, wl_range, k
                                                     indices=good_indices & (catalog["filter"] == filt.encode("utf-8")), sigma_clip=sigma_clip)
 
 SD_tr_norm = 100 * SD_tr/np.interp(sd_wl,sd_wl_empty,SD_tr_empty)
-SD_tr_532_norm = 100 * SD_tr_532/np.interp(sd_wl,sd_wl_empty,SD_tr_empty)
+SD_tr_532_norm = 100 * np.interp(sd_wl,sd_wl_532, SD_tr_532)/np.interp(sd_wl,sd_wl_empty,SD_tr_empty)
 
 SD_tr_norm_err = np.abs(SD_tr_norm) * np.sqrt((SD_tr_err/SD_tr)**2 + (np.interp(sd_wl,sd_wl_empty,SD_tr_empty_err)/np.interp(sd_wl,sd_wl_empty,SD_tr_empty))**2)
-SD_tr_532_norm_err = np.abs(SD_tr_532_norm) * np.sqrt((SD_tr_532_err/SD_tr_532)**2 + (np.interp(sd_wl,sd_wl_empty,SD_tr_empty_err)/np.interp(sd_wl,sd_wl_empty,SD_tr_empty))**2)
+SD_tr_532_norm_err = np.abs(SD_tr_532_norm) * np.sqrt((np.interp(sd_wl,sd_wl_532,SD_tr_532_err)/np.interp(sd_wl,sd_wl_532,SD_tr_532))**2 + (np.interp(sd_wl,sd_wl_empty,SD_tr_empty_err)/np.interp(sd_wl,sd_wl_empty,SD_tr_empty))**2)
+
+#SD_tr_norm = 100 * SD_tr/np.interp(sd_wl,sd_wl_empty,SD_tr_empty)
+#SD_tr_532_norm = 100 * SD_tr_532/np.interp(sd_wl,sd_wl_empty,SD_tr_empty)
+
+#SD_tr_norm_err = np.abs(SD_tr_norm) * np.sqrt((SD_tr_err/SD_tr)**2 + (np.interp(sd_wl,sd_wl_empty,SD_tr_empty_err)/np.interp(sd_wl,sd_wl_empty,SD_tr_empty))**2)
+#SD_tr_532_norm_err = np.abs(SD_tr_532_norm) * np.sqrt((SD_tr_532_err/SD_tr_532)**2 + (np.interp(sd_wl,sd_wl_empty,SD_tr_empty_err)/np.interp(sd_wl,sd_wl_empty,SD_tr_empty))**2)
 
 
 # +
 aa_plot(twocols=False, height=2)
 
 fig, ax = plt.subplots(1,1) #,figsize=(7,4))
-ax.errorbar(sd_wl_532, SD_tr_532_norm, SD_tr_532_norm_err, marker = '', linestyle='--', label=f"no $532\,$nm correction", color=filter_colors[filt.encode("utf-8")])
-ax.errorbar(sd_wl, SD_tr_norm, SD_tr_norm_err, marker = '', linestyle='-', label=f"with $532\,$nm correction", color=filter_colors[filt.encode("utf-8")])
-#ax.grid()
+ax.errorbar(sd_wl, SD_tr_532_norm, SD_tr_532_norm_err, marker = '', linestyle='--', label=f"no corrections", color=filter_colors[filt.encode("utf-8")])
+ax.errorbar(sd_wl, SD_tr_norm, SD_tr_norm_err, marker = '', linestyle='-', label=f"with $532\,$nm\nand fluo corrections", color=filter_colors[filt.encode("utf-8")])
 ax.legend(ncol=1)
 ax.set_xlabel('$\lambda_L$ [nm]') #, fontsize = 13)
 ax.set_ylabel(f'{filt} filter transmission [%]') #, fontsize = 13)
+ax.axhline(0)
+ax.set_ylim(-10, 140)
+#ax.set_xlim(340,420)
+#ax.set_yscale("log")
 
 # inset axes....
-axins = ax.inset_axes([0.45, 0.3, 0.47, 0.2])
-axins.errorbar(sd_wl_532, SD_tr_532_norm, SD_tr_532_norm_err, marker = '', linestyle='--', label=f"{filt} with no $532\,$nm correction", color=filter_colors[filt.encode("utf-8")])
-axins.errorbar(sd_wl, SD_tr_norm, SD_tr_norm_err, marker = '', linestyle='-', label=f"{filt} with $532\,$nm correction", color=filter_colors[filt.encode("utf-8")])
+axins = ax.inset_axes([0.45, 0.2, 0.47, 0.2])
+axins.errorbar(sd_wl, SD_tr_532_norm, SD_tr_532_norm_err, marker = '', linestyle='--', label=f"{filt} with no corrections", color=filter_colors[filt.encode("utf-8")])
+axins.errorbar(sd_wl, SD_tr_norm, SD_tr_norm_err, marker = '', linestyle='-', label=f"{filt} with $532\,$nm\nand fluo corrections", color=filter_colors[filt.encode("utf-8")])
 # subregion of the original image
 x1, x2, y1, y2 = 535, 655, -3e-1, 3
 axins.set_xlim(x1, x2)
 axins.set_ylim(y1, y2)
+axins.axhline(0)
 #axins.set_xticklabels([])
 #axins.set_yticklabels([])
 ax.indicate_inset_zoom(axins, edgecolor="black")
 
-plt.tight_layout()
+# inset axes....
+axins2 = ax.inset_axes([0.45, 0.55, 0.47, 0.2])
+axins2.errorbar(sd_wl, SD_tr_532_norm, SD_tr_532_norm_err, marker = '', linestyle='--', label=f"{filt} with no corrections", color=filter_colors[filt.encode("utf-8")])
+axins2.errorbar(sd_wl, SD_tr_norm, SD_tr_norm_err, marker = '', linestyle='-', label=f"{filt} with $532\,$nm\nand fluo corrections", color=filter_colors[filt.encode("utf-8")])
+# subregion of the original image
+x1, x2, y1, y2 = 350, 410, -3e-1, 3
+axins2.set_xlim(x1, x2)
+axins2.set_ylim(y1, y2)
+axins2.axhline(0)
+ax.indicate_inset_zoom(axins2, edgecolor="black")
+
+
+ax.legend(ncol=2, loc="upper center")
+#plt.tight_layout()
 plt.savefig("g_filter_532.pdf")
 plt.show()
 # -
@@ -916,7 +966,7 @@ data_dir = "/data/STARDICE/cbp/cbp_bench2/golden_sample/2022_03_07_solar_cell_5m
 run5mm= SolarCellRun(directory_path=data_dir)
 run5mm.load_from_file(os.path.join(data_dir, f"catalog_method_C3_spectro.npy"))
 run_cal = apply_calibration_to_solarcell_catalog(run5mm.data, sc_532=False, sc_dark=False, pd_532=False, 
-                                                 pd_1064=False, sc_1064=False)
+                                                 pd_1064=False, sc_1064=False, sc_fluo=False, pd_fluo=False)
 
 # +
 aa_plot(twocols=False, height=2)
@@ -944,9 +994,9 @@ data_dir = "/data/STARDICE/cbp/cbp_bench2/golden_sample/2022_03_04_solar_cell_5m
 run5mm= SolarCellRun(directory_path=data_dir)
 run5mm.load_from_file(os.path.join(data_dir, f"catalog_method_C3_spectro.npy"))
 run_raw = apply_calibration_to_solarcell_catalog(run5mm.data, sc_532=False, sc_dark=False, pd_532=False, 
-                                                 pd_1064=False, sc_1064=False)
+                                                 pd_1064=False, sc_1064=False, sc_fluo=False, pd_fluo=False)
 #run_cal = apply_calibration_to_solarcell_catalog(run5mm.data, sc_532=True, sc_dark=True, pd_532=True, 
-#                                                 pd_1064=False, sc_1064=False)
+#                                                 pd_1064=False, sc_1064=False, sc_fluo=False, pd_fluo=False)
 run_cal = np.load(f"/data/STARDICE/cbp/cbp_bench2/golden_sample/{data_release}/2022_03_04_solar_cell_5mm.npy")
 
 wls = np.arange(350, 1101, 1)
@@ -975,28 +1025,28 @@ ax[0].errorbar(cbp_lambdas_qswmax_raw, ratio, yerr=ratio_err, color="b", marker=
 ind = cbp_lambdas_qswmax_raw < 400
 ratio_err[ind] = np.std(ratio[ind]) / np.sum(ind)
 ratio[ind] = np.mean(ratio[ind])
-ax[1].plot(cbp_lambdas_qswmax[ind], ratio[ind], "b-", lw=lw, alpha=1)
-ax[1].fill_between(cbp_lambdas_qswmax[ind], ratio[ind]+ratio_err[ind], ratio[ind]-ratio_err[ind],  color="b", alpha=alpha)
+ax[1].plot(cbp_lambdas_qswmax_raw[ind], ratio[ind], "b-", lw=lw, alpha=1)
+ax[1].fill_between(cbp_lambdas_qswmax_raw[ind], ratio[ind]+ratio_err[ind], ratio[ind]-ratio_err[ind],  color="b", alpha=alpha)
 ind = (cbp_lambdas_qswmax_raw < 532) & (cbp_lambdas_qswmax_raw >= 400)
 ratio_err[ind] = np.std(ratio[ind]) / np.sum(ind)
 ratio[ind] = np.mean(ratio[ind])
-ax[1].plot(cbp_lambdas_qswmax[ind], ratio[ind], "b-", lw=lw, alpha=1)
-ax[1].fill_between(cbp_lambdas_qswmax[ind], ratio[ind]+ratio_err[ind], ratio[ind]-ratio_err[ind],  color="b", alpha=alpha)
+ax[1].plot(cbp_lambdas_qswmax_raw[ind], ratio[ind], "b-", lw=lw, alpha=1)
+ax[1].fill_between(cbp_lambdas_qswmax_raw[ind], ratio[ind]+ratio_err[ind], ratio[ind]-ratio_err[ind],  color="b", alpha=alpha)
 ind = (cbp_lambdas_qswmax_raw >= 532) & (cbp_lambdas_qswmax_raw < 669)
 ratio_err[ind] = np.std(ratio[ind]) / np.sum(ind)
 ratio[ind] = np.mean(ratio[ind])
-ax[1].plot(cbp_lambdas_qswmax[ind], ratio[ind], "b-", lw=lw, alpha=1)
-ax[1].fill_between(cbp_lambdas_qswmax[ind], ratio[ind]+ratio_err[ind], ratio[ind]-ratio_err[ind],  color="b", alpha=alpha)
+ax[1].plot(cbp_lambdas_qswmax_raw[ind], ratio[ind], "b-", lw=lw, alpha=1)
+ax[1].fill_between(cbp_lambdas_qswmax_raw[ind], ratio[ind]+ratio_err[ind], ratio[ind]-ratio_err[ind],  color="b", alpha=alpha)
 ind = (cbp_lambdas_qswmax_raw >= 669) & (cbp_lambdas_qswmax_raw < 1064)
 ratio_err[ind] = np.std(ratio[ind]) / np.sum(ind)
 ratio[ind] = np.mean(ratio[ind])
-ax[1].plot(cbp_lambdas_qswmax[ind], ratio[ind], "b-", lw=lw, alpha=1)
-ax[1].fill_between(cbp_lambdas_qswmax[ind], ratio[ind]+ratio_err[ind], ratio[ind]-ratio_err[ind],  color="b", alpha=alpha)
+ax[1].plot(cbp_lambdas_qswmax_raw[ind], ratio[ind], "b-", lw=lw, alpha=1)
+ax[1].fill_between(cbp_lambdas_qswmax_raw[ind], ratio[ind]+ratio_err[ind], ratio[ind]-ratio_err[ind],  color="b", alpha=alpha)
 ind = (cbp_lambdas_qswmax_raw >= 1064)
 ratio_err[ind] = np.std(ratio[ind]) / np.sum(ind)
 ratio[ind] = np.mean(ratio[ind])
-ax[1].plot(cbp_lambdas_qswmax[ind], ratio[ind], "b-", lw=lw, alpha=1)
-ax[1].fill_between(cbp_lambdas_qswmax[ind], ratio[ind]+ratio_err[ind], ratio[ind]-ratio_err[ind],  color="b", alpha=alpha)
+ax[1].plot(cbp_lambdas_qswmax_raw[ind], ratio[ind], "b-", lw=lw, alpha=1)
+ax[1].fill_between(cbp_lambdas_qswmax_raw[ind], ratio[ind]+ratio_err[ind], ratio[ind]-ratio_err[ind],  color="b", alpha=alpha)
 
 label = r"after $r_{\mathrm{CBP}}^{\mathrm{dark}}$ subtraction and"+"\nlaser contamination correction"
 cbp_298 = np.interp(cbp_lambdas_qswmax, cbp_lambdas_qsw298, cbp_transmission_qsw298)
@@ -1005,12 +1055,12 @@ ratio = cbp_298 / cbp_transmission_qswmax
 ratio_err = np.abs(ratio) * np.sqrt((cbp_298_err/cbp_298)**2 + (cbp_transmission_qswmax_err/cbp_transmission_qswmax)**2)
 ax[0].errorbar(cbp_lambdas_qswmax, ratio, yerr=ratio_err, color="red", marker="+", linestyle="none", label=label, alpha=1)
 
-ind = cbp_lambdas_qswmax_raw < 400
+ind = cbp_lambdas_qswmax < 400
 ratio_err[ind] = np.std(ratio[ind]) / np.sum(ind)
 ratio[ind] = np.mean(ratio[ind])
 ax[1].plot(cbp_lambdas_qswmax[ind], ratio[ind], "r-", lw=lw, alpha=1)
 ax[1].fill_between(cbp_lambdas_qswmax[ind], ratio[ind]+ratio_err[ind], ratio[ind]-ratio_err[ind],  color="r", alpha=alpha)
-ind = (cbp_lambdas_qswmax_raw < 532) & (cbp_lambdas_qswmax_raw >= 400)
+ind = (cbp_lambdas_qswmax < 532) & (cbp_lambdas_qswmax >= 400)
 ratio_err[ind] = np.std(ratio[ind]) / np.sum(ind)
 ratio[ind] = np.mean(ratio[ind])
 ax[1].plot(cbp_lambdas_qswmax[ind], ratio[ind], "r-", lw=lw, alpha=1)
@@ -1135,33 +1185,33 @@ ax[1].fill_between(cbp_lambdas_qswmax[ind], ratio[ind]+ratio_err[ind], ratio[ind
 label = r"run 2"
 ratio = cbp_transmission_qswmax_2/cbp_response_mean
 ratio_err = cbp_transmission_qswmax_2/cbp_response_mean  * np.sqrt((cbp_transmission_qswmax_err_2/cbp_transmission_qswmax_2)**2 + (cbp_response_mean_err/cbp_response_mean)**2)
-ax[0].errorbar(cbp_lambdas_qswmax, ratio, yerr=ratio_err, color="red", marker="+", linestyle="none", label=label, alpha=1)
+ax[0].errorbar(cbp_lambdas_qswmax_2, ratio, yerr=ratio_err, color="red", marker="+", linestyle="none", label=label, alpha=1)
 
-ind = cbp_lambdas_qswmax_raw < 400
+ind = cbp_lambdas_qswmax_2 < 400
 ratio_err[ind] = np.std(ratio[ind]) / np.sum(ind)
 ratio[ind] = np.mean(ratio[ind])
-ax[1].plot(cbp_lambdas_qswmax[ind], ratio[ind], "r-", lw=lw, alpha=1)
-ax[1].fill_between(cbp_lambdas_qswmax[ind], ratio[ind]+ratio_err[ind], ratio[ind]-ratio_err[ind],  color="r", alpha=alpha)
-ind = (cbp_lambdas_qswmax_raw < 532) & (cbp_lambdas_qswmax_raw >= 400)
+ax[1].plot(cbp_lambdas_qswmax_2[ind], ratio[ind], "r-", lw=lw, alpha=1)
+ax[1].fill_between(cbp_lambdas_qswmax_2[ind], ratio[ind]+ratio_err[ind], ratio[ind]-ratio_err[ind],  color="r", alpha=alpha)
+ind = (cbp_lambdas_qswmax_2 < 532) & (cbp_lambdas_qswmax_2 >= 400)
 ratio_err[ind] = np.std(ratio[ind]) / np.sum(ind)
 ratio[ind] = np.mean(ratio[ind])
-ax[1].plot(cbp_lambdas_qswmax[ind], ratio[ind], "r-", lw=lw, alpha=1)
-ax[1].fill_between(cbp_lambdas_qswmax[ind], ratio[ind]+ratio_err[ind], ratio[ind]-ratio_err[ind],  color="r", alpha=alpha)
-ind = (cbp_lambdas_qswmax >= 532) & (cbp_lambdas_qswmax < 669)
+ax[1].plot(cbp_lambdas_qswmax_2[ind], ratio[ind], "r-", lw=lw, alpha=1)
+ax[1].fill_between(cbp_lambdas_qswmax_2[ind], ratio[ind]+ratio_err[ind], ratio[ind]-ratio_err[ind],  color="r", alpha=alpha)
+ind = (cbp_lambdas_qswmax_2 >= 532) & (cbp_lambdas_qswmax_2 < 669)
 ratio_err[ind] = np.std(ratio[ind]) / np.sum(ind)
 ratio[ind] = np.mean(ratio[ind])
-ax[1].plot(cbp_lambdas_qswmax[ind], ratio[ind], "r-", lw=lw, alpha=1)
-ax[1].fill_between(cbp_lambdas_qswmax[ind], ratio[ind]+ratio_err[ind], ratio[ind]-ratio_err[ind],  color="r", alpha=alpha)
-ind = (cbp_lambdas_qswmax >= 669) & (cbp_lambdas_qswmax < 1064)
+ax[1].plot(cbp_lambdas_qswmax_2[ind], ratio[ind], "r-", lw=lw, alpha=1)
+ax[1].fill_between(cbp_lambdas_qswmax_2[ind], ratio[ind]+ratio_err[ind], ratio[ind]-ratio_err[ind],  color="r", alpha=alpha)
+ind = (cbp_lambdas_qswmax_2 >= 669) & (cbp_lambdas_qswmax_2 < 1064)
 ratio_err[ind] = np.std(ratio[ind]) / np.sum(ind)
 ratio[ind] = np.mean(ratio[ind])
-ax[1].plot(cbp_lambdas_qswmax[ind], ratio[ind], "r-", lw=lw, alpha=1)
-ax[1].fill_between(cbp_lambdas_qswmax[ind], ratio[ind]+ratio_err[ind], ratio[ind]-ratio_err[ind],  color="r", alpha=alpha)
-ind = (cbp_lambdas_qswmax >= 1064)
+ax[1].plot(cbp_lambdas_qswmax_2[ind], ratio[ind], "r-", lw=lw, alpha=1)
+ax[1].fill_between(cbp_lambdas_qswmax_2[ind], ratio[ind]+ratio_err[ind], ratio[ind]-ratio_err[ind],  color="r", alpha=alpha)
+ind = (cbp_lambdas_qswmax_2 >= 1064)
 ratio_err[ind] = np.std(ratio[ind]) / np.sum(ind)
 ratio[ind] = np.mean(ratio[ind])
-ax[1].plot(cbp_lambdas_qswmax[ind], ratio[ind], "r-", lw=lw, alpha=1)
-ax[1].fill_between(cbp_lambdas_qswmax[ind], ratio[ind]+ratio_err[ind], ratio[ind]-ratio_err[ind],  color="r", alpha=alpha)
+ax[1].plot(cbp_lambdas_qswmax_2[ind], ratio[ind], "r-", lw=lw, alpha=1)
+ax[1].fill_between(cbp_lambdas_qswmax_2[ind], ratio[ind]+ratio_err[ind], ratio[ind]-ratio_err[ind],  color="r", alpha=alpha)
 
 label = r"run 3"
 ratio = cbp_transmission_qswmax_3/np.interp(cbp_lambdas_qswmax_3, cbp_lambdas_qswmax, cbp_response_mean)
@@ -1353,11 +1403,67 @@ plt.tight_layout()
 plt.savefig("cbp_response.pdf")
 plt.show()
 # -
+# ## Dust diffraction rings
+
+# +
+ILLUREGION = slice(None,1032), slice(1,1057)
+OVERSCANA =  slice(1032,None), slice(None)
+OVERSCANB =  slice(None, 1032), slice(1059,None)
+
+def detrend(fid):
+    im = fid
+    #return im[ILLUREGION] - im[OVERSCANA].mean()  
+    res = im - np.mean(im[OVERSCANA], axis=0) #[:-100]
+    return np.subtract(res[ILLUREGION].T, np.mean(res[OVERSCANB], axis=1)).T
 
 
+# -
 
+cat = np.load(f"/data/STARDICE/cbp/cbp_bench2/golden_sample/{data_release}/2022_03_01_stardice_transmission_radius.npy")
+filtername = b'r'
+r_ind = cat['filter'] == filtername
+radii = set(cat['mount_position_index'])
+ind = r_ind & (cat['mount_position_index']==list(radii)[2]) & (cat["set_wl"]>575) & (cat["set_wl"]<685)
 
+cat["expnum"][ind]
 
+# +
+imgs = []
+counter = 0
+path = "/data/STARDICE/cbp/cbp_bench2/golden_sample/2022_03_01_stardice_transmission_radius/"
+for filename in sorted(os.listdir(path)):
+    if 'IMG' not in filename:
+        continue
+    index = int(filename[4:-5])
+    if index not in cat["expnum"][ind]:
+        continue
+    data = fits.getdata(os.path.join(path, filename)).astype(float)
+    imgs.append(data)
+    
+stack = np.mean([detrend(img) for img in imgs], axis=0)
+
+# +
+aa_plot(twocols=False, height=3)
+
+fig = plt.figure() #figsize=(8,8))
+#plt.imshow(np.log10(stack), origin="lower", vmin=0., vmax=1.5)
+im = plt.imshow(stack, origin="lower", vmin=0, vmax=25) #, cmap="gray")
+#plt.colorbar(im)
+xc, yc = (595, 605)
+circle0 = plt.Circle((xc, yc), 2, color='r', alpha=0.5, fill=False)
+circle1 = plt.Circle((xc, yc), 7, color='r', alpha=0.5, fill=False)
+circle2 = plt.Circle((xc, yc), 12, color='r', alpha=0.5, fill=False)
+circle3 = plt.Circle((xc, yc), 17, color='r', alpha=0.5, fill=False)
+#plt.gca().add_patch(circle0)
+plt.gca().add_patch(circle1)
+plt.gca().add_patch(circle2)
+plt.gca().add_patch(circle3)
+plt.xlim(520, 650)
+plt.ylim(570, 640)
+#fig.tight_layout()
+fig.savefig("diffraction_dust.png")
+plt.show()
+# -
 
 
 # # BACKUP
