@@ -48,7 +48,7 @@ deviations. This refinement process is repeated \num{4} times so that
 filter fronts typically end-up being modeled with up to \SI{\sim
   0.3}{nm} resolution.
 
-Last photometry of the grating zeroth and first orders are adjusted
+Last, photometry of the grating zeroth and first orders are adjusted
 with the open transmission multiplied by a cubic B-spline decomposed
 on 105 nodes in wavelength.
 
@@ -83,35 +83,31 @@ $r$ filters for the sample measurement at \SI{3.7}{\degree} with
 respect to the average of the other three. Investigating this issue,
 we found that the PSF tails in the corresponding images display a
 diffraction figure consistent with the beam being intercepted by a
-\SI{200}{\micro\meter} diameter dust particle on the filter
-surface. The approximate size of the beam spot being \SI{3}{mm}, the
-estimated particule sizes predicts a decrease in transmission of
-around \SI{0.4}{\percent}, very consistent with the observed
-decrease. Very similar decrease are observed for some observations in
-$u,g$ and $y$. Although in these cases it was not possible to estimate
-the particule size from diffraction features in the images, we think
-that similar dust contamination is at play. The size of the ``gray''
-discrepancies are easier to read on the top pannel of
-Fig.~\ref{fig:metrics}, which displays the difference in the
-transmission integral between the measurement and the model at each
-position. The standard deviation of the model/measurement
-discrepancies is \SI{10.2}{mmag}. Taking this number as an estimate of
-dust-induced dispersion, we can deduce that the corresponding
-uncertainty on the per-filter normalisation of the model, which
-average 4 independant samples, is of the order of \SI{5}{mmag}.
+dust particle on the filter surface with a diameter in the range
+\SIrange{200}{300}{\micro\meter}. The approximate area of the beam
+spot being \SI{12}{mm\squared}, the estimated particule sizes predicts
+a decrease in transmission of up to \SI{0.6}{\percent}, very
+consistent with the observed decrease. Very similar decrease are
+observed for some observations in $u,g$ and $y$. Although in these
+cases it was not possible to estimate the particule size from
+diffraction features in the images, we think that similar dust
+contamination is at play. The size of the ``gray'' discrepancies are
+easier to read on the top pannel of Fig.~\ref{fig:metrics}, which
+displays the difference in the transmission integral between the
+measurement and the model at each position. The standard deviation of
+the model/measurement discrepancies is \SI{10.2}{mmag}. Taking this
+number as an estimate of dust-induced dispersion, we can deduce that
+the corresponding uncertainty on the per-filter normalisation of the
+model, which average 4 independant samples, is of the order of
+\SI{5}{mmag}.
 
 The bottom panel in Fig.~\ref{fig:metrics} displays the difference in
 central wavelength between the model and the measurement for all 4
 radius in the central panel of Fig.~\ref{fig:metrics}. The model
-successfully reproduces the central wavelength of all filters at
-better than \SI{\pm 0.2}{nm}, with a standard deviation of \SI{0.13}{nm}
-which delivers an improvement by an order of magnitude with respect to
-a model neglecting the wavelength shift.
-
-
-We also tested the model against the 4 remaining mirror samples that
-are not part of the training dataset. The result of the test is
-summarized in Fig.\ref{fig:metrics}.
+successfully reproduces the central wavelength of all filters with a
+standard deviation of \SI{0.13}{nm} which delivers an improvement by
+an order of magnitude with respect to a model neglecting the
+wavelength shift. 
 
 \begin{figure}
   \centering
@@ -125,12 +121,13 @@ summarized in Fig.\ref{fig:metrics}.
 The full pupil transmission is synthesized by numerically averaging
 the above model assuming that the pupil is a perfect annulus with an
 inner radius of \SI{55}{mm} and an outer radius of \SI{203}{mm}. A
-rectangular quadrature with 100 evenly sampled points in radius as
-been used for the averaging. The curve are then normalized using the
-CBP response from Sect. TX corrected for the \SI{5}{mm} to \SI{75}{\micro\meter} pinhole
-response change determined in Sect. TX. An estimate of the absolute
-transmission curve is then computed assuming an effective mirror area
-of TX. The resulting transmission curves are shown in
+rectangular quadrature with 100 evenly sampled points in radius has
+been used for the averaging. The curves have been normalized using the
+CBP response from Sect. (corrected for the \SI{5}{mm} to
+\SI{75}{\micro\meter} pinhole response change determined in Sect. TX.,
+and the aperture fraction estimated in Sect.Tx).  An estimate of the
+absolute transmission curve is then computed assuming an effective
+mirror area of TX. The resulting transmission curves are shown in
 Fig.~\ref{fig:fullpupiltrans}.
 \begin{figure}
   \centering
@@ -138,6 +135,11 @@ Fig.~\ref{fig:fullpupiltrans}.
   \caption{Full-pupill transmission curves for the StarDICE instruments.}
   \label{fig:fullpupiltrans}
 \end{figure}
+
+\todo{
+We also tested the model against the 4 remaining mirror samples that
+are not part of the training dataset. The result of the test is
+summarized in Fig.\ref{fig:metrics}.}
 
 
 \subsection{Final error budget}

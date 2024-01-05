@@ -79,48 +79,6 @@ When using \bpinhole pinhole, the main spot take a significant area of the focal
     \label{fig:stationarity_wl}
 \end{figure}
 
-\subsection{Correction of the \SI{532}{\nano\meter} contamination}
-
-When extracting the charges $\Qccd$, we have to deal with the laser contamination explained in the section \ref{sec:532_cont}. The goal is to build a model for the \SI{532}{\nano\meter} contribution observed in the range [532 - 644] nm. As the photodiode and the solar cell, the total charge measured in the \SD camera $\Qccd$ is the sum of the charges from the main wavelength line $\Qccd^{\lambda_L}$ and the charges from the \SI{532}{\nm} contamination $\Qccd^{532}$. This statement cooresponds to the Equation~\ref{eq:qccd_mes}. Again, the charge measured in the photodiode $\Qphot$ is defined by the Equation~\ref{eq:qphot_mes}.
- 
-\begin{equation}
-    \Qccd = \Qccd^{\lambda_L} + \Qccd^{532}
-    \label{eq:qccd_mes}
-\end{equation}
-
-As we defined the final calibrated amount of charges detected in the photodiode per laser burst $\Qphot^{\rm cal}$, we want to do the same with the \SD CCD. The light detected by the \SD CCD has gone through the CBP optics and the \SD telescope. These instruments have respectively an optical response defined as $\Rcbp(\lambda)$ and $\Rtel(\lambda)$. We can define $R(\lambda)$ the total response of the CBP and the \SD telescope optics as in Equation~\ref{eq:rtot}. 
-
-\begin{equation}
-    R(\lambda) = \Rtel(\lambda) \times \Rcbp(\lambda)
-    \label{eq:rtot}
-\end{equation}
-
-The charges $\Qccd$ can be expressed as a function of $\Rcbp$, $\Rtel$ and $\Qphot$, as shown in Equation~\ref{eq:qccd}. 
-
-\begin{equation}
-    \Qccd(\lambda) = R(\lambda) \times \Qphot(\lambda)
-    \label{eq:qccd}
-\end{equation}
-
-We can compute the response $R(\lambda=532)$ can be computed thanks to the Equation~\ref{eq:rsd} because $\lambda_L = \lambda_\mathrm{comp} = 532$ nm, so all the charges detected are at the main wavelength. By combining Equations~\ref{eq:qccd_mes}, \ref{eq:qccd} and $R(\lambda=532)$, and using the $\alpha(\lambda)$ factor from \ref{eq:alpha}, we can obtain the following equation.
-
-\begin{equation}
-\begin{aligned}
-    \Qccd^{\lambda_L} & = \Qccd - R(\lambda=532) \times \Qphot^{532} \\ 
-    & = \Qccd - R(\lambda=532) \times \alpha(\lambda) \times \Qphot^{\lambda_L} \equiv \Qccd^{\rm cal}
-    \label{eq:qccd_final}
-\end{aligned}
-\end{equation}
-
-With this Equation~\ref{eq:qccd_final} we have obtained an expression for the final calibrated amount of charges detected in the \SD CCD $\Qccd^{\rm cal}$. The same can be done with the complementary wavelength line $\lambda_{\rm comp}$ appearing after $\lambda_L > \SI{1064}{\nm}$, where we use the correction coefficient $\beta$ from Equation~\ref{eq:beta} instead of $\alpha$.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\columnwidth]{fig/g_filter_532.pdf}
-    \caption{StarDice g filter transmission as a function of the set laser wavelength $\lambda_L$, with and without the \SI{532}{\nm} correction. For clarity, we added a zoom on the out-of-band transmission where $\SI{532}{\nm}$ line is transmitted while higher wavelengths are shot by the laser.}
-    \label{fig:g_filter_532}
-    %cbp_paper_plots.ipynb
-\end{figure}
 
 \subsection{Intercalibration of the \SI{75}{\micro\meter} and \SI{5}{\mm} pinholes}
 
@@ -268,6 +226,31 @@ The summary of the error budget on the \SD telescope response id detailed in Fig
     \includegraphics[width=\columnwidth]{fig/sd_uncertainties_budget.pdf}
     \caption{Total error budget for \SD response.}
     \label{fig:sd_budget}
+\end{figure}
+
+
+\subsection{Correction of the light contamination}\label{sec:sd_contaminations}
+
+When extracting the charges from the \SD camera, we have to remove light contaminations described in Sections~\ref{sec:532_cont} and~\ref{sec:fluo}. As the photodiode and the solar cell, the total charge measured in the \SD camera $\Qccdmes$ is the sum of the charges from the main laser line $\Qccdcal$ and the charges from the \SI{532}{\nm} contamination $\Qccd^{532}$, the $\lambda_{\rm comp}$ contamination $\Qccd^{\lambda_{\rm comp}}$, and the integrating sphere fluorescence $\Qccd^{\mathrm{fluo}}$, as follows:
+\begin{equation}
+    \Qccdmes = \Qccdcal + \Qccd^{532} + \Qccd^{\lambda_{\rm comp}} + \Qccd^{\mathrm{fluo}}
+    \label{eq:qccd_mes}
+\end{equation}
+
+As we defined the final calibrated amount of charges detected in the solar cell $\Qsolarcal$, we do the same with the \SD CCD. The light detected by the \SD CCD has gone through the CBP optics and the \SD telescope. These instruments have respectively optical responses defined as $\Rcbp(\lambda)$ and $\Rtel(\lambda)$. We can define $R(\lambda)$ the total response of the CBP and the \SD telescope optics:
+\begin{equation}
+    R(\lambda) = \Rtel(\lambda) \times \Rcbp(\lambda).
+    \label{eq:rtot}
+\end{equation}
+Then, the contamination contribution in \SD camera from every source is evaluated multiplying photodiode charge contamination by $R(\lambda)$.
+The impact of these subtractions is illutrated in Figure~\ref{fig:g_filter_532} focusing on the \SD g filter, the most affected filter by integrating sphere fluorescence and \SI{532}{\nano\meter} line.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\columnwidth]{fig/g_filter_532.pdf}
+    \caption{StarDice g filter transmission as a function of the set laser wavelength $\lambda_L$, with and without the \SI{532}{\nm} correction. For clarity, we added a zoom on the out-of-band transmission where $\SI{532}{\nm}$ line is transmitted while higher wavelengths are shot by the laser.}
+    \label{fig:g_filter_532}
+    %cbp_paper_plots.ipynb
 \end{figure}
 
 \subsection{\SD response scan}
