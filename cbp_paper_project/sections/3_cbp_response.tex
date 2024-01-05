@@ -345,26 +345,33 @@ We must account for this light contamination to get the true amount of charges $
 \Qphotmes(\lambda_L) & = \Qphot(\lambda_L) + \Qphot^{532}(\lambda_L) \label{eq:qphot_mes}
 \end{align}
 
-In the spectrograph, we measured two flux from two separated peaks: the one from the main wavelength $\Qspectromain$, and the one from the \SI{532}{\nm} contamination $\Qspectro^{532}$. As the light is homogeneous in the integrating sphere, the proportion of contamination light and laser light is the same at the entrance of both instruments. This translates into the equality
+In the spectrograph, we measured two fluxes from two separated peaks: the one from the main wavelength $\Qspectromain$, and the one from the \SI{532}{\nm} contamination $\Qspectro^{532}$. As the light is homogeneous in the integrating sphere, the proportion of contamination light and laser light is the same at the entrance of both instruments. This translates into the equality
 \begin{equation}
     \frac{\Qspectro^{532}}{\Qspectromain} \times \frac{\Espectro(\lambda_L)}{\Espectro(532)} = \frac{\Qphot^{532}}{\Qphot} \times \frac{\Ephot(\lambda_L)}{\Ephot(532)}
     \label{eq:prev_alpha}
 \end{equation}
-where $\Ephot(\lambda_L)$ and $\Espectro(\lambda_L)$ are the quantum efficiencies of the photodiode and the spectrograph sensor, respectively. Their values are taken from manufacturer data sheets (Figure~\ref{fig:QEs}). Then, we defined the $\alpha(\lambda)$ ratio function that computes $\Qphot^{\lambda_L}/\Qphot^{532}$ as:\com{incertitudes sur les efficacités quantiques ?}
+where $\Ephot(\lambda_L)$ and $\Espectro(\lambda_L)$ are the quantum efficiencies of the photodiode and the spectrograph sensor with its optical fiber, respectively. Their values can be taken from manufacturer data sheets (Figure~\ref{fig:QEs}), or their ratio
+\begin{equation}\label{eq:eta}
+\eta(\lambda) = \frac{\Espectro(\lambda)}{\Ephot(\lambda)} = \frac{\Qspectromain(\lambda)}{\Qphot(\lambda)}
+\end{equation}
+can be measured directly with all our measurements in spectrograph ADU per photodiode unit (Figure~\ref{fig:QEs}). In the following, we used the estimate of $\eta(\lambda)$ instead of the vendor curves, with an uncertainty given by its RMS around a smooth spline curve.
+
+Then, we defined the $\alpha(\lambda)$ ratio function as
 \begin{equation}
     \alpha(\lambda_L) = \frac{\Qphot^{532}(\lambda_L)}{\Qphot(\lambda_L)} = \frac{\Qspectro^{532}(\lambda_L)}{\Qspectromain(\lambda_L)} \times \frac{\Espectro(\lambda_L)\Ephot(532)}{\Ephot(\lambda_L)\Espectro(532)} 
     \label{eq:alpha}
 \end{equation}
+to compute the level of contamination in the photodiode $\Qphot^{\lambda_L}/\Qphot^{532}$.
 
 %cbp_paper_plots.py
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{fig/qe_phototiode_spectro.pdf}
-    \caption{Quantum efficiencies of the spectrograph and the photodiode.}
+    \caption{Quantum efficiencies of the spectrograph (red) and the photodiode (cyan), with the $\eta(\lambda)$ ratio (black).}
     \label{fig:QEs}
 \end{figure}
     
-First, we measured the $\alpha(\lambda_L)$ ratio with the right-hand side of Equation~\ref{eq:alpha} at every wavelength with the spectrograph data (Figure~\ref{fig:alpha_532}). We accumulated all available data with $\sigma_c < \SI{0.1}{\nm}$ (to reject data sets with confusion with the \SI{532}{\nm} line and the main laser line). We fitted a first degree polynomial function on all the $\Qspectro^{532}(\lambda_L)$ data points we had to allow us for a reasonable extrapolation in the range 532 - \SI{540}{\nm} where unambiguous data are missing. Uncertainties on  $\Qspectro^{532}$ were re-scaled to get a reduced $\chi^2$ of 1. Then, we computed the ratio $\alpha(\lambda_L)$ with that model for $\Qspectro^{532}$. It gives a rather flat curve between 540 and \SI{644}{\nm} of about 1\%, with smaller wiggles. Uncertainties are propagated in the extrapolation range using the standard error propagation formula, taking into account the covariances between the 6 model parameters. With this $\alpha$ model, we deduced the true photodiode charges coming from the main laser line at $\lambda_L$
+We measured the $\alpha(\lambda_L)$ ratio with the right-hand side of Equation~\ref{eq:alpha} at every wavelength with the spectrograph data (Figure~\ref{fig:alpha_532}). We accumulated all available data with $\sigma_c < \SI{0.1}{\nm}$ (to reject data sets with confusion with the \SI{532}{\nm} line and the main laser line). We fitted a first degree polynomial function on all the $\Qspectro^{532}(\lambda_L)$ data points we had to allow us for a reasonable extrapolation in the range 532 - \SI{540}{\nm} where unambiguous data are missing. Uncertainties on  $\Qspectro^{532}$. Then, we computed the ratio $\alpha(\lambda_L)$ with that model for $\Qspectro^{532}$. It gives a rather flat curve between 540 and \SI{644}{\nm} of about 1\%, with smaller wiggles. Uncertainties are propagated in the extrapolation range using the standard error propagation formula, taking into account the covariances between the 2 model parameters. With this $\alpha$ model, we deduced the true photodiode charges coming from the main laser line at $\lambda_L$
 \begin{equation}
         \Qphotcal(\lambda_L) \equiv  \frac{\Qphotmes(\lambda_L)}{1 + \alpha(\lambda_L)} \quad\text{if}\ \lambda_L \in \left[532, 644\right]\mathrm{\,nm}\label{eq:qphot_cal532}
 \end{equation}
@@ -396,12 +403,12 @@ We did the same correction for the complementary wavelength line $\lambda_{\rm c
     \beta(\lambda_L) = \frac{\Qphot^{\lambda_{\rm comp}}(\lambda_L)}{\Qphot(\lambda_L)} = \frac{\Qspectro^{\lambda_{\rm comp}}(\lambda_L)}{\Qspectromain(\lambda_L)} \times \frac{\Espectro(\lambda_L)\Ephot\contcomp}{\Ephot(\lambda_L)\Espectro\contcomp} 
     \label{eq:beta}
 \end{equation}
-and is represented Figure~\ref{fig:beta}. The $\Qspectro^{\lambda_{\rm comp}}$ data points were modelled by a degree 1 polynomial function to allow us extrapolating $\beta$ in the range [1064 - 1080]\,nm. Similarly, the calibrated amount of charges in the photodiode corrected from the $\lambda_{\rm comp}$ photons is
+and is represented Figure~\ref{fig:beta}. The $\Qspectro^{\lambda_{\rm comp}}$ data points were modelled by a degree 1 polynomial function to allow us extrapolating $\beta$ in the range [1064 - 1070]\,nm. Similarly, the calibrated amount of charges in the photodiode corrected from the $\lambda_{\rm comp}$ photons is
 \begin{equation}
         \Qphotcal(\lambda_L) \equiv  \frac{\Qphotmes(\lambda_L)}{1 + \beta(\lambda_L)} \quad\text{if}\ \lambda_L > \SI{1064}{\nano\meter}
         \label{eq:qphot_cal1064}
 \end{equation}
-and their contribution $\Qsolar^{\lambda_{\rm comp}}$ in the solar cell is deduced by
+and their contribution $\Qsolar^{\lambda_{\rm comp}}$ in the solar cell is given by
 \begin{equation}
 \begin{aligned}
     \Qsolar^{\lambda_{\rm comp}}(\lambda_L) & = \Rcbp(\lambda_{\rm comp})  \Qphot^{\lambda_{\rm comp}}(\lambda_L) \\ 
@@ -434,9 +441,9 @@ Both corrections' impact is illustrated in Section~\ref{sec:sc_linearity} and Fi
     %~/stardice/analysis/cbp_paper/golden_sample_analysis/dr3/1064nm_correction.ipynb
 \end{figure}
 
-Our integrating sphere appeared to be fluorescent at laser wavelengths below \SI{400}{\nano\meter}. The fluorescence of integrating spheres is studied in~\cite{shaw2007ultraviolet}. The fluorescent signal is visible in the \SD camera using the g filter or the grating but is very weak in the spectrograph. To visualise and model it, we stacked all our solar cell run spectra in bins of \SI{5}{\nano\meter} in $\lambda_L$ (Figure~\ref{fig:fluo} top). It spans a range of wavelength between $\approx \SI{400}{\nano\meter}$ and $\approx\SI{500}{\nano\meter}$, with an emission peak around with a emission peak at \SI{450}{\nano\meter}. The peak amplitude depends on the laser wavelength, as expected for a fluorescence phenomenon. 
+Our integrating sphere appeared to be fluorescent at laser wavelengths below \SI{400}{\nano\meter}. The fluorescence of integrating spheres is studied in~\cite{shaw2007ultraviolet}. The fluorescent signal is visible in the \SD camera using the g filter or the grating but is very weak in the spectrograph. To visualise and model it, we stacked all our spectra per bins of \SI{5}{\nano\meter} in $\lambda_L$ (Figure~\ref{fig:fluo} top). The fluorescence signal spans a range of wavelength between $\approx \SI{400}{\nano\meter}$ and $\approx\SI{500}{\nano\meter}$, with an emission peak around with a emission peak at \SI{450}{\nano\meter}. %The peak amplitude depends on the laser wavelength, as expected for a fluorescence phenomenon. 
 
-To estimate the contamination from fluorescence photons, we fitted a fluorescence spectrum model taken from Figure~9 of \cite{shaw2007ultraviolet}, with a constant background and a Moffat profile for the laser line for each stacked spectra. On the other hand, using spectrograph and photodiode measurements at $\lambda_L=\SI{450}{\nano\meter}$ we estimated that the conversion factor between both instruments is $(8.1\pm 0.9)\times 10^{13}$ spectrograph ADU per photodiode Coulomb unit. The fluorescence spectrograph flux is converted into photodiode charges $\Qphot^{\mathrm{fluo}}$ using this conversion factor and normalised by the total number of laser pulses (Figure~\ref{fig:fluo} bottom)\footnote{Contrary to the \SI{532}{\nano\meter} line contamination correction, we can not normalise by the flux in the main laser line as it is often noise-dominated in un-stacked spectra when $\lambda_L < \SI{400}{\nano\meter}$.}. We observe that the fluorescence spectrum cancels at $\lambda_L \geq \SI{400}{\nano\meter}$. So, for every wavelength $\lambda_L < \SI{400}{\nano\meter}$, we evaluate and subtract the contribution from the fluorescence contamination in the photodiode using the model from Figure~\ref{fig:fluo}:
+To estimate the contamination from fluorescence photons, we fitted a fluorescence spectrum model taken from Figure~9 of \cite{shaw2007ultraviolet}, with a constant background and a Moffat profile for the laser line for each stacked spectra. The fluorescence spectrograph flux is converted into photodiode charges $\Qphot^{\mathrm{fluo}}$ using the $\eta(\lambda)$ conversion factor and normalised by the total number of laser pulses (Figure~\ref{fig:fluo} bottom)\footnote{Contrary to the \SI{532}{\nano\meter} line contamination correction, we can not normalise by the flux in the main laser line as it is often noise-dominated in un-stacked spectra when $\lambda_L < \SI{400}{\nano\meter}$.}. We observed that the fluorescence spectrum cancels at $\lambda_L \geq \SI{400}{\nano\meter}$. So, for every wavelength $\lambda_L < \SI{400}{\nano\meter}$, we evaluate and subtract the contribution from the fluorescence contamination in the photodiode using the $\Qphot^{\mathrm{fluo}}(\lambda_L)$ model from Figure~\ref{fig:fluo}:
 \begin{equation}
         \Qphotcal(\lambda_L) \equiv  \Qphotmes(\lambda_L) - \Qphot^{\mathrm{fluo}}(\lambda_L) \quad\text{if}\ \lambda_L < \SI{400}{\nano\meter}
         \label{eq:qphot_calfluo}
@@ -450,6 +457,8 @@ We perform identically for $\Qsolarmes$ multiplying by the CBP response at \SI{4
 \end{equation}
 
 This correction's impact is illustrated later in Section~\ref{sec:sd_contaminations}.
+
+After the fluorescence, \SI{532}{\nano\meter} and $\lambda_{\mathrm{comp}}$ corrections, we updated our $\eta(\lambda)$ estimate and iterated several times to refine the light contamination subtractions.
 
 
 \subsubsection{Instrumental chain linearity check}\label{sec:sc_linearity}
@@ -515,7 +524,7 @@ and in the photodiode as:
 \end{array}\right. 
 \end{equation}
 
-All uncertainties from the evaluation of all these terms were propagated. The summary of the error budget on the CBP response is decomposed in Figure~\ref{fig:cbp_budget} as a function of laser wavelength $\lambda_L$. Systematics coming from the wavelength calibration are not represented. Indeed, as the CBP response varies slowly with wavelength, it is negligible compared to others. 
+All uncertainties from the evaluation of all these terms were propagated. The summary of the error budget on the CBP response is decomposed in Figure~\ref{fig:cbp_budget} as a function of laser wavelength $\lambda_L$. Systematics coming from the wavelength calibration are not represented. Indeed, as the CBP response varies slowly with wavelength, it is negligible compared to others.  In the visible range, scattered light systematics dominates. In the far infrared, the subtraction of the $\lambda_{\mathrm{comp}}$ photons is the main systematic uncertainty, while in the UV range fluorescence correction systematic dominates.
 
 %cbp_paper_plots.ipynb
 \begin{figure}[h]
@@ -532,12 +541,12 @@ The final CBP response in output photons per Coulomb unit in the photodiode is
     \Rcbp(\lambda_c) = \frac{\Qsolarcal(\lambda_c)}{\Qphotcal(\lambda_c) \times \epsilon_{\mathrm{solar}}(\lambda_c) \times e}.
     \label{eq:rcbp2}
 \end{equation} 
-It can be computed for each laser burst. We averaged the values to increase the signal-to-noise ratio and get the smooth curve :
+It can be computed for each laser burst. We averaged the values to increase the signal-to-noise ratio and get the red smooth curve presented in Figure~\ref{fig:cbp_response}:
 \begin{equation}
-    \overline{\Rcbp(\hat{\lambda}_c)} = \left\langle\frac{\Qsolarcal(\lambda_c)}{\Qphotcal(\lambda_c) \times \epsilon_{\mathrm{solar}}(\lambda_c) \times e}\right\rangle_{\lambda_c\in [\lambda,\lambda+\delta \lambda]}
+    \overline{\Rcbp(\hat{\lambda}_c)} = \left\langle\frac{\Qsolarcal(\lambda_c)}{\Qphotcal(\lambda_c) \times \epsilon_{\mathrm{solar}}(\lambda_c) \times e}\right\rangle_{\lambda_c\in [\lambda,\lambda+\delta \lambda]}.
     \label{eq:rcbp3}
 \end{equation} 
-The average is performed on every burst of the three runs, with a $5\sigma$ clipping, and $\hat{lambda}_c$ is the mean calibrated wavelength in a $\delta \lambda = \SI{1}{\nano\meter}$ bin.
+The average is performed on every burst of the three runs, with a $5\sigma$ clipping, and $\hat{\lambda}_c$ is the mean calibrated wavelength in a $\delta \lambda = \SI{1}{\nano\meter}$ bin. All uncertainties are combined in quadrature (Figure~\ref{fig:cbp_response} bottom). The total uncertainty is between 3 and $5\,$permil \todo{Check this statement at the end of the analysis as only the chromatic part is important.} in the visible range, due to scattered light systematic, and slightly higher in the UV and IR ranges.
 
 
 
