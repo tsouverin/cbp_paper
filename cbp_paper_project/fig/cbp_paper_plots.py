@@ -209,7 +209,6 @@ wl_blue_err_f = interp1d(set_wl, wls_blue_err)
 aa_plot(twocols=False, height=2.2)
 
 fig  = plt.figure()
-plt.errorbar(set_wl, wl_cal-set_wl, yerr=np.sqrt(wl_cal_syst**2+wl_cal_stat**2), marker="+", linestyle="none", label="from stacked spectra", color="k", zorder=42)
 counter = 0
 for c in cats.keys():
     print(c)
@@ -227,6 +226,7 @@ for c in cats.keys():
                  yerr=np.sqrt(cat["spectro_laser_wl_cal_stat"][ind]**2+cat["spectro_laser_wl_cal_stat"][ind]**2), 
                  marker="+", linestyle="none", label=label)
     counter += len(cat["spectro_laser_wl"])
+plt.errorbar(set_wl, wl_cal-set_wl, yerr=np.sqrt(wl_cal_syst**2+wl_cal_stat**2), marker="+", linestyle="none", label="from stacked spectra", color="k", zorder=42)
 print("Number of data points:" , counter)
 #plt.grid()
 #plt.title(f"Data release: {data_release}")
