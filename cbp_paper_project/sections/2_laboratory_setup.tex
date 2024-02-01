@@ -82,13 +82,34 @@ To calibrate the CBP response, a large solar cell is placed at \SI{16}{\cm} appr
 
 \subsubsection{Quantum efficiency measurement}
  
-\todo{Elana and Sasha : write a paragraph or more on the solar cell QE measurement (method, wavelength calibration, uncertainties), with a QE curve plot}
+The quantum efficiency (QE) as a function of wavelength for the solar cell was measured relative to a NIST-calibrated photodiode by using a monochromator as a light source and using an electrometer to measure the current of the solar cell and of the photodiode at each wavelength. The monochromator wavelength was calibrated with a spectrometer relative to a mercury calibration source. Details of the setup are discussed in ~\cite{solarcell}. The quantum efficiency of the solar cell used for these measurements is shown in Fig.~\ref{fig:qe}. The uncertainty cited is from the standard error of the current measurements.
 
 \begin{figure}[!h]
 \centering
 \includegraphics[width=\columnwidth]{solarcell_qe}
 \caption{Solar cell quantum efficiency with respect to wavelength (top) and error bar sizes (bottom).}
+\label{fig:qe}
 \end{figure}
+
+Additionally, we measured the effect of temperature and angle of incidence on the solar cell QE. To determine the effect of temperature, we checked the QE of the solar cell as we heated it. At longer wavelengths, as the temperature increased, the QE increased (see Fig.~).  This trend is consistent with what's expected for silicon (cite) At 1050 nm, the QE changes by more than 0.1 percent per degree. 
+
+
+To determine the effect of temperature on QE, the QE of the solar cell was measured as it was heated. At longer wavelengths, the QE increased slightly as the temperature increased (see Fig.~\ref{fig:SC_temp}). This trend is consistent with the temperature dependence of silicon's QE (cite this paper). At 1050 nm, the QE changes by more than 0.1 percent per degree.
+\begin{figure}[!h]
+\centering
+\includegraphics[width=\columnwidth]{SC_temp_dep.pdf}
+\caption{(a) Solar cell quantum efficiency vs temperature for wavelengths ranging from 600 to 1050 nm. (b) Fitted change in quantum efficiency per degree Celsius for wavelengths ranging from 600 to 1050 nm.}
+\label{fig:SC_temp}
+\end{figure}
+Additionally, the effect of the angle of incidence on the solar cell QE was measured. The solar cell was rotated up to 35 degrees off-axis. The results are shown in Fig.~\ref{fig:SC_angle_dep}. There is a stronger dependence on angle of incidence at wavelengths that are less than 600 nm, but the change in QE for wavelengths greater than 400 nm is less than 5e-4 per degree.
+\begin{figure}[!h]
+\centering
+\includegraphics[width=\columnwidth]{SC_angle_dep.pdf}
+\caption{(a) Solar cell quantum efficiency vs solar cell tilt relative to normal incidence for different wavelengths. (b) Fitted change in quantum efficiency per degree of solar cell tilt relative to normal incidence vs wavelength.}
+\label{fig:SC_angle}
+\end{figure}
+
+The solar cell was aligned perpendicalular to the CBP output beam with a precision better than \SI{1}{\degree} and not moved during all the measurement campaign. Meanwhile, room temperature was monitored and has not varied more than \SI{2}{\degreeCelsius}. Considering measured variations of quantum efficiency with angle and temperature, we assumed that this systematic is well below the per-mill level and is not considered in the following of the paper. 
 
 
 
@@ -128,9 +149,7 @@ The charges in the photodiode and the solar cell are read with electrometers in 
 
 \subsubsection{Dark current characterisation}
 
-\todo{Elana : complementary sentences about the ampere box ? or rewriting...}
-
-Due to the solar cell low resistance, when plugged to the Keysight electrometer we observed a quite strong current even in dark conditions (about \SI{20}{\nano\ampere}). Therefore, we built a device that injects a tunable counter-current to cancel this contribution. Current value was tuned to observe approximately no drift when using the Keysight in charge mode inside usual acquisition time window ($< \SI{1}{\minute}$). Doing so, we avoided to saturate the electrometer when using the solar cell in dark and laser-on conditions. 
+Due to the low resistance of the solar cell, when plugged into the Keysight electrometer we observed a quite strong current even in dark conditions (about \SI{20}{\nano\ampere}). Therefore, we built a device that uses a precision voltage source with a tunable voltage divider to inject a counter-current that cancels this contribution. The current value was tuned to observe approximately no drift when using the Keysight in charge mode inside the usual acquisition time window ($< \SI{1}{\minute}$). Doing so, we avoided saturating the electrometer when using the solar cell in dark and laser-on conditions. 
 
 %\begin{itemize}
 %\item Without offset box: $\sim 20 nA$
@@ -140,6 +159,8 @@ Due to the solar cell low resistance, when plugged to the Keysight electrometer 
 After cancelling the dark current drift, the analysis of the solar cell dark signal revealed a $1/f$ noise, with power line harmonics contributions at \SI{50}{\hertz},  \SI{100}{\hertz}, and \SI{150}{\hertz} (see Figure~\ref{fig:darkcurrentspectrum}). 
 We checked that connecting the Keysight to a resistor of same value as the solar cell shunt resistance gave exactly the same
 power spectrum. Then the dark current comes entirely from the Keysight, and it increases with the shunt resistance. To decrease the contribution of the $1/f$ noise in the solar cell time series, we chose the calibrated solar cell with the highest shunt resistance we had ($R_{\rm shunt} = \SI{1.8}{\kilo\ohm}$) and limited the burst durations to at most 200 pulses (\SI{200}{\ms}). Doing so, in the burst time window, the Keysight noise is dominated by the power line harmonics (that can be analytically model) whereas the random $1/f$ noise remains subdominant.
+
+
 
 
 %cbp_paper_plots.py
