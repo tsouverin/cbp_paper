@@ -56,10 +56,10 @@
 
 \newcommand{\Esolar}{\epsilon_{\mathrm{SC}}}
 \newcommand{\Espectro}{\epsilon_{\mathrm{spectro}}}
-\newcommand{\Espectrocont}{\epsilon_{\mathrm{spectro}}{}_{\mathrm{, \, 532}}}
+\newcommand{\Espectrocont}{\epsilon_{\mathrm{spectro}}^{\mathrm{532}}}
 \newcommand{\Ephot}{\epsilon_{\mathrm{phot}}}
-\newcommand{\Ephotcont}{\epsilon_{\mathrm{phot}}{}_{\mathrm{, \, 532}}}
-\newcommand{\Eccd}{\epsilon_{\mathrm{ccd}}}
+\newcommand{\Ephotcont}{\epsilon_{\mathrm{phot}}^{\mathrm{532}}}
+\newcommand{\Eccd}{\epsilon_{\mathrm{ccd}}(\lambda)}
 
 \newcommand{\spinhole}{\SI{75}{\micro\meter}\xspace}
 \newcommand{\bpinhole}{\SI{5}{\milli\meter}\xspace}
@@ -68,11 +68,11 @@
 \newcommand{\cont}{{}_{\mathrm{, \, 532}}}  %cont plutôt que 532 ?
 \newcommand{\contcomp}{{}_{\mathrm{, \, comp}}}  %cont plutôt que 532 ?
 
-\newcommand{\Kghost}{K_{G_1/G_0}}
+\newcommand{\Kghost}{K_{G_1/G_0}(\lambda)}
 \newcommand{\Kpinholes}{K_\mathrm{\spinhole/\bpinhole}}
 
-\newcommand{\Rwindow}{R_{\mathrm{window}}\xspace}
-\newcommand{\Rccd}{R_{\mathrm{ccd}}\xspace}
+\newcommand{\Rwindow}{R_{\mathrm{win}}(\lambda)\xspace}
+\newcommand{\Rccd}{R_{\mathrm{ccd}}(\lambda)\xspace}
 
 \newcommand{\todo}[1]{\textbf{\textcolor{red}{[#1]}}\xspace}
 \newcommand{\com}[1]{\textbf{\textcolor{orange}{(#1)}}\xspace}
@@ -120,7 +120,7 @@
 %\item Photo-diode change
 %\end{itemize}
 
-%\tableofcontents
+\tableofcontents
 
 \input{sections/1_introduction}
 
