@@ -1,17 +1,17 @@
 \section{StarDICE response}
 \label{sec:rsd}
 
-In this section, we will show the methodology to obtain the \SD telescope response $\Rtel$ by measuring $\Qccd$ from the Equation~\ref{eq:rsd}.
+In this section, we will show the methodology to obtain the \SD telescope response $\Rtel(\lambda)$ by analyzing \SD camera data.
 
 \subsection{Data set description}
 \label{sec:sd_datadesc}
 
-As described in section \ref{sec:cbp_datadesc}, the laser emits pulses at a rate of \SI{1}{\kilo\hertz} in bursts that are separated with dark times. Figure~\ref{fig:ghost_contrast} shows stack of images obtained when the CBP shoots in the \SD CCD camera for two wavelengths dataset. 
+As described in section \ref{sec:cbp_datadesc}, the laser emits pulses at a rate of \SI{1}{\kilo\hertz} in bursts that are separated with dark times. Figure~\ref{fig:ghost_contrast} shows a stack of images obtained when the CBP shoots in the \SD CCD camera for two wavelength datasets. 
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{fig/ghost_contrast.pdf}
-    \caption{Left: Stack of images between \SI{350}{\nano\meter} and \SI{450}{\nano\meter}. The scale is set on the ZScale from IRAF to make faint features visible. The spot of intereset $G_0$ is at the center, and the ghosts reflections at its left. The circle corresponds to the aperture photometry at different radius, colored with respect to the order of the ghost when the annulus contains ghost contribution. The red area around the 1$\up{st}$ order ghost represent the area where the photometry of the ghost is measured. Right: Same image but for a stack of images between \SI{1000}{\nano\meter} and \SI{1100}{\nano\meter}. We note that the 2$\up{nd}$ order ghost is not visible for the stack in the UV, where the 1$\up{st}$ order is maximal, while it is visible in the IR, where the 1$\up{st}$ order is lower. For the stack in IR, we osberve a degradation of the \SD PSF.}
+    \caption{Stack of images at different wavelengths, with one image per nanometer. \textit{Left:} Stack of images between \SI{350}{\nano\meter} and \SI{450}{\nano\meter}. The scale is set on the ZScale from IRAF to make faint features visible. The spot of interest $G_0$ is at the center, and the ghost reflections are at its left. The circles correspond to the aperture photometry at different radii, when an annulus contains ghost contribution, it is colored with respect to the order of the ghost. The red area around the 1$\up{st}$ order ghost represents the area where the photometry of the ghost is measured. \textit{Right:} Same image but for a stack of images between \SI{1000}{\nano\meter} and \SI{1100}{\nano\meter}. We note that the 2$\up{nd}$ order ghost is not visible for the stack in the UV, where the 1$\up{st}$ order is maximal, while it is visible in the IR, where the 1$\up{st}$ order is lower. For the stack in IR, we osberve a degradation of the \SD PSF.}
     \label{fig:ghost_contrast}
     %~/stardice/analysis/cbp_paper/total_fluxes/ghost_stack_figure.ipynb
 \end{figure}
@@ -26,37 +26,37 @@ As described in section \ref{sec:cbp_datadesc}, the laser emits pulses at a rate
 %bkg --> cohérent avec darks
 %5eme panneau --> chi2/dof
 
-In this section, we develop a modelisation of the \spinhole pinhole data, considering that the \SD telescope PSF can be modelized as a Moffat distribution \citep{moffat}. The flux $F(r, \lambda)$ measured in the CDD with aperture photometry at a radius $r$ and a wavelength $\lambda$, can be modelized as: 
+In this section, we develop a modelization of the \spinhole pinhole data, considering that the \SD telescope PSF can be modelized as a Moffat distribution \citep{moffat} $M(r, \lambda)$ which depends on the radius $r$ and the wavelength $\lambda$ as:
 
-%Thus, the core of the spot in the CCD is the convolution of the PSF, the CBP output shape and ghosts from light reflections between the glass before the CCD and the CCD itself, as schematized in Figure~\ref{fig:schema_ghost}. These contributions make the core of the spot really complex to modelize. However the tail of the PSF should not be impacted by the contribution of the CBP output shape and the light diffusion, so it is expected to behave like a Moffat distribution. 
+\begin{equation}
+M(r, \lambda)= 1 - \left( 1+\frac{r^2}{\alpha(\lambda)^2} \right)^{1-\beta(\lambda)},
+\end{equation}
+with $\alpha(\lambda)$ and $\beta(\lambda)$ the parameters of the Moffat distribution. The flux $F(r, \lambda)$ measured in the CCD with aperture photometry, can be modelized as: 
+
+%Thus, the core of the spot in the CCD is the convolution of the PSF, the CBP output shape, and ghosts from light reflections between the glass before the CCD and the CCD itself, as schematized in Figure~\ref{fig:schema_ghost}. These contributions make the core of the spot complex to model. However the tail of the PSF should not be impacted by the contribution of the CBP output shape and the light diffusion, so it is expected to behave like a Moffat distribution. 
 
 \begin{equation}
 F(r, \lambda) = A(\lambda) \times \frac{M(r, \lambda) + \Kghostfit(r, \lambda)}{1 + \Kghostfit(r \rightarrow +\infty, \lambda)} + \bkg(r, \lambda),
 \label{eq:moffat_model}
 \end{equation}
-with $A(\lambda)$ the total amplitude, $\Kghostfit(r, \lambda)$ the relative contribution of the ghosts to $A(\lambda)$, $\bkg(r, \lambda)$ the contribution of the background and $M(r, \lambda)$ the integral of the moffat distribution defined as:
+with $A(\lambda)$ the total amplitude, $\Kghostfit(r, \lambda) = \frac{\sum_{n=1}^{+\infty} G_n(\lambda)}{A(\lambda)}$ the relative contribution of the sum of all the ghosts $G_n(\lambda)$ and $\bkg(r, \lambda)$ the contribution of the background. The origin of the ghost contribution is schematized in Figure~\ref{fig:schema_ghost}.
 
-\begin{equation}
-M(r, \lambda)= 1 - \left( 1+\frac{r^2}{\alpha(\lambda)^2} \right)^{1-\beta(\lambda)},
-\end{equation}
-with $\alpha(\lambda)$ and $\beta(\lambda)$ the parameters of the Moffat distribution.
-
-The core of the model is fitted on aperture photometry for a radius $r=\SI{20.9}{pixels}$, and then annulus of external radius from \SI{24.9}{pixels} to \SI{419.1}{pixels}. These radius are regularly spaced on a logarithm scale shown in Figure~\ref{fig:ghost_contrast}. The parameters of the fit are adjusted with the \spinhole pinhole dataset No.~8 from Table~\ref{tab:schedule}. To take in account $\Kghostfit(r, \lambda)$, an additive value is set free for every annulus that contains a ghost contribution. The evolution of the Moffat distribution is expected to be smooth with respect to wavelength, so the parameters $\alpha(\lambda)$ and $\beta(\lambda)$ are developed on a B-spline basis with 15 wavelength nodes regularly spaced between \SI{350}{\nano\meter} to \SI{1100}{\nano\meter}. The same goes for the parameters $\Kghostfit(r, \lambda)$ as it corresponds to light reflections on surfaces in the optical path. The results of this fit is shown Figure~\ref{fig:result_params}. 
+The fit is done with PSF photometry for a radius $r=\SI{20.9}{pixels}$, and then for successive annulus of external radius from \SI{24.9}{pixels} to \SI{419.1}{pixels}. These radii are regularly spaced on a logarithm scale shown in Figure~\ref{fig:ghost_contrast}. The parameters of the fit are adjusted with the \spinhole pinhole dataset No.~8 from Table~\ref{tab:schedule}, with one image per wavelength. To take into account $\Kghostfit(r, \lambda)$, an additive value is fitted for every annulus that contains a ghost contribution. The evolution of the Moffat distribution is expected to be smooth with respect to wavelength, so the parameters $\alpha(\lambda)$ and $\beta(\lambda)$ are developed on a B-spline basis with 15 wavelength nodes regularly spaced between \SI{350}{\nano\meter} to \SI{1100}{\nano\meter}. The same goes for the function $\Kghostfit(r, \lambda)$ as it corresponds to light reflections on surfaces in the optical path. The results of this fit are shown Figure~\ref{fig:result_params}. 
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{fig/schema_ghost.pdf}
-    \caption{Schematic of the light reflections that generates the ghosts, which are defocused and less intense images at other positions in the focal plane. The window and the CCD reflections $R_\mathrm{win}$ and $R_\mathrm{ccd}$ being non-zeros, a fraction of the light is reflected at the different interfaces and can be absorbed. $G_0$, $G_1$ and $G_2$ are repsectively the main spot, the 1\up{st} order ghost and the 2\up{nd} order ghost.}
+    \caption{Schematic of the light reflections that generate the ghosts, which are defocused and less intense images at other positions in the focal plane. A fraction of the light is reflected at the different interfaces and $G_0(\lambda)$, $G_1(\lambda)$ and $G_2(\lambda)$ are respectively the main spot, the 1\up{st} order ghost, and the 2\up{nd} order ghost.}
     \label{fig:schema_ghost}
     %Google slides
 \end{figure}
 
-The $\alpha(\lambda)$ and $\beta(\lambda)$ parameters of the PSF are stable within \SI{350}{\nano\meter} and \SI{900}{\nano\meter}, and change significantly beyond. This is correlated with a change of the PSF shape in the infrared as it can be seen in the image stacks in Figure~\ref{fig:ghost_contrast}. The third panel shows a constant background against wavelength, with a mean of \SI{0.267}{ADU/pixel}. This panel shows also the result of a study over dark images, detailed in Section~\ref{sec:bkg}. The fourth panel presents the ratio $\Kghostfitfirst(\lambda) = \frac{G_1(\lambda)}{A(\lambda)}$ in percent, superimposed with the fraction $\Kghost=\frac{G_1}{G_0}$ obtained by photometry measurements on $G_1$. This study is detailed in Section~\ref{sec:ghost}. The reduced chi-squared of the fit in the fifth panel reach a value close to 1 at every wavelength, which indicates that the model satisfactorily describe the dataset.
+The $\alpha(\lambda)$ and $\beta(\lambda)$ parameters of the PSF are stable within \SI{350}{\nano\meter} and \SI{900}{\nano\meter}, and change significantly beyond. This is correlated with a change of the PSF shape in the infrared as can be seen in the image stacks in Figure~\ref{fig:ghost_contrast}. The third panel shows a constant background against wavelength, with a mean of \SI{0.267}{ADU/pixel} for an exposure time of \SI{1.1}{\second}. This panel shows also the result of a study over dark images, detailed in Section~\ref{sec:bkg}. The fourth panel presents the relative contribution of the first order ghost $G_1(\lambda)$, $\Kghostfitfirst(\lambda) = \frac{G_1(\lambda)}{A(\lambda)}$ in percent, superimposed with the fraction $\Kghost=\frac{G_1(\lambda)}{G_0(\lambda)}$ obtained by photometry measurements on the first order ghost $G_1(\lambda)$ and the main spot $G_0(\lambda)$. This study is detailed in Section~\ref{sec:ghost}, and shows that the two ratios share the same behaviour below \SI{900}{\nano\meter}. The reduced chi-squared of the fit in the fifth panel reach a value close to 1 at every wavelength, which indicates that the model satisfactorily describes the dataset.
 
 \begin{figure}[h]
      \centering
      \resizebox{\hsize}{!}{\includegraphics{fig/result_params.pdf}}
-     \caption{Result of fit of the model of Equation~\ref{eq:moffat_model}. Red plain lines correspond to the result of the fit, and black dashed lines to the values expected. From top to bottom: the first and second panel represent respectively the $\alpha(\lambda)$ and $\beta(\lambda)$ parameters from the Moffat distribution; the third panel shows the background contribution per pixel and its mean value in red, while the dark dashed line is the mean value of the dark ; the fourth panel represents $\Kghostfit(\lambda)$, and $\Kghost$; the fifth panel represents the reduced chi-squared of the fit.}
+     \caption{Best fitting parameters for the model of Equation~\ref{eq:moffat_model}. Red plain lines correspond to the result of the fit, and black dashed lines to the values expected. From top to bottom: the first and second panel represent respectively the $\alpha(\lambda)$ and $\beta(\lambda)$ parameters from the Moffat distribution; the third panel shows the background contribution per pixel and its mean value in red, while the dark dashed line is the mean value of the dark; the fourth panel represents $\Kghostfitfirst(\lambda)$, and $\Kghost$; the fifth panel represents the reduced chi-squared of the fit.}
      \label{fig:result_params}
     %~/stardice/analysis/cbp_paper/total_fluxes/fit_results.ipynb
 \end{figure}
@@ -74,44 +74,56 @@ The $\alpha(\lambda)$ and $\beta(\lambda)$ parameters of the PSF are stable with
 %On va mesurer l'ensemble des spots CBP avec l'ouverture à 20 pixels sachant que dans l'IR c'est pas fou 
 %*98\% du flux stable en couleur
 
-\subsection{Baseline photometry}
+\subsection{Photometry for filter throughput measurement}
+\label{sec:photometry_small}
 
-The modelisation of the image at long distance from the target is possible because of the ideal conditions of these images. These conditions are intrisinc to CBP images, with an isolated source and no sky background. It is impossible to port this method with on-sky data. We choose to carry out the whole analysis with aperture photometry and a background estimation reproducible with on-sky data. This method described in Section~\ref{sec:photometry_small} is the baseline photometry for the \spinhole pinhole. Then we will compare the results obtained with this method and the fitted parameters to quantify eventual biases of the baseline photometry.
+The modelization of the PSF at long distance from its core is possible because of the laboratory conditions of these images. These conditions are intrisinc to CBP images, with an isolated source and no sky background. It is impossible to port this method with on-sky data. We choose to carry out the whole analysis with aperture photometry and a background estimation reproducible with on-sky data. This method described in Section~\ref{sec:photometry_small} is the baseline photometry for the \spinhole pinhole. Then we will compare the results obtained with this method and the fitted parameters to quantify eventual biases of the baseline photometry.
 
 Figure~\ref{fig:ccd_examples} shows examples of images obtained when the CBP shoots in the \SD CCD camera with two different pinholes. 
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{fig/ccd_examples.pdf}
-    \caption{Examples of images obtained when the CBP shoots in the \SD telescope with the CBP at $\lambda_L=\SI{450}{\nm}$ with the \bpinhole on the right and \spinhole on the left. The ghost reflection is visible for both image at the left of the main spot. In the \bpinhole pinhole image, an annulus around the main spot is visible, and correspond to light diffusion around a mechanical iris at the input of the CBP.}
+    \caption{Examples of images obtained when the CBP shoots in the \SD telescope at $\lambda_L=\SI{450}{\nm}$ with the \bpinhole pinhole on the right and \spinhole pinhole on the left. The ghost reflection is visible for both images at the left of the main spot. In the \bpinhole pinhole image, a large annulus around the main spot is visible, and correspond to light diffusion around a mechanical iris at the input of the CBP.}
     \label{fig:ccd_examples}
     %~/stardice/analysis/cbp_paper/total_fluxes/ghost_stack_figure.ipynb
 \end{figure}
 
-\subsubsection{Data reduction for \spinhole pinhole}
-\label{sec:photometry_small}
+\subsubsection{Overscan subtraction}
 
 Firstly, we need to subtract the overscan in every image. The mean of each column $i$ of the horizontal overscan and each row $j$ of the vertical overscan is computed. For each pixel $(i, j)$, we subtract the sum of estimation of the overscan estimated on the column $i$ and the row $j$.
-Then, aperture photometry is done to extract the cumulated charge from the \SD camera images. This requires a background subtraction, and two differents methods are used depending on the pinhole.
+Then, aperture photometry is performed to measure the quantity of photons collected in the \SD camera images. This requires a background subtraction, and two differents methods are used depending on the pinhole.
 
-To estimate the background contribution, the sources in the image need to be detected and masked. We compute the standard deviation of an image $\sigma$, and every pixel with a signal higher than 5$\sigma$ is masked, as well as all the surrounding pixels that has a signal higher than 2$\sigma$. Then we proceed to a segmentation of the masked image into boxes of $129\times132$ pixels. We compute the mean and the standard deviation of the background in each of these boxes, and we interpolate their values in a 2D map to get our estimation of the background. This background estimation is subtracted to the image. Then, the centroid of the spot of interest is computed to pursue aperture photometry at this position. The number of charges $\Qccd$ is measured with aperture photometry at a radius of \SI{20.9}{pixels} for every image of the dataset with the \spinhole.
-
-The fraction of flux missed by this method compared to the total amplitude $A$ is quantified in Figure~\ref{fig:bias_aperture}. Less than 3\% of the flux is missed between \SI{400}{\nano\meter} and \SI{900}{\nano\meter}. Below \SI{400}{\nano\meter} the ghost contribution is missed when using an aperture of \SI{20.9}{pixels}. Above \SI{900}{\nano\meter} where the PSF is degrading, the fraction of flux missed increase by two order of magnitude and reach more than 75\%. The bottom panel of Figure~\ref{fig:bias_aperture} show that the baseline photometry is compatible to the fit estimation at less than 0.2\% between \SI{400}{\nano\meter} and \SI{900}{\nano\meter}. 
-
-We can reach the conclusion that the baseline aperture photometry for the \spinhole pinhole can be used for the range between \SI{400}{\nano\meter} and \SI{900}{\nano\meter}. Below \SI{400}{\nano\meter} there is a need to take care of the ghost contribution. Above \SI{900}{\nano\meter}, this method does not measure a representative flux of the target. It is believed that the \SD telescope is the one responsible for the PSF degradation, one possible explanation is that the primary mirror is becoming partially transparent and generate defocused light. Anyhow, the CBP measurements cannot be trusted in this wavelength range. 
-
-\begin{figure}[h]
-     \centering
-     \resizebox{\hsize}{!}{\includegraphics{fig/bias_aperture.pdf}}
-     \caption{Top: Fraction of flux missed in percent against $\lambda_L$ when measuring \spinhole pinhole dataset with aperture photometry at \SI{20.9}{pixels} rather than taking the total amplitude $A$ fitted. The red curve corresponds to the estimation of the fit, the green one to aperture photometry when the backgruond is estimate with the dark datasets, and the blue one to aperture photometry when the background is estimate with the method described in Section~\ref{sec:photometry}. Bottom: Relative difference in percent between the flux measured for aperture photometry with the two background estimations and the model estimation at \SI{20.9}{pixels}.}
-     \label{fig:bias_aperture}
-    %~/stardice/analysis/cbp_paper/total_fluxes/fit_results.ipynb
-\end{figure}
-
-\subsubsection{Background estimation}
+\subsubsection{Background subtraction}
 \label{sec:bkg}
 
-As shown in the third panel of Figure~\ref{fig:result_params}, the mean background fitted $\mu_\mathrm{bkg, fitted}=0.267$ with a standard deviation of $\sigma_\mathrm{bkg}=0.059$. On the other hand, two datasets of dark images have been studied. Firstly dark images with the laser turned off, and secondly dark images when masking the CBP output with a cap from dataset No.~9 in Table~\ref{tab:schedule}. Both datasets are uniform with respect to time and wavelength, and their mean value of ADU/pixel are compatible. We combine this into one dataset of darks and compute their mean $\mu_\mathrm{dark, photometry}=0.252$ and standard deviation $\sigma_\mathrm{dark, photometry}=0.059$. The result is visible in the third panel of Figure~\ref{fig:result_params}. We conclude that the estimation of the background with the fit is consistent with the dark datasets results.
+\textbf{75~µm pinhole} \\
+
+To estimate the background contribution, the sources in the image need to be detected and masked. We compute the standard deviation of an image $\sigma$, and every pixel with a signal higher than 5$\sigma$ is masked, as well as all the surrounding pixels that has a signal higher than 2$\sigma$. Then we proceed to a segmentation of the masked image into boxes of $129\times132$ pixels. We compute the mean and the standard deviation of the background in each of these boxes, and we interpolate their values in a 2D map to get our estimation of the background. This background estimation is subtracted to the image. Then, the centroid of the spot of interest is computed to pursue aperture photometry at this position. $\Qccd$ is measured with aperture photometry at a radius of \SI{20.9}{pixels} for every image of the dataset with the \spinhole.
+
+As shown in the third panel of Figure~\ref{fig:result_params}, the mean background fitted is $\mu_\mathrm{bkg, fitted}=\SI{0.267}{ADU/pixel}$ with a standard deviation of $\sigma_\mathrm{bkg}=\SI{0.059}{ADU/pixel}$. On the other hand, two datasets of dark images have been studied. Firstly dark images with the laser turned off, and secondly dark images when masking the CBP output with a cap from dataset No.~9 in Table~\ref{tab:schedule}. Both datasets are constants in time and wavelength, and their mean value of ADU/pixel are compatible. We combine it into one dataset of darks and compute their mean $\mu_\mathrm{dark, photometry}=\SI{0.252}{ADU/pixel}$ and standard deviation $\sigma_\mathrm{dark, photometry}=\SI{0.059}{ADU/pixel}$. The result is visible in the third panel of Figure~\ref{fig:result_params}. We conclude that the estimation of the background with the fit is consistent with the dark datasets results. \\
+
+\textbf{5~mm pinhole} \\
+
+When using \bpinhole pinhole, the main spot takes a significant area of the focal plane, meaning there is not enough background in the image to reconstruct it. The background is measured with dark exposures with the dark datasets mentioned above, and the spatial mean of all these dark images is computed to obtain a master dark. The background contribution is estimated by aperture photometry in the master dark at the same position and same radius than the laser-on images. $\Qccd^{\bpinhole}$ is measured with aperture photometry, after background subtraction. The optimal radius is evaluated at 300 pixels for the \bpinhole pinhole in order to contain the main spot and the 1\up{st} order ghost. We could have increased the radius to contain the iris flux, but it would have added as much noise as the signal gained. 
+
+\subsubsection{Correction of the light contamination}\label{sec:sd_contaminations}
+
+When measuring the flux collected from the \SD camera, we have to remove light contaminations described in Sections~\ref{sec:532_cont} and~\ref{sec:fluorescence}. As the photodiode and the solar cell, the total signal measured in the \SD camera $\Qccdmes$ is the sum of the flux from the main laser line $\Qccdcal$ and the flux from the \SI{532}{\nm} contamination $\Qccd^{532}$, the $\lambda_{\rm comp}$ contamination $\Qccd^{\lambda_{\rm comp}}$, and the integrating sphere fluorescence $\Qccd^{\mathrm{fluo}}$, as follows:
+\begin{equation}
+    \Qccdmes = \Qccdcal + \Qccd^{532} + \Qccd^{\lambda_{\rm comp}} + \Qccd^{\mathrm{fluo}}
+    \label{eq:qccd_mes}
+\end{equation}
+
+The contamination light in the \SD camera can be estimated by multiplying $\Qphot^{532}$, $\Qphot^{\lambda_{\rm comp}}$ and $\Qphot^{\mathrm{fluo}}$ by $\Rcbp(\lambda)$ and $\Rtel(\lambda)$. The contaminations are subtracted, and impact on filter transmission measurement is shown Figure~\ref{fig:g_filter_532}, focusing on the \SD g filter, the most affected filter by integrating sphere fluorescence and \SI{532}{\nano\meter} line.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\columnwidth]{fig/g_filter_532.pdf}
+    \caption{\SD g filter transmission as a function of the set laser wavelength $\lambda_L$, with and without the \SI{532}{\nm} and fluorescence correction. For clarity, we added a zoom on the out-of-band transmission where $\SI{532}{\nm}$ line is transmitted while higher wavelengths are shot by the laser.}
+    \label{fig:g_filter_532}
+    %cbp_paper_plots.ipynb
+\end{figure}
 
 \subsubsection{$G_1$ photometry}
 \label{sec:ghost}
@@ -123,9 +135,9 @@ Let be $G_0(\lambda)$ the quantity of light collected in the main spot, and $G_\
     \label{eq:ratio_ghost}
 \end{equation}
 
-We measure $G_1(\lambda)$ with the \spinhole pinhole where it is well separated from $G_0(\lambda)$. We build a mask with the expected ghost shape like shown in Figure~\ref{fig:ghost_contrast}, and we fit its best position on the image. To estimate the background at this position, we assume that the main spot has a spatial vertical symmetry, and measure the ADUs contained in a symmetric mask at the vertical symmetric position from the main spot. Then, $G_1(\lambda)$ is the sum of the ADUs in the ghost mask after background subtraction. On the other hand, $G_0(\lambda)$ is measured with the baseline photometry. This study is pursued for the 3 runs of dataset No.~4, and 2 runs of dataset No.~2 from Table~\ref{tab:schedule}. The results obtained for $\Kghost$ are shown in Figure~\ref{fig:ghost_ratio}. 
+We measure $G_1(\lambda)$ with the \spinhole pinhole where it is well separated from $G_0(\lambda)$. We build a mask with the expected ghost shape like shown in Figure~\ref{fig:ghost_contrast}, and we fit its best position on the image. To estimate the background at this position, we assume that the main spot has a spatial vertical symmetry, and measure the flux contained in a symmetric mask at the vertical symmetric position from the main spot. Then, $G_1(\lambda)$ is the sum of the ADUs in the ghost mask after background subtraction. On the other hand, $G_0(\lambda)$ is measured with the baseline photometry. This study is pursued for the 3 runs of dataset No.~4, and 2 runs of dataset No.~2 from Table~\ref{tab:schedule}. The results obtained for $\Kghost$ are shown in Figure~\ref{fig:ghost_ratio}. 
 
-The ratio $\Kghost$ and $\Kghostfitfirst$ obtained with two different methods are superimposing well below \SI{950}{\nano\meter} in the third panel of Figure~\ref{fig:result_params}, which gives us confidence about tue accuracy of this measurement. Above \SI{950}{\nano\meter} the PSF is deteriorating and starts to overflow in the ghost mask, plus there are interference fringes appearing in the focal plane. These issues can explain the deviation between the two measurements at these wavelengths. The fit result gives more confidence in its accuracy because it deals with the PSF evolution.
+The ratio $\Kghost$ and $\Kghostfitfirst$ obtained with two different methods are superimposing well below \SI{950}{\nano\meter} in the third panel of Figure~\ref{fig:result_params}, which gives us confidence about the accuracy of this measurement. Above \SI{950}{\nano\meter} the PSF is deteriorating and starts to overflow in the ghost mask, plus there are interference fringes appearing in the focal plane. These issues can explain the deviation between the two measurements at these wavelengths. The fit result gives more confidence in its accuracy because it accounts for the PSF evolution.
 
 \begin{figure}[h]
      \centering
@@ -137,18 +149,25 @@ The ratio $\Kghost$ and $\Kghostfitfirst$ obtained with two different methods ar
 
 Further investigation indicates that the ghosts of higher order $G_{n>1}$ should contribute for less than $0.1\%$ of $G_0(\lambda)$. Yet, a second order ghost is visible for the stack in infrared in the right panel of Figure~\ref{fig:ghost_contrast}. The reflectivities of the window and the CCD cannot explain this phenomenon, so it has necessarily went through another optical path. The infrared light could have gone through the CCD and reflect in the back of it before being collected.
 
-\subsection{Pinhole intercalibration}
+\subsubsection{Aperture correction}
 
-It is necessary to intercalibrate the \SD response measurements obtained with the \spinhole pinhole with the CBP response measurements obtained with the \bpinhole pinhole. To link these measurements, we measure the difference between \SD responses with the \spinhole pinhole and the \bpinhole pinhole. When shooting with the \bpinhole pinhole, the main spot is a pointlike source , hence the data reduction of $\Qccd^{\bpinhole}$ is different than the baseline photometry.
+In this section, we aim to quantify the fraction of flux missed when measuring the signal for a \spinhole pinhole image with aperture photometry rather than with the PSF photometry. The fraction of flux missed by aperture photometry compared to the total amplitude $A$ is quantified in Figure~\ref{fig:bias_aperture}. Less than 3\% of the flux is missed between \SI{400}{\nano\meter} and \SI{900}{\nano\meter}. Below \SI{400}{\nano\meter} the ghost contribution is missed when using an aperture of \SI{20.9}{pixels}. Above \SI{900}{\nano\meter} where the PSF is degrading, the fraction of flux missed increase by one order of magnitude and reach more than 75\%. The bottom panel of Figure~\ref{fig:bias_aperture} shows that the baseline photometry is compatible to the fit estimation at less than 0.2\% between \SI{400}{\nano\meter} and \SI{900}{\nano\meter}. 
 
-\subsubsection{\bpinhole pinhole}
-\label{sec:photometry_big}
+\begin{figure}[h]
+     \centering
+     \resizebox{\hsize}{!}{\includegraphics{fig/bias_aperture.pdf}}
+     \caption{\textit{Top:} Fraction of missing flux against $\lambda_L$ when measuring \spinhole pinhole dataset with aperture photometry at \SI{20.9}{pixels} rather than taking the total amplitude $A$ fitted. The red curve corresponds to the estimation of the fit, the green one to aperture photometry when the backgruond is estimate with the dark datasets, and the blue one to aperture photometry when the background is estimate with the method described in Section~\ref{sec:photometry_small}. \textit{Bottom:} Relative difference in percent between the flux measured for aperture photometry with the two background estimations and the model estimation at \SI{20.9}{pixels}.}
+     \label{fig:bias_aperture}
+    %~/stardice/analysis/cbp_paper/total_fluxes/fit_results.ipynb
+\end{figure}
 
-When using \bpinhole pinhole, the main spot take a significant area of the focal plane, meaning there is not enough background in the image to reconstruct it. The background is estimated with dark exposures with the laser off. These dark images are stationary with respect to time and wavelength, and the spatial mean of all these dark images dark is computed to obtain a master dark. The background contribution is estimated by aperture photometry in the master dark at the same position and same radius than the classic images. We find the centroid of the spot of interest, and we measure the charges $\Qccd^{\bpinhole}$ collected in the \SD camera by aperture photometry, subtracted of the background contribution. The optimal radius is evaluated at 300 pixels for the \bpinhole pinhole in order to contain the main spot and the 1\up{st} order ghost. It could be discussed to contain the iris diffusion, but the iris flux contribution would be about the same order of magnitude than the shotnoise, so it is decided to not do this.
+We can reach the conclusion that the baseline aperture photometry for the \spinhole pinhole can be used for the range between \SI{400}{\nano\meter} and \SI{900}{\nano\meter}. Below \SI{400}{\nano\meter} there is a need to take care of the ghost contribution. Above \SI{900}{\nano\meter}, this method does not measure a representative flux of the target. It is believed that the \SD telescope is the one responsible for the PSF degradation, one possible explanation is that the primary mirror is becoming partially transparent and generate defocused light. Anyhow, the CBP measurements cannot be trusted in this wavelength range. 
 
-\subsubsection{Ratio of \SD responses}
+\subsubsection{Pinhole intercalibration}
 
-To compare the \SD responses for both pinhole, we need to measure the fluxes with aperture photometry at the same radius. Thus both aperture photometries contain the same feature, such as the ghost contribution, this way there is no other consideration than the geometry of the pinholes. We estimate the \spinhole pinhole flux $F(300)$ with the model from Equation~\ref{eq:moffat_model}, $\phi^{\bpinhole}_{300.00}$ witht the methode described in Section~\ref{sec:photometry_big}. We compute the ratio $\Kpinholes=\frac{F(300)}{\phi^{\bpinhole}_{300.00}}$ and show the result in Figure~\ref{fig:ratio_pinholes}. The linear fit of this ratio is used to intercalibrate the \bpinhole pinhole $\Rcbp$ obtained and the \spinhole pinhole \SD for every measurements of this analysis.
+It is necessary to intercalibrate the \SD response measurements obtained with the \spinhole pinhole with the CBP response measurements obtained with the \bpinhole pinhole. To link these measurements, we measure the difference between \SD responses with the \spinhole pinhole and the \bpinhole pinhole. When shooting with the \bpinhole pinhole, the main spot is a pointlike source, hence the data reduction of $\Qccd^{\bpinhole}$ is different than the baseline photometry.
+
+To compare the \SD responses for both pinhole, we need to measure the fluxes with aperture photometry at the same radius. Thus both apertures contain the same features, such as the ghost contribution. This way there is no other consideration than the geometry of the pinholes. We estimate the \spinhole pinhole flux $F(300, \lambda)$, $\Qccd^{\bpinhole}$ with the method described in Section~\ref{sec:photometry_big}. We compute the ratio $\Kpinholes=\frac{F(300)}{\Qccd^{\bpinhole}}$ and show the result in Figure~\ref{fig:ratio_pinholes}. The linear fit of this ratio is used to intercalibrate the \bpinhole pinhole $\Rcbp(\lambda)$ obtained and the \spinhole pinhole \SD for every measurements of this analysis.
 
 %The non-null slope and not expected as the ratio between the two pinholes should corresponds only to the ratio of surfaces of illuminated area at the input CBP. We suspect that some light diffusion on the edges of the pinholes or other complex reflections in the setup could give this ratio a chromatic dependance.
 
@@ -305,67 +324,54 @@ To compare the \SD responses for both pinhole, we need to measure the fluxes wit
 %    \label{fig:sd_budget}
 %\end{figure}
 
-\subsection{Correction of the light contamination}\label{sec:sd_contaminations}
+\subsection{\SD response}
 
-When extracting the charges from the \SD camera, we have to remove light contaminations described in Sections~\ref{sec:532_cont} and~\ref{sec:fluorescence}. As the photodiode and the solar cell, the total charge measured in the \SD camera $\Qccdmes$ is the sum of the charges from the main laser line $\Qccdcal$ and the charges from the \SI{532}{\nm} contamination $\Qccd^{532}$, the $\lambda_{\rm comp}$ contamination $\Qccd^{\lambda_{\rm comp}}$, and the integrating sphere fluorescence $\Qccd^{\mathrm{fluo}}$, as follows:
-\begin{equation}
-    \Qccdmes = \Qccdcal + \Qccd^{532} + \Qccd^{\lambda_{\rm comp}} + \Qccd^{\mathrm{fluo}}
-    \label{eq:qccd_mes}
-\end{equation}
-As we defined the final calibrated amount of charges detected in the solar cell $\Qsolarcal$, we do the same with the \SD CCD. The light detected by the \SD CCD has gone through the CBP optics and the \SD telescope. These instruments have respectively optical responses defined as $\Rcbp(\lambda)$ and $\Rtel(\lambda)$. We can define $R(\lambda)$ the total response of the CBP and the \SD telescope optics:
-\begin{equation}
-    R(\lambda) = \Rtel(\lambda) \times \Rcbp(\lambda).
-    \label{eq:rtot}
-\end{equation}
-Then, the contamination contribution in \SD camera from every source is evaluated multiplying photodiode charge contamination by $R(\lambda)$.
-The impact of these subtractions is illutrated in Figure~\ref{fig:g_filter_532} focusing on the \SD g filter, the most affected filter by integrating sphere fluorescence and \SI{532}{\nano\meter} line.
+In this section we present the results obtained for the \SD throughput measurement with the \bpinhole pinhole from dataset No.~8; the StarDICE throughput and its filter and grating transmissions measurement with the \spinhole pinhole from dataset No.~6; and the measurements of the datasets No.~2, No.~3 and No.~12. 
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\columnwidth]{fig/g_filter_532.pdf}
-    \caption{\SD g filter transmission as a function of the set laser wavelength $\lambda_L$, with and without the \SI{532}{\nm} correction. For clarity, we added a zoom on the out-of-band transmission where $\SI{532}{\nm}$ line is transmitted while higher wavelengths are shot by the laser.}
-    \label{fig:g_filter_532}
-    %cbp_paper_plots.ipynb
-\end{figure}
+\subsubsection{\SD throughput with \bpinhole pinhole}
 
-\subsection{\SD response scan}
-
-\subsubsection{\SD optics, filters and grating responses}
-
-In this section we present the results of our different measurements. The following measurements are all taken at the same position on the mirror and the focal plane. The Figure~\ref{fig:stardice_5mm_response} show the \SD response obtained with the \bpinhole pinhole, and no filter. The Figure~\ref{fig:stardice_75um_response} show the \SD response obtained with the \spinhole pinhole, with all filters. In this figure we have a wavelength resolution sufficient enough to see the filter edges. The Figure~\ref{fig:stardice_grating_response} show the \SD response obtained with the \spinhole pinhole, with the grating set in front of the camera. The grating being blazed so that the 1\up{st} order of diffraction is the brightest, so we will mainly focus on this order of diffraction. We see a cut of the 2\up{nd} and 3\up{rd} order that correspond to the wavelength at which the signal is outside the CCD sensor.
+The Figure~\ref{fig:stardice_5mm_response} show the \SD response obtained with the \bpinhole pinhole, and no filter.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{fig/stardice_5mm_response.pdf}
-    \caption{Up : \SD response with no filter and \bpinhole pinhole with respect to wavelength in nanometer. Bottom : Uncertainties over the \SD response measurement with respect to wavelength in nanometer.}
+    \caption{\textit{Top:} \SD response with no filter and \bpinhole pinhole with respect to wavelength in nanometer. \textit{Bottom:} Uncertainties over the \SD response measurement with respect to wavelength in nanometer.}
     \label{fig:stardice_5mm_response}
     %~/stardice/analysis/cbp_paper/golden_sample_analysis/dr2/response_plots.ipynb
 \end{figure}
 
+\subsubsection{\SD throughput and filter transmissions with \spinhole pinhole}
+
+The Figure~\ref{fig:stardice_75um_response} show the \SD response obtained with the \spinhole pinhole, with all filters. In this figure can see that the wavelength resolution is precise enough to have several points in the filter edges, which is a good feature to measure precisely the filter central wavelength. 
+
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{fig/stardice_75um_response.pdf}
-    \caption{Up : \SD response with at all filters and \spinhole pinhole with respect to wavelength in nanometer. Bottom : Uncertainties over the \SD response measurement with respect to wavelength in nanometer.}
+    \caption{Up : \SD response with at all filters and \spinhole pinhole with respect to wavelength in nanometer. \textit{Bottom:} Uncertainties over the \SD response measurement with respect to wavelength in nanometer.}
     \label{fig:stardice_75um_response}
     %~/stardice/analysis/cbp_paper/golden_sample_analysis/dr2/response_plots.ipynb
 \end{figure}
 
+\subsubsection{\SD grating transmissions}
+
+The Figure~\ref{fig:stardice_grating_response} show the \SD response obtained with the \spinhole pinhole, with the grating set in the filterwheel. The grating being blazed so that the 1\up{st} order of diffraction is the brightest, so this is where the signal is the better as it can be seen in the relative uncertainties panel. We see a cut of the 2\up{nd} and 3\up{rd} order that correspond to the wavelength at which the signal is outside the CCD sensor.
+
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{fig/stardice_grating_response.pdf}
-    \caption{Up : \SD response with the grating in front of the camera and \spinhole pinhole with respect to wavelength in nanometer. Bottom : Uncertainties over the \SD response measurement with respect to wavelength in nanometer.}
+    \caption{\textit{Top:} \SD response with the grating in front of the camera and \spinhole pinhole with respect to wavelength in nanometer. \textit{Bottom:} Uncertainties over the \SD response measurement with respect to wavelength in nanometer.}
     \label{fig:stardice_grating_response}
     %~/stardice/analysis/cbp_paper/golden_sample_analysis/dr2/response_plots.ipynb
 \end{figure}
 
 \subsubsection{Radial positions}
 
-The upper Figure~\ref{fig:radial_positions} show the \SD response obtained with the \spinhole pinhole and without filters for the different radial positions on the mirror shown in Figure~\ref{fig:8_mirror_positions} left, and the same focal plane position. The lower figure show the normalized residuals to the mean spline going through the four responses. In the ultraviolet below \SI{450}{\nm}, we can see a significant difference between the four radial positions. It goes up to 30\%, and it will be discussed in the section \ref{sec:discussion}. What we see above \SI{1000}{\nm} in the infrared is the result of the data oscillations around the spline caused by the fringing. 
+The upper Figure~\ref{fig:radial_positions} show the \SD response obtained with the \spinhole pinhole and without filters for the different radial positions on the mirror shown in Figure~\ref{fig:8_mirror_positions} left, and the same focal plane position. The lower figure shows the relative difference to the mean spline going through the four responses. In the ultraviolet below \SI{450}{\nm}, we can see a significant difference between the four radial positions. It goes up to 30\%, and it will be discussed in the section \ref{sec:discussion}. What we see above \SI{1000}{\nm} in the infrared is the result of the data oscillations around the spline caused by the fringing. 
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{fig/radial_positions.pdf}
-    \caption{Top : \SD response for the different radial positions on the mirror, but same position on the focal plane. Bottom : Relative difference between the data and the mean spline.}
+    \caption{\textit{Top:} \SD response for the different radial positions on the mirror, but same position on the focal plane. \textit{Bottom:} Relative difference between the data and the mean spline.}
     \label{fig:radial_positions}
     %~/stardice/analysis/cbp_paper/golden_sample_analysis/dr2/2022_03_01_stardice_transmission_radius.ipynb
 \end{figure}
@@ -377,7 +383,7 @@ The upper Figure~\ref{fig:radial_positions} show the \SD response obtained with 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{fig/quadrant_positions.pdf}
-    \caption{Top : \SD response for the different quadrant positions on the mirror, but same position on the focal plane. Bottom : Relative difference between the data and the mean spline.}
+    \caption{\textit{Top:} \SD response for the different quadrant positions on the mirror, but same position on the focal plane. \textit{Bottom:} Relative difference between the data and the mean spline.}
     \label{fig:quadrant_positions}
     %~/stardice/analysis/cbp_paper/golden_sample_analysis/dr2/2022_03_01_stardice_transmission_mirror_samples.ipynb
 \end{figure}
@@ -389,7 +395,7 @@ The upper Figure~\ref{fig:ccd_positions} show the \SD response obtained with the
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{fig/ccd_positions.pdf}
-    \caption{Top : \SD response for the different positions on the focal plane, but same position on the mirror. Bottom : Relative difference between the data and the mean spline.}
+    \caption{\textit{Top:} \SD response for the different positions on the focal plane, but same position on the mirror. \textit{Bottom:} Relative difference between the data and the mean spline.}
     \label{fig:ccd_positions}
     %~/stardice/analysis/cbp_paper/golden_sample_analysis/dr2/2022_03_09_stardice_transmission_grid_auto.ipynb
 \end{figure}
@@ -410,6 +416,8 @@ Varying QSW but depending on result it falls into this subsection or the followi
 \subsubsection{Pull distributions}
 
 \subsubsection{Courbes de croissances}
+
+
 
 
 
