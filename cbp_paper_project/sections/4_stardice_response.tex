@@ -3,18 +3,24 @@
 
 In this section, we will show the methodology to obtain the \SD telescope response $\Rtel(\lambda)$ by analyzing \SD camera data.
 
-\subsection{Data set description}
+\subsection{Data set description and strategy}
 \label{sec:sd_datadesc}
 
-As described in section \ref{sec:cbp_datadesc}, the laser emits pulses at a rate of \SI{1}{\kilo\hertz} in bursts that are separated with dark times. Figure~\ref{fig:ghost_contrast} shows a stack of images obtained when the CBP shoots in the \SD CCD camera for two wavelength datasets. 
+As described in section \ref{sec:cbp_datadesc}, the laser emits pulses at a rate of \SI{1}{\kilo\hertz} in bursts that are separated with dark times. We set the \spinhole pinhole to measure the \SD throughput and its filter transmissions. Yet, as discussed in Section~\ref{sec:strategy} the calibration of the CBP throughput is obtained with the \bpinhole pinhole, so we use an open transmission measurement of the \SD telescope with both pinholes to intercalibrate the CBP and \SD telescope responses. Figure~\ref{fig:ccd_examples} shows examples of images obtained when the CBP shoots in the \SD CCD camera with two different pinholes. \\
+
+In the following sections, we describe the modelization of the \spinhole pinhole dataset via PSF photometry. Then, we discuss the choice of the baseline photometry used to measure the \SD response, and the method to intercalibrate it with the CBP response. Finally we will show the result obtained.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\columnwidth]{fig/ghost_contrast.pdf}
-    \caption{Stack of images at different wavelengths, with one image per nanometer. \textit{Left:} Stack of images between \SI{350}{\nano\meter} and \SI{450}{\nano\meter}. The scale is set on the ZScale from IRAF to make faint features visible. The spot of interest $G_0$ is at the center, and the ghost reflections are at its left. The circles correspond to the aperture photometry at different radii, when an annulus contains ghost contribution, it is colored with respect to the order of the ghost. The red area around the 1$\up{st}$ order ghost represents the area where the photometry of the ghost is measured. \textit{Right:} Same image but for a stack of images between \SI{1000}{\nano\meter} and \SI{1100}{\nano\meter}. We note that the 2$\up{nd}$ order ghost is not visible for the stack in the UV, where the 1$\up{st}$ order is maximal, while it is visible in the IR, where the 1$\up{st}$ order is lower. For the stack in IR, we osberve a degradation of the \SD PSF.}
-    \label{fig:ghost_contrast}
+    \includegraphics[width=\columnwidth]{fig/ccd_examples.pdf}
+    \caption{Examples of images obtained when the CBP shoots in the \SD telescope at $\lambda_L=\SI{450}{\nm}$ with the \bpinhole pinhole on the right and \spinhole pinhole on the left. The ghost reflection is visible for both images at the left of the main spot. In the \bpinhole pinhole image, a large annulus around the main spot is visible, and correspond to light diffusion around a mechanical iris at the input of the CBP.}
+    \label{fig:ccd_examples}
     %~/stardice/analysis/cbp_paper/total_fluxes/ghost_stack_figure.ipynb
 \end{figure}
+
+\subsection{Overscan subtraction}
+\label{sec:overscan}
+For both pinholes, the overscan of each image is estimated and subtracted. The mean of each column $i$ of the horizontal overscan and each row $j$ of the vertical overscan is computed. For each pixel $(i, j)$, we subtract the sum of estimation of the overscan estimated on the column $i$ and the row $j$. \\
 
 \subsection{Modelisation of the \SD data for \spinhole pinhole}
 
@@ -26,7 +32,17 @@ As described in section \ref{sec:cbp_datadesc}, the laser emits pulses at a rate
 %bkg --> cohérent avec darks
 %5eme panneau --> chi2/dof
 
-In this section, we develop a modelization of the \spinhole pinhole data, considering that the \SD telescope PSF can be modelized as a Moffat distribution \citep{moffat} $M(r, \lambda)$ which depends on the radius $r$ and the wavelength $\lambda$ as:
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\columnwidth]{fig/ghost_contrast.pdf}
+    \caption{Stack of images at different wavelengths, with one image per nanometer. \textit{Left:} Stack of images between \SI{350}{\nano\meter} and \SI{450}{\nano\meter}. The scale is set on the ZScale from IRAF to make faint features visible. The spot of interest $G_0$ is at the center, and the ghost reflections are at its left. The circles correspond to the aperture photometry at different radii, when an annulus contains ghost contribution, it is colored with respect to the order of the ghost. The red area around the 1$\up{st}$ order ghost represents the area where the photometry of the ghost is measured. \textit{Right:} Same image but for a stack of images between \SI{1000}{\nano\meter} and \SI{1100}{\nano\meter}. We note that the 2$\up{nd}$ order ghost is not visible for the stack in the UV, where the 1$\up{st}$ order is maximal, while it is visible in the IR, where the 1$\up{st}$ order is lower. For the stack in IR, we osberve a degradation of the \SD PSF.}
+    \label{fig:ghost_contrast}
+    %~/stardice/analysis/cbp_paper/total_fluxes/ghost_stack_figure.ipynb
+\end{figure}
+
+In this section, we develop a modelization of the \spinhole pinhole dataset, where Figure~\ref{fig:ghost_contrast} shows stacks of images obtained with this dataset. The illumination of a section of the primary StarDICE mirror results in a central image resulting from the \SD telescope PSF, and a set of additional fainter images that we call ghosts. The ghosts result from undesired but unavoidable reflexions on optical surfaces. The most visible ones come from the beam reflexion on the CCD surface and back reflexion on its covering window, as described in Figure~\ref{fig:schema_ghost}.\\
+
+We consider that the \SD telescope PSF can be modelized as a Moffat distribution \citep{moffat} $M(r, \lambda)$ which depends on the radius $r$ and the wavelength $\lambda$ as:
 
 \begin{equation}
 M(r, \lambda)= 1 - \left( 1+\frac{r^2}{\alpha(\lambda)^2} \right)^{1-\beta(\lambda)},
@@ -51,7 +67,13 @@ The fit is done with PSF photometry for a radius $r=\SI{20.9}{pixels}$, and then
     %Google slides
 \end{figure}
 
-The $\alpha(\lambda)$ and $\beta(\lambda)$ parameters of the PSF are stable within \SI{350}{\nano\meter} and \SI{900}{\nano\meter}, and change significantly beyond. This is correlated with a change of the PSF shape in the infrared as can be seen in the image stacks in Figure~\ref{fig:ghost_contrast}. The third panel shows a constant background against wavelength, with a mean of \SI{0.267}{ADU/pixel} for an exposure time of \SI{1.1}{\second}. This panel shows also the result of a study over dark images, detailed in Section~\ref{sec:bkg}. The fourth panel presents the relative contribution of the first order ghost $G_1(\lambda)$, $\Kghostfitfirst(\lambda) = \frac{G_1(\lambda)}{A(\lambda)}$ in percent, superimposed with the fraction $\Kghost=\frac{G_1(\lambda)}{G_0(\lambda)}$ obtained by photometry measurements on the first order ghost $G_1(\lambda)$ and the main spot $G_0(\lambda)$. This study is detailed in Section~\ref{sec:ghost}, and shows that the two ratios share the same behaviour below \SI{900}{\nano\meter}. The reduced chi-squared of the fit in the fifth panel reach a value close to 1 at every wavelength, which indicates that the model satisfactorily describes the dataset.
+In the first and second panel, we can see that the $\alpha(\lambda)$ and $\beta(\lambda)$ parameters of the PSF are stable within \SI{350}{\nano\meter} and \SI{900}{\nano\meter}, and change significantly beyond. This is correlated with a change of the PSF shape in the infrared as can be seen in the image stacks in Figure~\ref{fig:ghost_contrast}. 
+
+The third panel shows a constant background against wavelength, with a mean of $\mu_\mathrm{bkg, fitted}=\SI{0.267}{ADU/pixel}$ for an exposure time of \SI{1.1}{\second}. This panel show also the result of an independant study of the background analyzing dark images. Two datasets of dark images have been studied, one with the laser turned off, and a second by masking the CBP output with a cap (dataset No.~9 in Table~\ref{tab:schedule}). Both datasets are constants in time and wavelength, and their mean value of ADU/pixel are compatible, so we combine them into one dataset of darks. The mean photometry value of this dataset is represented by the black dashed line in this third panel, and is $\mu_\mathrm{dark, photometry}=\SI{0.252}{ADU/pixel}$ with a standard deviation $\sigma_\mathrm{dark, photometry}=\SI{0.059}{ADU/pixel}$. We conclude that the estimation of the background with the fit is consistent with the dark datasets results. \\
+
+The fourth panel presents the relative contribution of the first order ghost $G_1(\lambda)$, $\Kghostfitfirst(\lambda) = \frac{G_1(\lambda)}{A(\lambda)}$ in percent, superimposed with the fraction $\Kghost=\frac{G_1(\lambda)}{G_0(\lambda)}$ obtained by photometry measurements on the first order ghost $G_1(\lambda)$ and the main spot $G_0(\lambda)$. The method to perform ghost photometry is detailed in Appendix~\ref{sec:ghost_photometry}. The ratio $\Kghost$ and $\Kghostfitfirst$ obtained with two different methods on two different datasets are superimposing well below \SI{950}{\nano\meter}, which gives us confidence about the accuracy of this measurement. The deviation above \SI{950}{\nano\meter} between the two methods can be explained by the following arguments. the $\alpha(\lambda)$ and $\beta(\lambda)$ parameters indicate a deterioration of the PSF, which starts to overflow in the ghost photometry. In addition, interference fringes are appearing in the focal plane at these wavelengths, complicating the ghost photometry. As the fit accounts for the PSF evolution, the fitted result gives more confidence in its accuracy.
+
+The reduced chi-squared of the fit in the fifth panel reach a value close to 1 at every wavelength, which indicates that the model satisfactorily describes the dataset.
 
 \begin{figure}[h]
      \centering
@@ -77,35 +99,12 @@ The $\alpha(\lambda)$ and $\beta(\lambda)$ parameters of the PSF are stable with
 \subsection{Photometry for filter throughput measurement}
 \label{sec:photometry_small}
 
-The modelization of the PSF at long distance from its core is possible because of the laboratory conditions of these images. These conditions are intrisinc to CBP images, with an isolated source and no sky background. It is impossible to port this method with on-sky data. We choose to carry out the whole analysis with aperture photometry and a background estimation reproducible with on-sky data. This method described in Section~\ref{sec:photometry_small} is the baseline photometry for the \spinhole pinhole. Then we will compare the results obtained with this method and the fitted parameters to quantify eventual biases of the baseline photometry.
-
-Figure~\ref{fig:ccd_examples} shows examples of images obtained when the CBP shoots in the \SD CCD camera with two different pinholes. 
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\columnwidth]{fig/ccd_examples.pdf}
-    \caption{Examples of images obtained when the CBP shoots in the \SD telescope at $\lambda_L=\SI{450}{\nm}$ with the \bpinhole pinhole on the right and \spinhole pinhole on the left. The ghost reflection is visible for both images at the left of the main spot. In the \bpinhole pinhole image, a large annulus around the main spot is visible, and correspond to light diffusion around a mechanical iris at the input of the CBP.}
-    \label{fig:ccd_examples}
-    %~/stardice/analysis/cbp_paper/total_fluxes/ghost_stack_figure.ipynb
-\end{figure}
-
-\subsubsection{Overscan subtraction}
-
-Firstly, we need to subtract the overscan in every image. The mean of each column $i$ of the horizontal overscan and each row $j$ of the vertical overscan is computed. For each pixel $(i, j)$, we subtract the sum of estimation of the overscan estimated on the column $i$ and the row $j$.
-Then, aperture photometry is performed to measure the quantity of photons collected in the \SD camera images. This requires a background subtraction, and two differents methods are used depending on the pinhole.
+The modelization of the PSF at long distance from its core is possible because of the laboratory conditions of these images. These conditions are intrisinc to CBP images, with an isolated source and no sky background. It is impossible to port this method with on-sky data. We choose to carry out the whole analysis with aperture photometry and a background estimation reproducible with on-sky data. This method is the baseline photometry for the \spinhole pinhole, and we compared the measurements obtained with such a method and the fitted parameters to quantify eventual biases. 
 
 \subsubsection{Background subtraction}
 \label{sec:bkg}
 
-\textbf{75~µm pinhole} \\
-
 To estimate the background contribution, the sources in the image need to be detected and masked. We compute the standard deviation of an image $\sigma$, and every pixel with a signal higher than 5$\sigma$ is masked, as well as all the surrounding pixels that has a signal higher than 2$\sigma$. Then we proceed to a segmentation of the masked image into boxes of $129\times132$ pixels. We compute the mean and the standard deviation of the background in each of these boxes, and we interpolate their values in a 2D map to get our estimation of the background. This background estimation is subtracted to the image. Then, the centroid of the spot of interest is computed to pursue aperture photometry at this position. $\Qccd$ is measured with aperture photometry at a radius of \SI{20.9}{pixels} for every image of the dataset with the \spinhole.
-
-As shown in the third panel of Figure~\ref{fig:result_params}, the mean background fitted is $\mu_\mathrm{bkg, fitted}=\SI{0.267}{ADU/pixel}$ with a standard deviation of $\sigma_\mathrm{bkg}=\SI{0.059}{ADU/pixel}$. On the other hand, two datasets of dark images have been studied. Firstly dark images with the laser turned off, and secondly dark images when masking the CBP output with a cap from dataset No.~9 in Table~\ref{tab:schedule}. Both datasets are constants in time and wavelength, and their mean value of ADU/pixel are compatible. We combine it into one dataset of darks and compute their mean $\mu_\mathrm{dark, photometry}=\SI{0.252}{ADU/pixel}$ and standard deviation $\sigma_\mathrm{dark, photometry}=\SI{0.059}{ADU/pixel}$. The result is visible in the third panel of Figure~\ref{fig:result_params}. We conclude that the estimation of the background with the fit is consistent with the dark datasets results. \\
-
-\textbf{5~mm pinhole} \\
-
-When using \bpinhole pinhole, the main spot takes a significant area of the focal plane, meaning there is not enough background in the image to reconstruct it. The background is measured with dark exposures with the dark datasets mentioned above, and the spatial mean of all these dark images is computed to obtain a master dark. The background contribution is estimated by aperture photometry in the master dark at the same position and same radius than the laser-on images. $\Qccd^{\bpinhole}$ is measured with aperture photometry, after background subtraction. The optimal radius is evaluated at 300 pixels for the \bpinhole pinhole in order to contain the main spot and the 1\up{st} order ghost. We could have increased the radius to contain the iris flux, but it would have added as much noise as the signal gained. 
 
 \subsubsection{Correction of the light contamination}\label{sec:sd_contaminations}
 
@@ -125,33 +124,9 @@ The contamination light in the \SD camera can be estimated by multiplying $\Qpho
     %cbp_paper_plots.ipynb
 \end{figure}
 
-\subsubsection{$G_1$ photometry}
-\label{sec:ghost}
-
-Let be $G_0(\lambda)$ the quantity of light collected in the main spot, and $G_\mathrm{n}(\lambda)$ the quantity of light collected in the ghost of order $n$. The ratio of the 1\up{st} order ghost $G_1(\lambda)$ over the main spot $G_0(\lambda)$ is:
-
-\begin{equation}
-    \Kghost = \frac{G_1(\lambda)}{G_0(\lambda)}.
-    \label{eq:ratio_ghost}
-\end{equation}
-
-We measure $G_1(\lambda)$ with the \spinhole pinhole where it is well separated from $G_0(\lambda)$. We build a mask with the expected ghost shape like shown in Figure~\ref{fig:ghost_contrast}, and we fit its best position on the image. To estimate the background at this position, we assume that the main spot has a spatial vertical symmetry, and measure the flux contained in a symmetric mask at the vertical symmetric position from the main spot. Then, $G_1(\lambda)$ is the sum of the ADUs in the ghost mask after background subtraction. On the other hand, $G_0(\lambda)$ is measured with the baseline photometry. This study is pursued for the 3 runs of dataset No.~4, and 2 runs of dataset No.~2 from Table~\ref{tab:schedule}. The results obtained for $\Kghost$ are shown in Figure~\ref{fig:ghost_ratio}. 
-
-The ratio $\Kghost$ and $\Kghostfitfirst$ obtained with two different methods are superimposing well below \SI{950}{\nano\meter} in the third panel of Figure~\ref{fig:result_params}, which gives us confidence about the accuracy of this measurement. Above \SI{950}{\nano\meter} the PSF is deteriorating and starts to overflow in the ghost mask, plus there are interference fringes appearing in the focal plane. These issues can explain the deviation between the two measurements at these wavelengths. The fit result gives more confidence in its accuracy because it accounts for the PSF evolution.
-
-\begin{figure}[h]
-     \centering
-     \resizebox{\hsize}{!}{\includegraphics{fig/ghost_ratio.pdf}}
-     \caption{Ratio $\Kghost$ with respect to $\lambda_L$. The mean spline goes through the five datasets.}
-     \label{fig:ghost_ratio}
-    %~/stardice/analysis/cbp_paper/golden_sample_analysis/dr2/ghost_photometry_general.ipynb
-\end{figure}
-
-Further investigation indicates that the ghosts of higher order $G_{n>1}$ should contribute for less than $0.1\%$ of $G_0(\lambda)$. Yet, a second order ghost is visible for the stack in infrared in the right panel of Figure~\ref{fig:ghost_contrast}. The reflectivities of the window and the CCD cannot explain this phenomenon, so it has necessarily went through another optical path. The infrared light could have gone through the CCD and reflect in the back of it before being collected.
-
 \subsubsection{Aperture correction}
 
-In this section, we aim to quantify the fraction of flux missed when measuring the signal for a \spinhole pinhole image with aperture photometry rather than with the PSF photometry. The fraction of flux missed by aperture photometry compared to the total amplitude $A$ is quantified in Figure~\ref{fig:bias_aperture}. Less than 3\% of the flux is missed between \SI{400}{\nano\meter} and \SI{900}{\nano\meter}. Below \SI{400}{\nano\meter} the ghost contribution is missed when using an aperture of \SI{20.9}{pixels}. Above \SI{900}{\nano\meter} where the PSF is degrading, the fraction of flux missed increase by one order of magnitude and reach more than 75\%. The bottom panel of Figure~\ref{fig:bias_aperture} shows that the baseline photometry is compatible to the fit estimation at less than 0.2\% between \SI{400}{\nano\meter} and \SI{900}{\nano\meter}. 
+In this section, we aim to quantify the fraction of flux missed when measuring the signal for a \spinhole pinhole image with aperture photometry rather than with the PSF photometry. We define the faction of flux missed as the ratio between the value measured with photometry for a given radius and the total amplitude $A$ fitted for a given wavelength. It is quantified in Figure~\ref{fig:bias_aperture}. Less than 3\% of the flux is missed between \SI{400}{\nano\meter} and \SI{900}{\nano\meter}. Below \SI{400}{\nano\meter} the ghost contribution is missed when using an aperture of \SI{20.9}{pixels}. Above \SI{900}{\nano\meter} where the PSF is degrading, the fraction of flux missed increase by one order of magnitude and reach more than 75\%. The bottom panel of Figure~\ref{fig:bias_aperture} shows that the baseline photometry is compatible to the fit estimation at less than 0.2\% between \SI{400}{\nano\meter} and \SI{900}{\nano\meter}. 
 
 \begin{figure}[h]
      \centering
@@ -165,9 +140,17 @@ We can reach the conclusion that the baseline aperture photometry for the \spinh
 
 \subsubsection{Pinhole intercalibration}
 
-It is necessary to intercalibrate the \SD response measurements obtained with the \spinhole pinhole with the CBP response measurements obtained with the \bpinhole pinhole. To link these measurements, we measure the difference between \SD responses with the \spinhole pinhole and the \bpinhole pinhole. When shooting with the \bpinhole pinhole, the main spot is a pointlike source, hence the data reduction of $\Qccd^{\bpinhole}$ is different than the baseline photometry.
+It is necessary to intercalibrate the \SD response measurements obtained with the \spinhole pinhole with the CBP response measurements obtained with the \bpinhole pinhole. To link these measurements, we measure the \SD responses with the \spinhole pinhole and the \bpinhole pinhole and compute the pinholes ratio $\Kpinholes$. This ratio is defined such as the $\Rcbp$ defined in Equation~\ref{eq:rsd} is the \spinhole pinhole CBP response $\Rcbp^\spinhole$, which can be obtained with the \bpinhole pinhole CBP response $\Rcbp^\bpinhole$:
 
-To compare the \SD responses for both pinhole, we need to measure the fluxes with aperture photometry at the same radius. Thus both apertures contain the same features, such as the ghost contribution. This way there is no other consideration than the geometry of the pinholes. We estimate the \spinhole pinhole flux $F(300, \lambda)$, $\Qccd^{\bpinhole}$ with the method described in Section~\ref{sec:photometry_big}. We compute the ratio $\Kpinholes=\frac{F(300)}{\Qccd^{\bpinhole}}$ and show the result in Figure~\ref{fig:ratio_pinholes}. The linear fit of this ratio is used to intercalibrate the \bpinhole pinhole $\Rcbp(\lambda)$ obtained and the \spinhole pinhole \SD for every measurements of this analysis.
+\begin{equation}
+	\Rcbp(\lambda) \equiv \Rcbp^{\spinhole}(\lambda) = \Rcbp^{\bpinhole}(\lambda) \times \Kpinholes
+\end{equation}
+
+When shooting with the \bpinhole pinhole, the main spot is not a pointlike source, hence the data reduction of $\Qccd^{\bpinhole}$ is different than the baseline photometry. The overscan subtraction and the light contamination correction are done with the same method than the \spinhole pinhole, detailed respectively in \ref{sec:overscan} and \ref{sec:sd_contaminations}. However the background subtraction cannot be performed the same way. 
+
+When using \bpinhole pinhole, the main spot takes a significant area of the focal plane, meaning there is not enough background in the image to reconstruct it. The background is measured with dark exposures with the dark datasets mentioned above, and the spatial mean of all these dark images is computed to obtain a master dark. The background contribution is estimated by aperture photometry in the master dark at the same position and same radius than the laser-on images. $\Qccd^{\bpinhole}$ is measured with aperture photometry, after background subtraction. The optimal radius is evaluated at 300 pixels for the \bpinhole pinhole in order to contain the main spot and the 1\up{st} order ghost. We could have increased the radius to contain the iris flux, but it would have added as much noise as the signal gained. 
+
+To compare the \SD responses for both pinhole, we need to measure the fluxes with aperture photometry at the same radius so that it contains the same features, such as the ghost contribution. This way there is no other consideration than the geometry of the pinholes. We estimate the \spinhole pinhole flux $F(300, \lambda)$, $\Qccd^{\bpinhole}$ with the method described in Section~\ref{sec:photometry_big}. We compute the ratio $\Kpinholes=\frac{F(300)}{\Qccd^{\bpinhole}}$ and show the result in Figure~\ref{fig:ratio_pinholes}. The linear fit of this ratio is used to intercalibrate the \bpinhole pinhole $\Rcbp(\lambda)$ obtained and the \spinhole pinhole \SD for every measurements of this analysis.
 
 %The non-null slope and not expected as the ratio between the two pinholes should corresponds only to the ratio of surfaces of illuminated area at the input CBP. We suspect that some light diffusion on the edges of the pinholes or other complex reflections in the setup could give this ratio a chromatic dependance.
 
@@ -181,136 +164,6 @@ To compare the \SD responses for both pinhole, we need to measure the fluxes wit
 \end{figure}
 
 % The bottom panel corresponds to the aperture correction that is needed to apply to the aperture photometry measurement. It is around 2\% below \SI{950}{\nano\meter}, and increase by one order of magnitude in the infrared. This increase is correlated with the variation of the Moffat parameters $\alpha$ and $\beta$, showing that the PSF is drastically changing in the near infrared. This issue is discussed in more details section \ref{sec:ir}. The third panel show a constant background against wavelength, at a mean of \SI{0.27}{ADU/pixel}.
-
-%\subsection{Correction of the ghost contamination}
-%\label{sec:ghost}
-%
-%In Section~\ref{sec:strategy} we discussed the need to intercalibrate the CBP response for both pinhole sizes. To this purpose, we took measurements with the \SD telescope with both \bpinhole pinhole and \spinhole pinhole, and evaluate the systematic related to this change of pinhole diameter. One major difference between the \spinhole pinhole and the \bpinhole pinhole is how the ghost and the main spot superimpose on the focal plane. We show in Figure~\ref{fig:schema_ghost} the optical path that produces the 1\up{st} order ghost on the focal plane. In Figure~\ref{fig:ghost_contrast}, we can see an image of the 1\up{st} order ghost next to the main spot obtained with the \spinhole pinhole. The distance between the centroïd of the main spot and the centroïd of the 1\up{st} order ghost is between 30 to 70 pixels depending on the radial position on the mirror. In the mean time, the \bpinhole pinhole photometry is made with an aperture of 300 pixels, containing the 1\up{st} order ghost and the main spot. We need to know the fraction of the flux that corresponds to the 1\up{st} order ghost.
-%
-%
-%\subsubsection{First order ghost photometry}
-%
-%We want to quantify the contribution of the ghost relatively to the main spot for the \bpinhole pinhole. Let be $G_0(\lambda)$ the quantity of light collected in the main spot, and $G_\mathrm{n}(\lambda)$ the quantity of light collected in the ghost of order $n$. We define $\Kghost(\lambda)$ the ratio of the 1\up{st} order ghost $G_1(\lambda)$ over the main spot $G_0(\lambda)$:
-%
-%\begin{equation}
-%    \Kghost = \frac{G_1(\lambda)}{G_0(\lambda)}.
-%    \label{eq:ratio_ghost}
-%\end{equation}
-%We make the hypothesis that the ratio $\Kghost(\lambda)$ is the same for both pinholes. We measure $G_1(\lambda)$ with the \spinhole pinhole where it is well separated from $G_0(\lambda)$. We build a mask with the expected ghost shape and we fit its best position on the image. $G_1(\lambda)$ is the sum of the ADUs contained in this mask, after background subtraction. To estimate the background at this position, we assume that the main spot has a spatial vertical symmetry. We place a symmetric mask at the vertical symmetric position and measure the ADUs contained inside, which correspond to background only. This background is subtracted to the photometry of the 1\up{st} order ghost to obtain $G_1(\lambda)$. On the other hand, $G_0(\lambda)$ is measured with the aperture photometry described in \ref{sec:photometry}. 
-%
-% \begin{figure}[h]
-%     \centering
-%     \resizebox{\hsize}{!}{\includegraphics{fig/ghost_ratio.pdf}}
-%     \caption{Ratio $\Kghost$ (which correspond to the order 1 ghost $G_{1}(\lambda)$ over the main spot $G_0(\lambda)$) with respect to $\lambda_L$. The mean spline goes through five datasets, three at the same position on the mirror, two other at a different radial position on the mirror. All responses are at the same position on the focal plane.}
-%     \label{fig:ghost_ratio}
-%    %~/stardice/analysis/cbp_paper/golden_sample_analysis/dr2/ghost_photometry_general.ipynb
-% \end{figure}
-% 
-% 
-% 
-% \subsubsection{Contribution of the n\up{th} order ghosts}
-%
-%Now that we did the photometry for the first order ghost, we want to estimate the contribution of higher orders. Since the intensity of these ghosts is very weak and hard to analyse, we simulate their contribution from the $1^{\mathrm{st}}$ order ghost analysis. Let be $\Rwindow$ the reflection coefficient at the interface air-window, and $\Rccd$ the reflection coefficient at the interface air-CCD. We know the transmission of the window $T_\mathrm{window}(\lambda)$ from manufacturer datasheets, so we can infer $\Rwindow$:
-% 
-%\begin{equation}
-%    \Rwindow = 1 - T_\mathrm{window}(\lambda).
-%    \label{eq:rwindow}
-%\end{equation}
-% 
-%\noindent We define $F$ the flux collected by the camera, $G_0(\lambda)$ the quantity of light collected in the main spot, and $G_\mathrm{n}(\lambda)$ the quantity of light collected in the ghost of order $n$. $G_0(\lambda)$ and $G_\mathrm{n}(\lambda)$ are a function of F: 
-%
-%\begin{equation}
-%     G_0(\lambda) = (1-\Rwindow)^{2} \times (1-\Rccd) \times F, 
-%     \label{eq:g0}
-%\end{equation}
-%
-%\begin{equation}
-%\begin{aligned}
-%    G_\mathrm{n}(\lambda) & = G_{0}(\lambda) \times [\Rccd \Rwindow + \Rccd(1-\Rwindow)\Rwindow]^{n} \\
-%    & = G_{0}(\lambda) \times [2 \Rccd \Rwindow - \Rccd \Rwindow^{2}] ^{n}. \\
-%     \label{eq:gn}
-%\end{aligned}
-%\end{equation}
-%
-%\noindent The sum of all the ghosts $G_{\mathrm{n>0}}(\lambda)$ is defined as
-%\footnote{If |q| < 1, the serie $\left( \sum_{n=0}^{m} q^n \right)_{\mathrm{m \in \mathbb{N}}}$ strictly converge and \\ $\sum_{n=0}^{\infty} q^n \equiv \lim\limits_{m \rightarrow \infty} \sum_{n=0}^{m} q^n = \frac{1}{1-q}$}:
-%
-% \begin{equation}
-% \begin{aligned}
-%     G_{n>0}(\lambda)&=\sum_{n=0}^{\mathrm{n} \rightarrow \infty} G_\mathrm{n}(\lambda) - G_0(\lambda) \\
-%     & = G_0(\lambda) \times \sum_{n=0}^{n \rightarrow \infty} \left( [2 \Rccd \Rwindow - \Rccd \Rwindow^{2}] ^{n} - G_0(\lambda) \right)\\
-%     & = G_0(\lambda) \times\left( \frac{1}{1- [2 \Rccd \Rwindow - \Rccd \Rwindow^{2}]} - 1\right),
-%     \label{eq:sum_ghost}
-% \end{aligned}
-% \end{equation}
-% 
-%\noindent and the sum of the ghost of order higher than 1 is defined as:
-%
-% \begin{equation}
-%     G_{n>1}(\lambda) = G_{n>0}(\lambda) - G_1(\lambda).
-%     \label{eq:sum_ghost_sup_1}
-% \end{equation}
-%
-%\noindent As we measure the photometry of the 1\up{st} order ghost $G_1(\lambda)$, we want to verify that the ghosts of higher orders $G_{\mathrm{n}>1}(\lambda)$ are negligible. Using the Equations~\ref{eq:ratio_ghost}, \ref{eq:g0} and \ref{eq:gn}, we can compute $\Rccd$:
-%
-%\begin{equation}
-%    \Rccd = \frac{\Kghost}{\Rwindow (2 - \Rwindow)}.
-%    \label{eq:rccd}
-%\end{equation}
-%
-%We measured $G_1(\lambda)$ with photometry, and estimate $G_{\mathrm{n}>1}$ with the equations above. We show the ratio $K_{G_{\mathrm{n}>1}/G_0}$ in Figure~\ref{fig:ratio_ginf_g0}, and we see that $K_{G_{\mathrm{n}>1}/G_0}$ is always below the per mil level. Since $G_{\mathrm{n}>1}$ contribute for less than a per mil of $G_0(\lambda)$, we decide to neglect it.
-%
-%\begin{figure}[h]
-%    \centering
-%    \includegraphics[width=\columnwidth]{fig/ratio_g1_ginf.pdf}
-%    \caption{Ratio $K_{G_{\mathrm{n}>1}/G_0}(\lambda)$ (which correspond to the sum of the ghosts at order higher than 1 $G_{\mathrm{n}>1}(\lambda)$ over $G_0(\lambda)$) with respect to $\lambda_L$.}
-%    \label{fig:ratio_ginf_g0}
-%    %~/stardice/analysis/cbp_paper/golden_sample_analysis/dr2/ghost_convergence.ipynb   
-%\end{figure}
-
-%\subsubsection{Ghost contribution for \bpinhole pinhole}
-%
-%The total charges $\Qccd{}_{, \, \SI{5}{\milli\meter}}(\lambda)$ measured by doing the aperture photometry at 300 pixels for the \bpinhole pinhole is the sum of the charges $Q_0(\lambda)$ in the main spot $G_0(\lambda)$ and the charges $\Qghost(\lambda)$ in the 1\up{st} order ghost $G_1(\lambda)$. With $\Eccd$ the quantum efficiency of the StarDICE CCD camera, we define these quantites as:
-%
-%\begin{equation}
-%    \Qghost(\lambda) = G_1(\lambda) \times \Eccd, 
-%    \label{eq:qghost}
-%\end{equation}
-%
-%\begin{equation}
-%    Q_0(\lambda) = G_0(\lambda) \times \Eccd.
-%    \label{eq:qmain}
-%\end{equation}
-%
-%\noindent Then $Q_0(\lambda)$ can be measured as follow:
-%
-%\begin{equation}
-%\begin{aligned}
-%    Q_0(\lambda) & = \Qccd{}_{, \, \SI{5}{\milli\meter}}(\lambda) - \Qghost(\lambda) \\
-%    & = \frac{\Qccd{}_{, \, \SI{5}{\milli\meter}}(\lambda)}{1 + \Kghost}.
-%    \label{eq:qccd_5mm}
-%\end{aligned}
-%\end{equation}
-%We use the estimation of $\Kghost$ with the \spinhole pinhole to obtain $Q_0(\lambda)$. 
-%
-%\noindent Once we have corrected the \bpinhole pinhole from the ghost contribution, we can compute the ratio between the \SD responses defined as $\Kpinholes$: 
-%\begin{equation}
-%    \Kpinholes = \frac{\Rcbp^{\bpinhole}(\lambda)}{\Rcbp^{\spinhole}(\lambda)}.
-%    \label{eq:ratio_pinholes}
-%\end{equation}
-%Thanks to this equation, we can infer $\Rcbp^{\spinhole}(\lambda)$ from the measurement of $\Rcbp^{\bpinhole}(\lambda)$.
-%
-%\THIERRY{à finir : comment on corrige le ghost ? est-ce que la correction d'ouverture est suffisante ?}
-%
-%We show these ratios before and after the ghost correction in the upper Figure~\ref{fig:ratio_pinholes}. We expect the ratio to be linear since it should be the ratio of two surfaces, so we draw a linear spline through the data. In the ultraviolet below \SI{400}{\nm} where the window is highly reflective, we see that the ghost correction has flattened the ratios. Above \SI{900}{\nm} we can see a significative difference between the ratio and the linear spline. This phenomenon is not quite understood and is discussed in section \ref{sec:discussion}, but we precise that the linear fit is made only for the wavelengths below \SI{900}{\nano\meter}. 
-%
-%\begin{figure}[h]
-%    \centering
-%    \includegraphics[width=\columnwidth]{fig/ratio_pinholes.pdf}
-%    \caption{Ratio $\Kpinholes(\lambda)$ with respect to wavelength, before and after ghost correction. We compute a linear spline that best fit the data between \SI{400}{\nm} and \SI{900}{\nm}.}
-%    \label{fig:ratio_pinholes}
-%    %~/stardice/analysis/cbp_paper/golden_sample_analysis/dr2/ratio_pinholes.ipynb
-%\end{figure}
 %
 %\subsubsection{Summary}
 %
