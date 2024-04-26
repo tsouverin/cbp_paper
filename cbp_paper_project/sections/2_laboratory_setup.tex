@@ -70,7 +70,7 @@ In this paper, we used three different pinholes, of diameter \SI{75}{\micro\mete
     %Tinkercad
 \end{figure}
 
-To calibrate the CBP response, a large solar cell is placed at \SI{16}{\cm} approximately from the telescope aperture. It was chosen to have high quantum efficiency and a large shunt resistance. Hence we have a C60 solar cell of 3$^{\mathrm{rd}}$ generation from Sunpower. This solar cell is set on a two-axis mount, one that allows a movement in the direction of the optical axis of the CBP telescope, and another axis that is vertical, which allows to adjust the height of the solar cell. It is placed at \SI{16}{\cm} approximately from the telescope aperture. This solar cell is connected via a coaxial cable to a Keysight B2987A electrometer, the same that has been used for the quantum efficiency measurement. \com{It is able to chop light at a higher frequency than what the Keithley can do, and is a more contemporary instrument (à retirer ?)}. The charges are measured at a rate of \SI{0.002}{\second}. In Figure~\ref{fig:cbp_setup} right, we show a picture of the setup when the CBP is aiming at the \SD telescope described in section~\ref{sec:stardice}.
+To calibrate the CBP response, a large solar cell is placed at \SI{16}{\cm} approximately from the telescope aperture. It was chosen to have high quantum efficiency and a large shunt resistance. Hence we have a C60 solar cell of 3$^{\mathrm{rd}}$ generation from Sunpower. This solar cell is set on a two-axis mount, one that allows a movement in the direction of the optical axis of the CBP telescope, and another axis that is vertical, which allows to adjust the height of the solar cell. It is placed at \SI{16}{\cm} approximately from the telescope aperture. This solar cell is connected via a coaxial cable to a Keysight B2987A electrometer, the same that was used for its calibration. The charges are measured at a rate of \SI{0.002}{\second}. In Figure~\ref{fig:cbp_setup} right, we show a picture of the setup when the CBP is aiming at the \SD telescope described in section~\ref{sec:stardice}.
 
 \begin{figure*}[ht]
 \centering
@@ -112,9 +112,9 @@ Additionally, the effect of the angle of incidence on the solar cell QE was meas
 
 The solar cell was aligned perpendicalular to the CBP output beam with a precision better than \SI{1}{\degree} and not moved during all the measurement campaign. Meanwhile, room temperature was monitored and has not varied more than \SI{2}{\degreeCelsius}. Considering measured variations of quantum efficiency with angle and temperature, we assumed that this systematic is well below the per-mill level and is not considered in the following of the paper. 
 
-\subsubsection{Current or charge mode}
-
-The charges in the photodiode and the solar cell are read with electrometers in charge mode. This mode is better than the current mode as the integration is performed in a capacitance. This avoids modeling the precise current timelines before integrating them numerically, as they are subtlety different from squarewave functions due to different time responses in the system and contaminated by random dark current fluctuations. 
+%\subsubsection{Current or charge mode}
+%
+%The charges in the photodiode and the solar cell are read with electrometers in charge mode. This mode is better than the current mode as the integration is performed in a capacitance. This avoids modeling the precise current timelines before integrating them numerically, as they are subtlety different from squarewave functions due to different time responses in the system and contaminated by random dark current fluctuations. 
 
 %\begin{itemize}
 %\item Ekspla NT252 tunable laser
@@ -157,7 +157,7 @@ Due to the low resistance of the solar cell, when plugged into the Keysight elec
 
 After cancelling the dark current drift, the analysis of the solar cell dark signal revealed a $1/f$ noise, with power line harmonics contributions at \SI{50}{\hertz},  \SI{100}{\hertz}, and \SI{150}{\hertz} (see Figure~\ref{fig:darkcurrentspectrum}). 
 We checked that connecting the Keysight to a resistor of same value as the solar cell shunt resistance gave exactly the same
-power spectrum. Then the dark current comes entirely from the Keysight, and it increases with the shunt resistance. To decrease the contribution of the $1/f$ noise in the solar cell time series, we chose the calibrated solar cell with the highest shunt resistance we had ($R_{\rm shunt} = \SI{1.8}{\kilo\ohm}$) and limited the burst durations to at most 200 pulses (\SI{200}{\ms}). Doing so, in the burst time window, the Keysight noise is dominated by the power line harmonics (that can be analytically model) whereas the random $1/f$ noise remains subdominant.
+power spectrum. Then the dark current comes entirely from the Keysight, and it increases with the shunt resistance. To decrease the contribution of the $1/f$ noise in the solar cell time series, we chose the calibrated solar cell with the highest shunt resistance we had ($R_{\rm shunt} = \SI{1.8}{\kilo\ohm}$) and limited the burst durations to at most 200 pulses (\SI{200}{\ms}). Doing so, in the burst time window, the Keysight noise is dominated by the power line harmonics whereas the random $1/f$ noise remains subdominant.
 
 
 
@@ -219,7 +219,7 @@ With the CBP, we aim to measure $\Rtel(\lambda)$ at the per mil level. We detail
 
 The campaign of measurement has started and ended with a calibration of the spectrograph. A calibration Hg-Ar lamp was plugged into the integrating sphere and its light was measured with the spectrograph. This corresponds to lines No.~1 and No.~13 of the Table~\ref{tab:schedule}.
 
-There are two pinhole sizes in the CBP slide to meet one requirement for each configuration of the setup. When shooting into the \SD telescope, we use the \spinhole pinhole so it is seen as a pointlike source by the \SD camera; but when shooting into the solar cell, we use the \bpinhole pinhole to have the best signal-to-noise ratio. Since $\Rcbp(\lambda)$ depends on the pinhole diameter, we need to intercalibrate the two responses $R_\mathrm{CBP}^{\mathrm{\SI{5}{\milli\meter}}} (\lambda)$ and $R_\mathrm{CBP}^{\mathrm{\SI{75}{\micro\meter}}} (\lambda)$. This intercalibration can be performed thanks to the measurements in line No.~8 of Table~\ref{tab:schedule}.
+There are two pinhole sizes in the CBP slide to meet one requirement for each configuration of the setup. When shooting into the \SD telescope, we use the \spinhole pinhole so it is seen as a point-like source by the \SD camera; but when shooting into the solar cell, we use the \bpinhole pinhole to have the best signal-to-noise ratio. Since $\Rcbp(\lambda)$ depends on the pinhole diameter, we need to intercalibrate the two responses $R_\mathrm{CBP}^{\mathrm{\SI{5}{\milli\meter}}} (\lambda)$ and $R_\mathrm{CBP}^{\mathrm{\SI{75}{\micro\meter}}} (\lambda)$. This intercalibration can be performed thanks to the measurements in line No.~8 of Table~\ref{tab:schedule}.
 
 A major issue with the CBP is that its output light does not illuminate the entirety of the \SD primary mirror as an astrophysical source would do, but only a portion of it. It is necessary to perform a \textit{pupil stitching} to reconstruct the transmission of the mirror, by combining the measurement of $\Rtel(\lambda)$ when shooting at different positions on the mirror. When doing so, only the point of impact on the mirror is modified, but the point of incidence on the focal plane is the same. The different positions are shown in Figure~\ref{fig:8_mirror_positions}. The pupil stitching corresponds to lines No.~2 and No.~3 of Table~\ref{tab:schedule}. The method used to perform the pupil stitching is detailed in Section~\ref{sec:pupil_stitching}.
 
