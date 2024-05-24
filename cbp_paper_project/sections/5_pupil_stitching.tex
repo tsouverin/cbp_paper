@@ -141,9 +141,7 @@ the above model assuming that the pupil is a perfect annulus with an
 inner radius of \SI{55}{mm} and an outer radius of \SI{203}{mm}. A
 rectangular quadrature with 100 evenly sampled points in radius has
 been used for the averaging. The curves have been normalized using the
-CBP response from Sect. (corrected for the \SI{5}{mm} to
-\SI{75}{\micro\meter} pinhole response change determined in Sect. TX.,
-and the aperture fraction estimated in Sect.Tx).  An estimate of the
+CBP response from Sect. .  An estimate of the
 absolute transmission curve is then computed assuming an effective
 mirror area of TX. The resulting transmission curves are shown in
 Fig.~\ref{fig:fullpupiltrans}.
@@ -154,10 +152,6 @@ Fig.~\ref{fig:fullpupiltrans}.
   \label{fig:fullpupiltrans}
 \end{figure}
 
-\todo{
-We also tested the model against the 4 remaining mirror samples that
-are not part of the training dataset. The result of the test is
-summarized in Fig.\ref{fig:metrics}.}
 
 \subsection{Final error budget}
 
@@ -165,14 +159,37 @@ We present the impact of the various uncertainty sources on absolute
 stellar fluxes in Table~\ref{tab:budget}.
 \begin{table}
   \centering
-  \caption{Relative uncertainty on the absolute fluxes of G191B2B in percent, split by contributions}
+  \caption{Relative uncertainty on the synthetic magnitudes of
+    G191B2B, split by contributions.}
   \label{tab:budget}
-  \begin{tabular}{llrrrrrrr}
-    \toprule
-    & source & EMPTY & u & g & r & i & z & y \\
-    \midrule
-    0 & stat & 0.000160 & 0.000518 & 0.000207 & 0.000211 & 0.000287 & 0.001140 & 0.003881 \\
-    1 & sys & 0.000160 & 0.000518 & 0.000207 & 0.000211 & 0.000287 & 0.001140 & 0.003881 \\
-    \bottomrule
+\begin{tabular}{lrrrrrr}
+  \toprule
+  \toprule
+  source & u & g & r & i & z & y \\
+  $[$mmag$]$\\
+  \midrule
+  StarDICE & 0.5 & 0.2 & 0.2 & 0.3 & 1.0 & 3.8 \\
+  $\eta_{SC}$ & 1.6 & 0.1 & 0.1 & 0.1 & 0.1 & 0.1 \\
+  CBP & 2.2 & 0.5 & 1.2 & 0.0 & 0.0 & 0.1 \\
+  \midrule
+  Stat (total) & 2.7 & 0.5 & 1.2 & 0.3 & 1.0 & 3.8 \\
+  \midrule
+  Scattered light & 2.7 & 3.1 & 3.8 & 4.3 & 4.8 & 5.3 \\
+  Repeatability & 0.8 & 0.4 & 0.5 & 1.1 & 1.1 & 1.1 \\
+  Linearity & 0.2 & 0.2 & 0.3 & 0.5 & 0.5 & 0.5 \\
+  Contamination & 4.4 & 0.6 & 0.8 & 0.1 & 0.1 & 0.1 \\
+  Mirror sampling noise & 5.4 & 5.4 & 5.4 & 5.4 & 5.4 & 5.4 \\
+  \midrule
+  Syst (total) & 7.5 & 6.3 & 6.7 & 7.0 & 7.4 & 7.7 \\
+  \midrule
+  Total & 8.0 & 6.3 & 6.8 & 7.1 & 7.4 & 8.6 \\
+%  \bottomrule
 \end{tabular}
 \end{table}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=1\linewidth]{fig/bandcorrelation.pdf}
+  \caption{Correlation of the uncertainties on the synthetic magnitudes of G191B2B.}
+  \label{fig:correlation}
+\end{figure}
