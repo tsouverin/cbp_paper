@@ -18,7 +18,7 @@
 \usetikzlibrary{arrows,positioning,shapes} %,optics}
 \usepackage{xspace}
 \usepackage{mathtools}
-
+\usepackage{{booktabs}}
 
 %\usepackage[squaren,Gray]{SIunits}
 \usepackage{siunitx}
@@ -87,11 +87,11 @@
 
 
 \usepackage[outputdir={fig},debug]{dot2texi}
-\usepackage{draftwatermark}
+%\usepackage{draftwatermark}
 \usepackage{xspace}
-\SetWatermarkText{DRAFT}
-\SetWatermarkScale{6}
-\SetWatermarkLightness{0.9}
+%\SetWatermarkText{DRAFT}
+%\SetWatermarkScale{6}
+%\SetWatermarkLightness{0.9}
 \newcommand{\angexp}{\circ{a}}
 \newcommand{\texp}{\ensuremath{\tau}\xspace}
 \newcommand{\FixMe}[1]{\textbf{\textcolor{red}{[#1]}}\xspace}
@@ -100,8 +100,8 @@
 \newcommand{\THIERRY}[1]{\textbf{\textcolor{green}{[#1]}}\xspace}
 
 \newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
-\renewcommand{\arraystretch}{2}
-\setlength{\arrayrulewidth}{1.25pt}
+%\renewcommand{\arraystretch}{2}
+%\setlength{\arrayrulewidth}{1.25pt}
 
 \graphicspath{{fig/}}
 \makeatletter
@@ -128,7 +128,7 @@
 %\item Photo-diode change
 %\end{itemize}
 
-\tableofcontents
+%\tableofcontents
 
 \input{sections/1_introduction}
 
