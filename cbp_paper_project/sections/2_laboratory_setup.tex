@@ -1,12 +1,11 @@
 \section{Laboratory setup}
 \label{sec:setup}
 
-The telescope itself is not part of the CBP design, which is thought \emph{a priori} to measure any telescope. As in \cite{Mondrik_2023}, we restrict here the experiment to the controled environment of the laboratory, leaving to further development the practical questions specific to in situ measurements.
-
+Our setup is composed of three main components: the \SD telescope, a large area photodiode used as a calibration reference, and the CBP which illuminates either one or the other. In the following sections, we will describe each component in detail and explain their operation.
 
 \subsection{\SD}
 \label{sec:stardice}
-\todo{Marc} 
+
 The \SD photometric instrument consists in a Newton
 telescope with a primary mirror of \SI{40}{\centi\meter} diameter
 (16'') and \SI{1.6}{\meter} focal length ($f/D = 4$). The focal plane
@@ -19,50 +18,41 @@ baseline setup, the pixel resolution is \SI{1.68}{\arcsec} and the
 field of view $\SI{28.6}{\arcmin}\times\SI{28.6}{\arcmin}$.
 
 A 9-slots \SI{28.5}{\milli\meter} filter-wheel in front of the camera
-features 6 interference filters in the $ugrizy$ photometric system, a Star Analyser 200 diffraction grating, and a \SI{0.2}{\milli\meter}
+features 6 interference filters in the $ugrizy$ photometric system, a
+Star Analyser 200 diffraction grating, and a \SI{0.2}{\milli\meter}
 pinhole. The remaining slot is left empty. Aside the optional filters,
 the only other glass part in the light-path is the non-coated
-fused-silica window of the CCD cell\footnote{The manufacturer code
-  for this window is WN35FS(BB-VV-NR)W}. The two sides of the window
-are affected by a \SI{0.5}{\degree} wedge.
+fused-silica window of the CCD cell\footnote{The manufacturer code for
+  this window is WN35FS(BB-VV-NR)W}. The two sides of the window are
+affected by a \SI{0.5}{\degree} wedge.
 
-The z-position of camera-filterwheel assembly is adjustable over \SI{9}{\centi\meter} allowing to focus. The 11cm diagonal flat is oversized to ensure the fully-illuminated
-plane extends over the sensor with a comfortable margin in all optical
-configurations.
-
-An accurate model of the baffling and optics of the instrument for the
-batoid \cite{} raytracing software is available at \MARC{release} and
-is used to build a model of the gathered data.  \MARC{At this stage we
-  need a precise measurement of the
-  \begin{itemize}
-  \item Primary diameter
-  \item Secondary/primary distance
-  \item Secondary diameter
-  \item Secondary/filter distance
-  \item Filter/ccd distance
-  \item Window/CCD distance
-  \end{itemize}
-}
+The z-position of camera-filterwheel assembly is adjustable over
+\SI{9}{\centi\meter} allowing to focus from distances as close as
+\SI{35}{m} up to infinity. The 11cm diagonal flat is oversized to
+ensure the fully-illuminated plane extends over the sensor with a
+comfortable margin in all optical configurations. A model of the
+baffling and optics of the instrument build upon the
+batoid\footnote{\url{https://github.com/jmeyers314/batoid}} raytracing
+software has been tuned on pinhole images and is described in a
+companion technical note \cite{}.
 
 In operation, the camera sensor is thermoelectrically cooled-down to a
-temperature of \SI{-70}{\celsius}, delivering an average dark-current
-of \MARC{work out, from jeremy's first plot}, negligible for the
-$\sim 1s$ exposures considered in this study.
-
-To enable easy and accurate alignment with the CBP, the telescope is
-mounted on a custom altazimutal mount.
+temperature of \SI{-70}{\celsius}, delivering a median dark-current of
+\SI{0.15}{e^-/s}, neglected for the $\sim 1s$ exposures considered in
+this study. When operated in the lab, the telescope was mounted on a
+custom altazimutal mount to enable easy alignment with the CBP.
 
 \subsection{Collimated Beam Projector}
 \label{sec:cbp}
 
 The Collimated Beam Projector (CBP) general setup needs the following: one tunable monochromatic light source, and an optic device able to recreate a parallel beam from a point source. 
-In our case, the light source is an Ekspla NT252 tunable laser, using a Q-switched pump laser at \SI{532}{\nano\meter} and non-linear crystals to produce powerful monochromatic pulses from 335 to \SI{2600}{\nano\meter}. The pulse duration is fixed and lies between 1 to \SI{4}{\nano\second} with an energy of \SI{1.1}{\milli\joule} in the near infra-red. The energy can be decreased at will by a factor of 2 using the tuning of the Q-switch (namely QSW in the following) which degrades the quality factor of the resonant cavity. The pulses are shot with a fixed frequency of \SI{1}{\kilo\hertz} and can be shot in two modes. The first one is said "continuous", so it shoots pulses in a continuous way. The second one send packets of pulses by "bursts". Each burst is composed from 1 to 1000 pulses, meaning the duration of a burst is restrained between \SI{1}{\milli\second} to \SI{1}{\second}. The pulses have a maximum linewidth below \SI{10}{\per\cm}, which can be converted into a maximum spectroscopic width below \SI{0.4}{\nano\meter} around \SI{600}{\nano\meter}. This is an upper limit quoted by the manufacturer, but measurements taken using a similar laser show bandwidths going from \SI{0.08}{\nm} to \SI{0.48}{\nm} in the 350 to \SI{1100}{\nm} range \citep{woodward2018}. The standard deviation of pulse energy is around 2.5\%. This laser is composed of three stages to operate (from 335 to \SI{669}{\nano\meter}, from 670 to \SI{1064}{\nano\meter} and above \SI{1064}{\nano\meter}), which results in three different regimes of power and light contamination in the CBP. The laser power can be varied  This laser was chosen for the offered wide wavelength range and the high pulse energy, as source power is an important criteria for the CBP calibration with the solar cell. 
+In our case, the light source is an Ekspla NT252 tunable laser, using a Q-switched pump laser at \SI{532}{\nano\meter} and non-linear crystals to produce powerful monochromatic pulses from 335 to \SI{2600}{\nano\meter}. The pulse duration is fixed and lies between 1 to \SI{4}{\nano\second} with an energy of \SI{1.1}{\milli\joule} in the near infra-red. The energy can be decreased at will by a factor of 2 using the tuning of the Q-switch (namely QSW in the following) which degrades the quality factor of the resonant cavity. The pulses are shot with a fixed frequency of \SI{1}{\kilo\hertz} and can be shot in two modes. The first one is said "continuous", so it shoots pulses in a continuous way. The second one send packets of pulses by "bursts". Each burst is composed from 1 to 1000 pulses, meaning the duration of a burst is restrained between \SI{1}{\milli\second} to \SI{1}{\second}. The pulses have a maximum linewidth below \SI{10}{\per\cm}, which can be converted into a maximum spectroscopic width below \SI{0.4}{\nano\meter} around \SI{600}{\nano\meter}. This is an upper limit quoted by the manufacturer, but measurements taken using a similar laser show bandwidths going from \SI{0.08}{\nm} to \SI{0.48}{\nm} in the 350 to \SI{1100}{\nm} range \citep{woodward2018}. The standard deviation of pulse energy is around 2.5\%. This laser is composed of three stages to operate (from 335 to \SI{669}{\nano\meter}, from 670 to \SI{1064}{\nano\meter} and above \SI{1064}{\nano\meter}), which results in three different regimes of power and light contamination in the CBP. This laser was chosen for the offered wide wavelength range and the high pulse energy, as source power is an important criteria for the CBP calibration with the solar cell. 
 
-The laser output is purified with a diaphragm and a filter wheel. The latter contains three different broad bandpass filters that helps purifying the laser light from pump photons or other resonances in the system. In particular, we use a pass-blue filter BrightLine Multiphoton FF01-680/SP-25 in the regime 530 to \SI{645}{\nano\meter} to remove \todo{a bien justifier}, a pass-red filter RazorEdge LP03-532RU-25 to filter the \SI{532}{\nano\meter} pump photons in the regime 645 to \SI{1074}{\nano\meter}, and a pass-infrared filter RazorEdge LP02-1064RU-25 above \SI{1074}{\nano\meter} to filter $<\SI{1064}{\nano\meter}$ photons appearing in this regime. All this optical stage is packed inside a black metallic box to prevent room light contamination.
+The laser output is purified with a diaphragm and a filter wheel. The latter contains three different broad bandpass filters that helps purifying the laser light from pump photons or other resonances in the system. In particular, we use a pass-blue filter BrightLine Multiphoton FF01-680/SP-25 in the regime 530 to \SI{645}{\nano\meter} to remove \todo{a bien justifier}, a pass-red filter RazorEdge LP03-532RU-25 to filter the \SI{532}{\nano\meter} pump photons in the regime 645 to \SI{1074}{\nano\meter}, and a pass-infrared filter RazorEdge LP02-1064RU-25 above \SI{1074}{\nano\meter} to filter $<\SI{1064}{\nano\meter}$ photons appearing in this regime. A black metallic box encloses the entire optical stage to minimize light scattering in the room.
 
-The light is then injected into an optical fiber Thorlabs MHP910L02 of with a wide core diameter of \SI{910}{\micro\meter}, which is plugged into an IS200-4 $\Phi$2'' integrating sphere from Thorlabs, which has an internal \SI{50}{\mm} diameter and is composed of 1 input and 4 output ports. The integrating sphere dilutes the laser flux and breaks the light coherence. Two monitoring instruments are plugged on the sphere. First a silicon photodiode Thorlabs SM05PD3A with a high efficiency in the UV is mounted on an output port orthogonal to the laser input port to control the laser power stability. It is mounted behind a pinhole to reduce the photon flux and ensure that it works in its linear regime. It is read by a 6514 Keithley electrometer at a rate of \SI{0.02}{\second}. We also plug an OceanOptics Q65000 fiber spectrometer on another output to monitor the true laser wavelength and the spectral purity. One port is left free to plug a calibration lamp to calibrate the spectrograph when needed. Finally, a slider with pinholes of different diameters is mounted on the last output port. Figure \ref{fig:sphere} shows a schematic of the integrating sphere and the instruments plugged into it.
+The light is then injected into an optical fiber Thorlabs MHP910L02 of with a wide core diameter of \SI{910}{\micro\meter}, which is plugged into an IS200-4 $\Phi$2'' integrating sphere from Thorlabs, which has an internal \SI{50}{\mm} diameter and is composed of 1 input and 4 output ports. The integrating sphere dilutes the laser flux and breaks the light coherence. Two monitoring instruments are plugged on the sphere. First a silicon photodiode Thorlabs SM05PD3A with a high efficiency in the UV is mounted on an output port orthogonal to the laser input port to control the laser power stability. It is mounted behind a pinhole to reduce the photon flux and ensure that it works in its linear regime. It is read by a Keithley 6514 electrometer at a rate of \SI{0.02}{\second}. We also plug an OceanOptics Q65000 fiber spectrometer on another output to monitor the true laser wavelength and the spectral purity. One port is left free to plug a calibration lamp to calibrate the spectrograph when needed. Finally, a slider with pinholes of different diameters is mounted on the last output port. Figure \ref{fig:sphere} shows a schematic of the integrating sphere and the instruments plugged into it.
 
-In this paper, we used three different pinholes, of diameter \SI{75}{\micro\meter}, \SI{2}{\milli\meter} (respectively P75HK and P2000HK from Thorlabs) \SI{5}{\milli\meter} (homemade). The \SI{5}{\mm} pinhole is the largest possible given the \SD field of view and gives the maximum flux. The other pinholes are used for systematic checks and filter edge analysis. The pinhole slider is attached to the ocular of a 154/1370 Ritchey-Chrétien Omegon telescope, mounted on a robotic Celestron NexStar Evolution 6, in order to position the pinhole at the focal point of the optics. A few centimetres after the pinhole, an iris can be closed to stop the light that does not fit in the telescope's secondary mirror and scatter onto the tube \todo{Marc : verifier la veracite de cette phrase}. 
+In this paper, we used three different pinholes, of diameter \SI{75}{\micro\meter}, \SI{2}{\milli\meter} (respectively P75HK and P2000HK from Thorlabs) \SI{5}{\milli\meter} (homemade). The \SI{5}{\mm} pinhole is the largest possible given the \SD field of view and gives the maximum flux. The other pinholes are used for systematic checks and filter edge analysis. The pinhole slider is attached to the ocular of a 154/1370 Ritchey-Chrétien Omegon telescope, mounted on a robotic Celestron NexStar Evolution 6, in order to position the pinhole at the focal point of the optics. An iris diaphragm is positioned \SI{16}{mm} after the pinhole and adjusted to cut light that would otherwise miss the secondary mirror of the telescope. A small amount of light scatters on the iris blades and is best observed in telescope images of the CBP taken with the \SI{2}{mm} pinhole configuration. In these images, it forms a faint ring with a radius of approximately \SI{340}{pixels}, discinct from the main spot. When comparing annular photometry of the ring to that of the main spot, the fraction of scattered light is usually smaller than \num{6e-4} between 400 and \SI{900}{nm}.
 
 \begin{figure}
     \centering
@@ -84,11 +74,7 @@ To synchronise the laser and the two electrometers on the same clock, their outp
 \label{fig:cbp_setup}
 \end{figure*}
 
-In this paper, the design evolved from that described in \cite{Mondrik_2023} in many details and three salient points: \begin{itemize}
-\item The laser light source loaned from NIST has been replaced by an EKSPLA NT 252 with a slightly different wavelength power cutoff;
-\item we add a filtering system to avoid injecting laser harmonics into the light beam; 
-\item and most importantly, the calibration and monitoring of the CBP transmission has been included as part of the instrumentation and observation procedure, relying on a solar cell instead of an external measurement in a different experimental setup. 
-\end{itemize} 
+In summary, the design of the CBP has undergone several modifications since its initial description in \cite{Mondrik_2023}. Three notable changes include: (1) replacing the laser light source from NIST with an EKSPLA NT 252, which has a slightly different wavelength power cutoff; (2) adding a filtering system to prevent laser harmonics from being injected into the light beam; and (3) incorporating calibration and monitoring of the CBP transmission as part of the instrumentation and observation procedure. This is now done using a solar cell instead of relying on external measurements in a separate experimental setup.
 
 
 \subsection{Solar cell description}
@@ -104,17 +90,15 @@ The quantum efficiency (QE) as a function of wavelength for the solar cell was m
 \label{fig:qe}
 \end{figure}
 
-Additionally, we measured the effect of temperature and angle of incidence on the solar cell QE. To determine the effect of temperature, we checked the QE of the solar cell as we heated it. At longer wavelengths, as the temperature increased, the QE increased (see Fig.~).  This trend is consistent with what's expected for silicon (cite) At 1050 nm, the QE changes by more than 0.1 percent per degree. 
-
-
-To determine the effect of temperature on QE, the QE of the solar cell was measured as it was heated. At longer wavelengths, the QE increased slightly as the temperature increased (see Fig.~\ref{fig:SC_temp}). This trend is consistent with the temperature dependence of silicon's QE (cite this paper). At 1050 nm, the QE changes by more than 0.1 percent per degree.
+To determine the effect of temperature on QE, the QE of the solar cell was measured as it was heated. At longer wavelengths, the QE increased slightly as the temperature increased (see Fig.~\ref{fig:SC_temp}). This trend is consistent with the temperature dependence of silicon's QE \citep{Green_2008}. At 1050 nm, the QE changes by more than 0.1 percent per degree.
 \begin{figure}[!h]
 \centering
 \includegraphics[width=\columnwidth]{SC_temp_dep.pdf}
 \caption{(a) Solar cell quantum efficiency vs temperature for wavelengths ranging from 600 to 1050 nm. (b) Fitted change in quantum efficiency per degree Celsius for wavelengths ranging from 600 to 1050 nm.}
 \label{fig:SC_temp}
 \end{figure}
-Additionally, the effect of the angle of incidence on the solar cell QE was measured. The solar cell was rotated up to 35 degrees off-axis. The results are shown in Fig.~\ref{fig:SC_angle_dep}. There is a stronger dependence on angle of incidence at wavelengths that are less than 600 nm, but the change in QE for wavelengths greater than 400 nm is less than 5e-4 per degree.
+
+Additionally, the effect of the angle of incidence on the solar cell QE was measured. The solar cell was rotated up to 35 degrees off-axis. The results are shown in Fig.~\ref{fig:SC_angle}. There is a stronger dependence on angle of incidence at wavelengths that are less than 600 nm, but the change in QE for wavelengths greater than 400 nm is less than 5e-4 per degree.
 \begin{figure}[!h]
 \centering
 \includegraphics[width=\columnwidth]{SC_angle_dep.pdf}
@@ -122,7 +106,8 @@ Additionally, the effect of the angle of incidence on the solar cell QE was meas
 \label{fig:SC_angle}
 \end{figure}
 
-The solar cell was aligned perpendicalular to the CBP output beam with a precision better than \SI{1}{\degree} and not moved during all the measurement campaign. Meanwhile, room temperature was monitored and has not varied more than \SI{2}{\degreeCelsius}. Considering measured variations of quantum efficiency with angle and temperature, we assumed that this systematic is well below the per-mill level and is not considered in the following of the paper. 
+The solar cell was aligned perpendicalular to the CBP output beam with a precision better than \SI{1}{\degree} and not moved during all the measurement campaign. Meanwhile, room temperature was monitored and has not varied more than \SI{2}{\degreeCelsius}.
+%Considering measured variations of quantum efficiency with angle and temperature, we assumed that this systematic is well below the per-mill level and is not considered in the following of the paper. 
 
 %\subsubsection{Current or charge mode}
 %
