@@ -81,7 +81,7 @@ In summary, the design of the CBP has undergone several modifications since its 
 
 \subsubsection{Quantum efficiency measurement}
  
-The quantum efficiency (QE) as a function of wavelength for the solar cell was measured relative to a NIST-calibrated photodiode by using a monochromator as a light source and using an electrometer to measure the current of the solar cell and of the photodiode at each wavelength. The monochromator wavelength was calibrated with a spectrometer relative to a mercury calibration source. Details of the setup are discussed in ~\cite{solarcell}. The quantum efficiency of the solar cell used for these measurements is shown in Fig.~\ref{fig:qe}. The uncertainty cited is from the standard error of the current measurements.
+The quantum efficiency (QE) as a function of wavelength for the solar cell was measured relative to a NIST-calibrated photodiode by using a monochromator as a light source and using an electrometer to measure the current of the solar cell and of the photodiode at each wavelength. The monochromator wavelength was calibrated with a spectrometer relative to a mercury calibration source. Details of the setup are discussed in ~\cite{solarcell}. The quantum efficiency of the solar cell used for these measurements is shown in Fig.~\ref{fig:qe}. \todo{Comment on the origin of the glitch around 550nm and what has been done to get rid of it} The uncertainty cited is from the standard error of the current measurements.
 
 \begin{figure}[!h]
 \centering
@@ -151,13 +151,7 @@ Due to the low resistance of the solar cell, when plugged into the Keysight elec
 %\item Without offset box: $\sim 20 nA$
 %\item With offset box: $~ <0> nA \pm 5 nA$
 %\end{itemize}
-
-After cancelling the dark current drift, the analysis of the solar cell dark signal revealed a $1/f$ noise, with power line harmonics contributions at \SI{50}{\hertz},  \SI{100}{\hertz}, and \SI{150}{\hertz} (see Figure~\ref{fig:darkcurrentspectrum}). 
-We checked that connecting the Keysight to a resistor of same value as the solar cell shunt resistance gave exactly the same
-power spectrum. Then the dark current comes entirely from the Keysight, and it increases with the shunt resistance. To decrease the contribution of the $1/f$ noise in the solar cell time series, we chose the calibrated solar cell with the highest shunt resistance we had ($R_{\rm shunt} = \SI{1.8}{\kilo\ohm}$) and limited the burst durations to at most 200 pulses (\SI{200}{\ms}). Doing so, in the burst time window, the Keysight noise is dominated by the power line harmonics whereas the random $1/f$ noise remains subdominant.
-
-
-
+After cancelling the dark current drift, the analysis of the solar cell dark signal revealed a $1/f$ noise, with power line harmonics contributions at \SI{50}{\hertz},  \SI{100}{\hertz}, and \SI{150}{\hertz} (see Figure~\ref{fig:darkcurrentspectrum}). To investigate the source of the $1/f$ component in the power spectrum, we compared the output of the Keysight when connected to a resistor with the same value as the shunt resistance of the solar cell. We found that the two power spectra were identical, leading us to conclude that the fluctuations in the transimpedance amplifier bias voltage are the source of this $1/f$ noise. These fluctuations cause parasitic current to flow through the load resistance. By increasing the load resistance, we can decrease the amplitude of the resulting noise. We therefore chose the calibrated solar cell with the highest shunt resistance we had ($R_{\rm shunt} = \SI{1.8}{\kilo\ohm}$) and limited the burst durations to at most 200 pulses (\SI{200}{\ms}). Doing so, in the burst time window, the Keysight noise is dominated by the power line harmonics whereas the random $1/f$ noise remains subdominant.
 
 %cbp_paper_plots.py
 \begin{figure}[h]
@@ -172,13 +166,11 @@ power spectrum. Then the dark current comes entirely from the Keysight, and it i
 
 \subsection{Equations}
 
-%From equations, draw the data taking plan
-%with calibrated wavelength
-
-The Table~\ref{tab:quantities} sum up the three quantities that are measured with the two setups in Figure~\ref{fig:cbp_setup}.
+Table~\ref{tab:quantities} sum up the three quantities that are measured with the two setups in Figure~\ref{fig:cbp_setup}.
 
 \begin{table}
-    \centering % used for centering table
+  \centering % used for centering table
+  \caption{Definition of measured quantities in our \SD+CBP setup.}
     \begin{tabular}{M{1cm} M{7cm}} % centered columns (4 columns)
         \hline\hline % inserts double horizontal lines
         Name & Description \\
@@ -189,14 +181,13 @@ The Table~\ref{tab:quantities} sum up the three quantities that are measured wit
         \bf{$\Qccd(\lambda)$} & The charge collected by the Andor CCD camera of the \SD telescope in ADU. \\
         \hline %inserts single line
     \end{tabular}
-    \caption{Needed quantities to compute CBP and \SD telescope response.}
     \label{tab:quantities} % is used to refer this table in the text
 \end{table}
 
 First, we need to measure the response of the CBP optics $\Rcbp(\lambda)$ by shooting into the calibrated solar cell as shown in Figure~\ref{fig:cbp_setup} left. It is computed with the Equation~\ref{eq:rcbp}. In this equation, we know the quantum efficiency of the solar cell $\Esolar$ from \cite{solarcell}, and $e$ is the elemental charge of the electron.
 
 \begin{equation}
-    \Rcbp(\lambda) = \frac{\Qsolar(\lambda)}{\Qphot(\lambda) \times \Esolar \times e}
+    \Rcbp(\lambda) = \frac{\Qsolar(\lambda)}{\Qphot(\lambda) \times \Esolar \times e}.
     \label{eq:rcbp}
 \end{equation} 
 
@@ -212,21 +203,22 @@ We will focus on $\Rcbp(\lambda)$ and $\Rtel(\lambda)$ respectively in sections 
 \subsection{Strategy}
 \label{sec:strategy}
 
-With the CBP, we aim to measure $\Rtel(\lambda)$ at the per mil level. We detail step by step the whole strategy established to reach this goal in Table~\ref{tab:schedule}. Then for each line, we give the label of the measurement, the target aimed with the CBP, the pinhole in the CBP slide, the QSW of the laser, the filters used in the \SD camera filterwheel if the light is shot in the telescope, the specificity of the measurement and the number of runs.
+The schedule for all measurements conducted to determine $\Rtel(\lambda)$ and estimate associated systematic uncertainties is outlined in Table\ref{tab:schedule}. Each row in the table corresponds to a specific hardware configuration and measurement run. We have assigned labels to each run and specified the following details: (1) the target of the CBP, (2) the pinhole used in the CBP slide, (3) the QSW setting for the laser, (4) the filters used in the \SD camera filter wheel (when applicable), (5) any specificities of the measurement, and (6) the number of runs.
 
 The campaign of measurement has started and ended with a calibration of the spectrograph. A calibration Hg-Ar lamp was plugged into the integrating sphere and its light was measured with the spectrograph. This corresponds to lines No.~1 and No.~13 of the Table~\ref{tab:schedule}.
 
-There are two pinhole sizes in the CBP slide to meet one requirement for each configuration of the setup. When shooting into the \SD telescope, we use the \spinhole pinhole so it is seen as a point-like source by the \SD camera; but when shooting into the solar cell, we use the \bpinhole pinhole to have the best signal-to-noise ratio. Since $\Rcbp(\lambda)$ depends on the pinhole diameter, we need to intercalibrate the two responses $R_\mathrm{CBP}^{\mathrm{\SI{5}{\milli\meter}}} (\lambda)$ and $R_\mathrm{CBP}^{\mathrm{\SI{75}{\micro\meter}}} (\lambda)$. This intercalibration can be performed thanks to the measurements in line No.~8 of Table~\ref{tab:schedule}.
+Two different pinholes in the CBP slides were used for these measurements. When shooting into the \SD telescope, the \spinhole pinhole forms a point-like image of about 10 pixels in diameter well suited for photometry while avoiding issues related to ghosting. When shooting into the solar cell, the \bpinhole pinhole is necessary to achieve good signal-to-noise ratio. Since $\Rcbp(\lambda)$ depends slightly on the pinhole diameter, we also need to intercalibrate the two responses $R_\mathrm{CBP}^{\mathrm{\SI{5}{\milli\meter}}} (\lambda)$ and $R_\mathrm{CBP}^{\mathrm{\SI{75}{\micro\meter}}} (\lambda)$. This intercalibration can be performed thanks to the measurements in line No.~8 of Table~\ref{tab:schedule}.
 
 A major issue with the CBP is that its output light does not illuminate the entirety of the \SD primary mirror as an astrophysical source would do, but only a portion of it. It is necessary to perform a \textit{pupil stitching} to reconstruct the transmission of the mirror, by combining the measurement of $\Rtel(\lambda)$ when shooting at different positions on the mirror. When doing so, only the point of impact on the mirror is modified, but the point of incidence on the focal plane is the same. The different positions are shown in Figure~\ref{fig:8_mirror_positions}. The pupil stitching corresponds to lines No.~2 and No.~3 of Table~\ref{tab:schedule}. The method used to perform the pupil stitching is detailed in Section~\ref{sec:pupil_stitching}.
 
 To check the uniformity of the \SD focal plane, a measurement of $\Rtel(\lambda)$ at 16 different positions on the focal plane has been performed. The positions are shown in Figure~\ref{fig:ccd_grid}. Only the position on the focal plane is modified while the point of impact on the mirror stays the same. This dataset corresponds to the line No.~12 of Table~\ref{tab:schedule}. 
 
-Finally, some systematic measurements have been carried out. A cap has been placed on the CBP output to measure the background of the room for both setup configurations, corresponding to lines No.~9 and No.~10 of Table~\ref{tab:schedule}. A measurement of the scattered light is possible with the dataset No.~11, by shifting the position of the solar cell from the CBP output of approximately \SI{16}{\centi\meter}
+Finally, some systematic measurements have been carried out. A cap has been placed on the CBP output to measure the background of the room for both setup configurations, corresponding to lines No.~9 and No.~10 of Table~\ref{tab:schedule}. A measurement of the scattered light is possible with the dataset No.~11, by shifting the position of the solar cell from the CBP output of approximately \SI{16}{\centi\meter}.
 
 
 \begin{table*}[t]{}
-    \centering
+  \centering
+  \caption{Detailed schedule of the measurements.}
     \begin{tabular}{M{.25cm} M{2.25cm} M{1.75cm} M{1.1cm} M{1.75cm} M{3cm} M{3.5cm} M{1.25cm}}
         \hline\hline
          \bf{N$^{\circ}$} & \bf{Label} & \bf{Target} & \bf{Pinhole} & \bf{QSW} & \bf{\SD bands} & \bf{Specitifity} & \bf{Number of runs} \\ 
@@ -258,7 +250,6 @@ Finally, some systematic measurements have been carried out. A cap has been plac
          13 & Wavelength calibration & Spectrograph & - & - & - & Hg-Ar lamp used for light source & 1 \\ 
          \hline
     \end{tabular}
-    \caption{Detailed schedule of the measurements.}
     \label{tab:schedule}
 \end{table*}
 
