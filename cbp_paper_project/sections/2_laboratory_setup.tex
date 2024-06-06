@@ -1,7 +1,21 @@
 \section{Laboratory setup}
 \label{sec:setup}
 
-Our setup is composed of three main components: the \SD telescope, a large area photodiode used as a calibration reference, and the CBP which illuminates either one or the other. In the following sections, we will describe each component in detail and explain their operation.
+Our setup consists of three primary components: the \SD telescope, a
+large area photodiode employed as a calibration reference, and the CBP
+which illuminates either one or the other. In the following section,
+we will describe each component and detail their operations.
+
+In comparison to the original CBP design outlined in
+\cite{Mondrik_2023}, a significant enhancement is the use of a solar
+cell to calibrate and monitor the CBP optical transmission between the
+optical sphere and the telescope output. Other noteworthy improvements
+include (1) replacing the laser light source from NIST with an EKSPLA
+NT 252, which offers a slightly more favorable wavelength power
+cutoff, (2) implementing a filtering system to prevent laser harmonics
+from being injected into the light beam and (3) synchronizing the
+photocurrent readings with laser light emission, facilitating the
+extraction of the signal.
 
 \subsection{\SD}
 \label{sec:stardice}
@@ -52,7 +66,14 @@ The laser output is purified with a diaphragm and a filter wheel. The latter con
 
 The light is then injected into an optical fiber Thorlabs MHP910L02 of with a wide core diameter of \SI{910}{\micro\meter}, which is plugged into an IS200-4 $\Phi$2'' integrating sphere from Thorlabs, which has an internal \SI{50}{\mm} diameter and is composed of 1 input and 4 output ports. The integrating sphere dilutes the laser flux and breaks the light coherence. Two monitoring instruments are plugged on the sphere. First a silicon photodiode Thorlabs SM05PD3A with a high efficiency in the UV is mounted on an output port orthogonal to the laser input port to control the laser power stability. It is mounted behind a pinhole to reduce the photon flux and ensure that it works in its linear regime. It is read by a Keithley 6514 electrometer at a rate of \SI{0.02}{\second}. We also plug an OceanOptics Q65000 fiber spectrometer on another output to monitor the true laser wavelength and the spectral purity. One port is left free to plug a calibration lamp to calibrate the spectrograph when needed. Finally, a slider with pinholes of different diameters is mounted on the last output port. Figure \ref{fig:sphere} shows a schematic of the integrating sphere and the instruments plugged into it.
 
-In this paper, we used three different pinholes, of diameter \SI{75}{\micro\meter}, \SI{2}{\milli\meter} (respectively P75HK and P2000HK from Thorlabs) \SI{5}{\milli\meter} (homemade). The \SI{5}{\mm} pinhole is the largest possible given the \SD field of view and gives the maximum flux. The other pinholes are used for systematic checks and filter edge analysis. The pinhole slider is attached to the ocular of a 154/1370 Ritchey-Chrétien Omegon telescope, mounted on a robotic Celestron NexStar Evolution 6, in order to position the pinhole at the focal point of the optics. An iris diaphragm is positioned \SI{16}{mm} after the pinhole and adjusted to cut light that would otherwise miss the secondary mirror of the telescope. A small amount of light scatters on the iris blades and is best observed in telescope images of the CBP taken with the \SI{2}{mm} pinhole configuration. In these images, it forms a faint ring with a radius of approximately \SI{340}{pixels}, discinct from the main spot. When comparing annular photometry of the ring to that of the main spot, the fraction of scattered light is usually smaller than \num{6e-4} between 400 and \SI{900}{nm}.
+We used three different pinholes, of diameter \SI{75}{\micro\meter}, \SI{2}{\milli\meter} (respectively P75HK and P2000HK from Thorlabs) \SI{5}{\milli\meter} (homemade). The \SI{5}{\mm} pinhole is the largest possible given the \SD field of view and gives the maximum flux. The other pinholes are used for systematic checks and filter edge analysis. The pinhole slider is attached to the ocular of a 154/1370 Ritchey-Chrétien Omegon telescope in order to position the pinhole at the focal point of the optics. An iris diaphragm is positioned \SI{16}{mm} after the pinhole and adjusted to cut light that would otherwise miss the secondary mirror of the telescope. A small amount of light scatters on the iris blades and is best observed in telescope images of the CBP taken with the \SI{2}{mm} pinhole configuration. In these images, it forms a faint ring with a radius of approximately \SI{340}{pixels}, discinct from the main spot. When comparing annular photometry of the ring to that of the main spot, the fraction of scattered light is usually smaller than \num{6e-4} between 400 and \SI{900}{nm}.
+
+The whole assembly is mounted on a robotic Celestron NexStar Evolution 6
+altazimutal mount. As a last step, we cropped the output of the Richey-Chrétien
+Omegon with a mask shaped as a quarter of a disk corresponding to one
+quadrant of its secondary mirror spider, so that the actual beam shape
+is only a fourth of the complete aperture. This ensure that the entire
+beam can fit inside the reference solar cell footprint.
 
 \begin{figure}
     \centering
@@ -62,11 +83,6 @@ In this paper, we used three different pinholes, of diameter \SI{75}{\micro\mete
     %Tinkercad
 \end{figure}
 
-
-One important improvement in our CBP design compared with \cite{Mondrik_2023} is the use of a solar cell to calibrate and monitor the CBP optical transmission between the optical sphere and the telescope output. It was chosen to have high quantum efficiency and a large shunt resistance. Hence we have a C60 solar cell of 3$^{\mathrm{rd}}$ generation from Sunpower. This solar cell is set on a two-axis mount, one that allows a movement in the direction of the optical axis of the CBP telescope, and another axis that is vertical, which allows to adjust the height of the solar cell. It is placed at \SI{16}{\cm} approximately from the telescope aperture. This solar cell is connected via a coaxial cable to a Keysight B2987A electrometer, the same that was used for its calibration. The charges are measured at a rate of \SI{0.002}{\second}. In Figure~\ref{fig:cbp_setup} right, we show a picture of the setup when the CBP is aiming at the \SD telescope described in section~\ref{sec:stardice}. While a large CBP output beam allows for a larger scan of the telescope mirror, its calibration needs for it to be fully contained by the calibrating sensor. The largest accurate sensor we managed to setup for this experiment is a square solar cell of \SI{12.5}{\centi\meter} width, which thus sets the maximum size of the CBP beam. We adjust the output of the Richey-Chrétien Omegon to that size by cropping it with a frame shaped as a quarter of a disk corresponding to a quadrant of its secondary mirror spider. 
-
-To synchronise the laser and the two electrometers on the same clock, their output trigger lines are plugged in a digital analyser that defines the timestamps for all our data sets. This was a crucial element in the chain to achieve an accurate calibration of the CBP response when signal-to-noise ratio was too low in the solar cell depending on the laser regime.
-
 \begin{figure*}[ht]
 \centering
 \includegraphics[width=\textwidth]{fig/cbp_setup_cropped.pdf}
@@ -74,10 +90,10 @@ To synchronise the laser and the two electrometers on the same clock, their outp
 \label{fig:cbp_setup}
 \end{figure*}
 
-In summary, the design of the CBP has undergone several modifications since its initial description in \cite{Mondrik_2023}. Three notable changes include: (1) replacing the laser light source from NIST with an EKSPLA NT 252, which has a slightly different wavelength power cutoff; (2) adding a filtering system to prevent laser harmonics from being injected into the light beam; and (3) incorporating calibration and monitoring of the CBP transmission as part of the instrumentation and observation procedure. This is now done using a solar cell instead of relying on external measurements in a separate experimental setup.
-
-
 \subsection{Solar cell description}
+
+We use a C60 solar cell of 3$^{\mathrm{rd}}$ generation from Sunpower as our calibration reference. Its sensitive area forms a square with \SI{12.5}{\centi\meter} side, setting the maximum size of the CBP beam which can be accurately calibrated. This solar cell is set on a two-axis mount, one that allows a movement in the direction of the optical axis of the CBP telescope, and another axis that is vertical, which allows to adjust the height of the solar cell. It is placed at \SI{16}{\cm} approximately from the telescope aperture. This solar cell is connected via a coaxial cable to a Keysight B2987A electrometer, the same that was used for its calibration. The charges are measured at a rate of \SI{0.002}{\second}. In Figure~\ref{fig:cbp_setup} right, we show a picture of the setup when the CBP is aiming at the \SD telescope described in section~\ref{sec:stardice}.
+
 
 \subsubsection{Quantum efficiency measurement}
  
@@ -145,7 +161,7 @@ The solar cell was aligned perpendicalular to the CBP output beam with a precisi
 
 \subsubsection{Dark current characterisation}
 
-Due to the low resistance of the solar cell, when plugged into the Keysight electrometer we observed a quite strong current even in dark conditions (about \SI{20}{\nano\ampere}). Therefore, we built a device that uses a precision voltage source with a tunable voltage divider to inject a counter-current that cancels this contribution. The current value was tuned to observe approximately no drift when using the Keysight in charge mode inside the usual acquisition time window ($< \SI{1}{\minute}$). Doing so, we avoided saturating the electrometer when using the solar cell in dark and laser-on conditions. 
+Due to the low resistance of the solar cell, we observed a quite strong current even in dark conditions (about \SI{20}{\nano\ampere}). Therefore, we built a device that uses a precision voltage source with a tunable voltage divider to inject a counter-current that cancels this contribution. The current value was tuned to observe approximately no drift when using the Keysight in charge mode inside the usual acquisition time window ($< \SI{1}{\minute}$). Doing so, we avoided saturating the electrometer when using the solar cell in dark and laser-on conditions. 
 
 %\begin{itemize}
 %\item Without offset box: $\sim 20 nA$
@@ -164,7 +180,14 @@ After cancelling the dark current drift, the analysis of the solar cell dark sig
 
 \FloatBarrier   
 
-\subsection{Equations}
+\subsection{Time synchronisation}
+\label{sec:synchro}
+
+The precision of the analysis can be significantly improved if the laser pulses can be accurately identified within the photocurrent timeseries. This is particularly crucial for solar cell measurements, where signal-to-noise ratios are typically lower.
+
+To accomplish such synchronization, we recorded the timing of all three trigger lines of the laser and both electrometers on a single microcontroller. Upon detecting a TTL pulse on any of these lines, the microcontroller registers a 32-bit timestamp using its internal clock counter, enabling synchronization with a resolution of 500 nanoseconds over extended durations (up to 2100 seconds). This custom synchronization device, whose code is openly accessible \cite{logic\_timer}, is referred to as the digital analyzer throughout the remainder of this text.
+
+\subsection{Measurement principle}
 
 Table~\ref{tab:quantities} sum up the three quantities that are measured with the two setups in Figure~\ref{fig:cbp_setup}.
 
@@ -200,7 +223,7 @@ Once we have this response, we can shoot inside the \SD telescope as show in Fig
 
 We will focus on $\Rcbp(\lambda)$ and $\Rtel(\lambda)$ respectively in sections \ref{sec:rcbp} and \ref{sec:rsd}.
 
-\subsection{Strategy}
+\subsection{Measurement overview}
 \label{sec:strategy}
 
 The schedule for all measurements conducted to determine $\Rtel(\lambda)$ and estimate associated systematic uncertainties is outlined in Table\ref{tab:schedule}. Each row in the table corresponds to a specific hardware configuration and measurement run. We have assigned labels to each run and specified the following details: (1) the target of the CBP, (2) the pinhole used in the CBP slide, (3) the QSW setting for the laser, (4) the filters used in the \SD camera filter wheel (when applicable), (5) any specificities of the measurement, and (6) the number of runs.
@@ -268,4 +291,4 @@ Finally, some systematic measurements have been carried out. A cap has been plac
     \label{fig:ccd_grid}
 \end{figure}
 
-\newpage
+%\newpage

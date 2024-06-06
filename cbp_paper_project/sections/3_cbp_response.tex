@@ -1,29 +1,31 @@
 \section{CBP response calibration with a solar cell}
 \label{sec:rcbp}
 
-\subsection{Preparatory settings}
+\subsection{Optics setup}
 
-Before illuminating the solar cell with the CBP, several actions have to be taken to maximise the quality of the data sets:
-\begin{itemize}
-\item place the pinholes at the focus of the CBP telescope
-\item tune the telescope iris
-\item align the CBP and the solar cell in position and angle
-\item mask every ambient light
-\item spectrograph calibration
-\item \todo{think a lot about what we forgot}
-\end{itemize}
+The CBP optics have two degrees of freedom that must be adjusted
+before determining its transmission: (1) the focuser distance, which
+needs to be tuned so that the pinhole is at the focal plane of the
+telescope and produces a collimated beam; and (2) the size of the iris
+diaphragm, which needs to be adjusted so that no light misses the CBP
+secondary mirror.
 
+To adjust the focuser distance, we re-imaged the CBP pinhole in the
+StarDICE camera using the StarDICE telescope set up for infinity
+focus. We then adjusted the CBP focus to minimize the size of the
+image in the camera and tightened the locking screws. However, since
+this procedure was conducted before the first stellar light of the
+StarDICE telescope, we had to use a theoretical value for its focal
+plane position. As a result, we estimate that the collimation of the
+CBP beam may be off by up to $\delta f / f = 0.002$. We did check that
+the focus was reasonably stable to manual changes of the pinhole
+slots.
 
-\subsubsection{Iris}
-
-\todo{Marc}
-
-\subsubsection{Focussing}
-
-\todo{Marc}
-
-The CBP was aligned with the StarDICE telescope to improve the focus. The StarDICE camera was set close to infinity with no filter. We adjusted the CBP focus to get the smallest extension of the pinhole image. A slight offset was then added to account for the small change in focus introduced by tightening the locking screws. The focus was to check to resist slot changes and even complete removal and reinstallation of the pinhole.
-
+To adjust the size of the iris diaphragm, we gradually closed it while
+monitoring the flux output of the CBP until the flux started to
+decrease. We then locked the diaphragm at the position immediately
+preceding the flux drop. This ensured that no light was missed by the
+CBP secondary mirror.
 
 \subsubsection{Alignment of the CBP}
 
