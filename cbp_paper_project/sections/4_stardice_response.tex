@@ -14,6 +14,7 @@ In this section, we present the measurement of the \SD telescope response $\Rtel
 
 
 \subsection{Modelisation of the \SD PSF on \spinhole pinhole data}
+\label{sec:modelisation-sd-psf}
 
 Figure~\ref{fig:ghost_contrast} shows stacks of images obtained with the \spinhole pinhole in the absence of filter. The illumination of a section of the primary StarDICE mirror results in a superimposition of the \SD telescope PSF, and a set of additional fainter images that we call ghosts. The ghosts result from undesired but unavoidable reflexions on optical surfaces. The most visible ones come from the beam reflexion on the CCD surface and back reflexion on its covering window, as described in Figure~\ref{fig:schema_ghost}.\\
 
@@ -122,25 +123,16 @@ longer properly constrained.
 %On va mesurer l'ensemble des spots CBP avec l'ouverture à 20 pixels sachant que dans l'IR c'est pas fou 
 %*98\% du flux stable en couleur
 
-\subsection{Photometry for filter throughput measurement}
-\label{sec:photometry_small}
+\subsection{Accounting for CBP laser light contamination}\label{sec:sd_contaminations}
 
-The modelization of the PSF at long distance from its core is possible because of the laboratory conditions of these images. These conditions are intrisinc to CBP images, with an isolated source and no sky background. It is impossible to port this method with on-sky data. We choose to carry out the whole analysis with aperture photometry and a background estimation reproducible with on-sky data. This method is the baseline photometry for the \spinhole pinhole, and we compared the measurements obtained with such a method and the fitted parameters to quantify eventual biases. 
-
-\subsubsection{Background subtraction}
-\label{sec:bkg}
-
-To estimate the background contribution, the sources in the image need to be detected and masked. We compute the standard deviation of an image $\sigma$, and every pixel with a signal higher than 5$\sigma$ is masked, as well as all the surrounding pixels that has a signal higher than 2$\sigma$. Then we proceed to a segmentation of the masked image into boxes of $129\times132$ pixels. We compute the mean and the standard deviation of the background in each of these boxes, and we interpolate their values in a 2D map to get our estimation of the background. This background estimation is subtracted to the image. Then, the centroid of the spot of interest is computed to pursue aperture photometry at this position. $\Qccd$ is measured with aperture photometry at a radius of \SI{20.9}{pixels} for every image of the dataset with the \spinhole.
-
-\subsubsection{Correction of the light contamination}\label{sec:sd_contaminations}
-
-When measuring the flux collected from the \SD camera, we have to remove light contaminations described in Sections~\ref{sec:532_cont} and~\ref{sec:fluorescence}. As the photodiode and the solar cell, the total signal measured in the \SD camera $\Qccdmes$ is the sum of the flux from the main laser line $\Qccdcal$ and the flux from the \SI{532}{\nm} contamination $\Qccd^{532}$, the $\lambda_{\rm comp}$ contamination $\Qccd^{\lambda_{\rm comp}}$, and the integrating sphere fluorescence $\Qccd^{\mathrm{fluo}}$, as follows:
+As for the photodiode and the solar cell (see Sections~\ref{sec:532_cont} and~\ref{sec:fluorescence}), the total signal measured in the \SD camera $\Qccdmes$ is the sum of the flux from the main laser line $\Qccdcal$ and the flux from the \SI{532}{\nm} contamination $\Qccd^{532}$, the $\lambda_{\rm comp}$ contamination $\Qccd^{\lambda_{\rm comp}}$, and the integrating sphere fluorescence $\Qccd^{\mathrm{fluo}}$, as follows:
 \begin{equation}
     \Qccdmes = \Qccdcal + \Qccd^{532} + \Qccd^{\lambda_{\rm comp}} + \Qccd^{\mathrm{fluo}}
     \label{eq:qccd_mes}
 \end{equation}
+The contamination light in the \SD camera can be estimated by multiplying $\Qphot^{532}$, $\Qphot^{\lambda_{\rm comp}}$ and $\Qphot^{\mathrm{fluo}}$ measured with the CBP photodiode by a first estimation of $\Rcbp(\lambda)$ and $\Rtel(\lambda)$. We then refine the measurement of $\Rtel(\lambda)$ and correct iteratively the effect of those contaminations.
 
-The contamination light in the \SD camera can be estimated by multiplying $\Qphot^{532}$, $\Qphot^{\lambda_{\rm comp}}$ and $\Qphot^{\mathrm{fluo}}$ by $\Rcbp(\lambda)$ and $\Rtel(\lambda)$. The contaminations are subtracted, and impact on filter transmission measurement is shown Figure~\ref{fig:g_filter_532}, focusing on the \SD g filter, the most affected filter by integrating sphere fluorescence and \SI{532}{\nano\meter} line.
+The results of this procedure is best illustrated by its impact on the \SD $g$ filter transmission measurement as shown in Figure~\ref{fig:g_filter_532}, the most affected by integrating sphere fluorescence and \SI{532}{\nano\meter} line.
 
 \begin{figure}[h]
     \centering
@@ -150,21 +142,18 @@ The contamination light in the \SD camera can be estimated by multiplying $\Qpho
     %cbp_paper_plots.ipynb
 \end{figure}
 
-\subsubsection{Aperture correction}
 
-In this section, we aim to quantify the fraction of flux missed when measuring the signal for a \spinhole pinhole image with aperture photometry rather than with the PSF photometry. We define the faction of flux missed as the ratio between the value measured with photometry for a given radius and the total amplitude $A$ fitted for a given wavelength. It is quantified in Figure~\ref{fig:bias_aperture}. Less than 3\% of the flux is missed between \SI{400}{\nano\meter} and \SI{900}{\nano\meter}. Below \SI{400}{\nano\meter} the ghost contribution is missed when using an aperture of \SI{20.9}{pixels}. Above \SI{900}{\nano\meter} where the PSF is degrading, the fraction of flux missed increase by one order of magnitude and reach more than 75\%. The bottom panel of Figure~\ref{fig:bias_aperture} shows that the baseline photometry is compatible to the fit estimation at less than 0.2\% between \SI{400}{\nano\meter} and \SI{900}{\nano\meter}. 
+\subsection{Pinhole intercalibration}
+
+Figure~\ref{fig:stardice_5mm_response} show the \SD response obtained with the \bpinhole pinhole, and no filter.
 
 \begin{figure}[h]
-     \centering
-     \resizebox{\hsize}{!}{\includegraphics{fig/bias_aperture.pdf}}
-     \caption{\textit{Top:} Fraction of missing flux against $\lambda_L$ when measuring \spinhole pinhole dataset with aperture photometry at \SI{20.9}{pixels} rather than taking the total amplitude $A$ fitted. The red curve corresponds to the estimation of the fit, the green one to aperture photometry when the backgruond is estimate with the dark datasets, and the blue one to aperture photometry when the background is estimate with the method described in Section~\ref{sec:photometry_small}. \textit{Bottom:} Relative difference in percent between the flux measured for aperture photometry with the two background estimations and the model estimation at \SI{20.9}{pixels}.}
-     \label{fig:bias_aperture}
-    %~/stardice/analysis/cbp_paper/total_fluxes/fit_results.ipynb
+    \centering
+    \includegraphics[width=\columnwidth]{fig/stardice_5mm_response.pdf}
+    \caption{\textit{Top:} \SD response with no filter and \bpinhole pinhole with respect to wavelength in nanometer. \textit{Bottom:} Uncertainties over the \SD response measurement with respect to wavelength in nanometer.}
+    \label{fig:stardice_5mm_response}
+    %~/stardice/analysis/cbp_paper/golden_sample_analysis/dr2/response_plots.ipynb
 \end{figure}
-
-We can reach the conclusion that the baseline aperture photometry for the \spinhole pinhole can be used for the range between \SI{400}{\nano\meter} and \SI{900}{\nano\meter}. Below \SI{400}{\nano\meter} there is a need to take care of the ghost contribution. Above \SI{900}{\nano\meter}, this method does not measure a representative flux of the target. It is believed that the \SD telescope is the one responsible for the PSF degradation, one possible explanation is that the primary mirror is becoming partially transparent and generate defocused light. Anyhow, the CBP measurements cannot be trusted in this wavelength range. 
-
-\subsubsection{Pinhole intercalibration}
 
 It is necessary to intercalibrate the \SD response measurements obtained with the \spinhole pinhole with the CBP response measurements obtained with the \bpinhole pinhole. To link these measurements, we measure the \SD responses with the \spinhole pinhole and the \bpinhole pinhole and compute the pinholes ratio $\Kpinholes$. This ratio is defined such as the $\Rcbp$ defined in Equation~\ref{eq:rsd} is the \spinhole pinhole CBP response $\Rcbp^{\spinhole}$, which can be obtained with the \bpinhole pinhole CBP response $\Rcbp^{\bpinhole}$:
 
@@ -179,8 +168,6 @@ When using \bpinhole pinhole, the main spot takes a significant area of the foca
 To compare the \SD responses for both pinhole, we need to measure the fluxes with aperture photometry at the same radius so that it contains the same features, such as the ghost contribution. This way there is no other consideration than the geometry of the pinholes. We estimate the \spinhole pinhole flux $F(300, \lambda)$, $\Qccd^{\bpinhole}$ with the method described in Section~\ref{sec:photometry_big}. We compute the ratio $\Kpinholes=\frac{F(300)}{\Qccd^{\bpinhole}}$ and show the result in Figure~\ref{fig:ratio_pinholes}. The linear fit of this ratio is used to intercalibrate the \bpinhole pinhole $\Rcbp(\lambda)$ obtained and the \spinhole pinhole \SD for every measurements of this analysis.
 
 %The non-null slope and not expected as the ratio between the two pinholes should corresponds only to the ratio of surfaces of illuminated area at the input CBP. We suspect that some light diffusion on the edges of the pinholes or other complex reflections in the setup could give this ratio a chromatic dependance.
-
-
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{fig/ratio_pinholes.pdf}
@@ -188,6 +175,32 @@ To compare the \SD responses for both pinhole, we need to measure the fluxes wit
     \label{fig:ratio_pinholes}
     %~/stardice/analysis/cbp_paper/total_fluxes/ratio_pinholes.ipynb
 \end{figure}
+
+
+\subsection{Photometry applicable to on-sky data}
+\label{sec:photometry_small}
+
+The measurement of the PSF at long distance from its core is possible in CBP images because of the very low level of background light in these images. It is impractical to port this method to on-sky data. We choose to carry out the throughput measurement for an aperture photometry and a background estimation algorithm actually applicable to on-sky data. 
+
+The photometry is performed as follows. To estimate the background contribution, the sources in the image need to be detected and masked. We compute the standard deviation of an image $\sigma$, and every pixel with a signal higher than 5$\sigma$ is masked, as well as all the surrounding pixels that has a signal higher than 2$\sigma$. Then we proceed to a segmentation of the masked image into boxes of $129\times132$ pixels. We compute the mean and the standard deviation of the background in each of these boxes, and we interpolate their values in a 2D map to get our estimation of the background. This background estimation is subtracted to the image. Then, the centroid of the spot of interest is computed to pursue aperture photometry at this position. $\Qccd$ is measured with aperture photometry at a radius of \SI{20.9}{pixels} for every image of the dataset with the \spinhole.
+
+Based on the model built in Sect.~\ref{sec:modelisation-sd-psf}, we can quantify the fraction of the total flux measured in \spinhole pinhole images with this aperture photometry method. We define the fraction of flux missed as the ratio between the value measured with photometry for a given radius and the total amplitude $A$ fitted for a given wavelength. The result is given as the blue curve in Figure~\ref{fig:bias_aperture}. About 98\% of the flux is collected between \SI{400}{\nano\meter} and \SI{900}{\nano\meter}. The ghost contribution, which is missed when using an aperture of \SI{20.9}{pixels}, contribute about another extra percent below \SI{400}{\nano\meter}. Above \SI{900}{\nano\meter} where the PSF is degrading fast, the fraction of flux missed increase by one order of magnitude and reach more than 75\% at \SI{1050}{nm}.
+
+While most of this effect is directly explained by the aperture correction, a small contribution also comes from a bias in the background estimate, caused by the pollution of background map by the tails of PSF of the source. Given that the model of the PSF predicts the value of the aperture correction (red curve in Fig.~\ref{fig:bias_aperture}), we can estimate the contribution of the background bias as the difference between the two curves. This curve, shown on the bottom pannel of Fig.~\ref{fig:bias_aperture}, shows that the background bias contributes about 0.2\% of the total flux.
+
+\begin{figure}[h]
+     \centering
+     \resizebox{\hsize}{!}{\includegraphics{fig/bias_aperture.pdf}}
+     \caption{\textit{Top:} Fraction of missing flux against $\lambda_L$ when measuring \spinhole pinhole dataset with aperture photometry at \SI{20.9}{pixels} rather than taking the total amplitude $A$ fitted. The red curve corresponds to the estimation of the fit, the green one to aperture photometry when the backgruond is estimate with the dark datasets, and the blue one to aperture photometry when the background is estimate with the method described in Section~\ref{sec:photometry_small}. \textit{Bottom:} Relative difference in percent between the flux measured for aperture photometry with the two background estimations and the model estimation at \SI{20.9}{pixels}.}
+     \label{fig:bias_aperture}
+    %~/stardice/analysis/cbp_paper/total_fluxes/fit_results.ipynb
+\end{figure}
+
+%
+% TODO une conclusion qui dit: Les résultats sont valables pour cette photométrie, si la PSF sur le ciel n'est pas trop différente. Entre 900 et 400 ça devrait faire gros. Mais au-delà va savoir. Les résultats seront révisés quand on aura la PSF sur le ciel
+% 
+We can reach the conclusion that the baseline aperture photometry for the \spinhole pinhole can be used for the range between \SI{400}{\nano\meter} and \SI{900}{\nano\meter}. Below \SI{400}{\nano\meter} there is a need to take care of the ghost contribution. Above \SI{900}{\nano\meter}, this method does not measure a representative flux of the target. It is believed that the \SD telescope is the one responsible for the PSF degradation, one possible explanation is that the primary mirror is becoming partially transparent and generate defocused light. Anyhow, the CBP measurements cannot be trusted in this wavelength range. 
+
 
 % The bottom panel corresponds to the aperture correction that is needed to apply to the aperture photometry measurement. It is around 2\% below \SI{950}{\nano\meter}, and increase by one order of magnitude in the infrared. This increase is correlated with the variation of the Moffat parameters $\alpha$ and $\beta$, showing that the PSF is drastically changing in the near infrared. This issue is discussed in more details section \ref{sec:ir}. The third panel show a constant background against wavelength, at a mean of \SI{0.27}{ADU/pixel}.
 %
@@ -203,21 +216,9 @@ To compare the \SD responses for both pinhole, we need to measure the fluxes wit
 %    \label{fig:sd_budget}
 %\end{figure}
 
-\subsection{\SD response}
+\subsection{Results}
 
 In this section we present the results obtained for the \SD throughput measurement with the \bpinhole pinhole from dataset No.~8; the StarDICE throughput and its filter and grating transmissions measurement with the \spinhole pinhole from dataset No.~6; and the measurements of the datasets No.~2, No.~3 and No.~12. 
-
-\subsubsection{\SD throughput with \bpinhole pinhole}
-
-The Figure~\ref{fig:stardice_5mm_response} show the \SD response obtained with the \bpinhole pinhole, and no filter.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\columnwidth]{fig/stardice_5mm_response.pdf}
-    \caption{\textit{Top:} \SD response with no filter and \bpinhole pinhole with respect to wavelength in nanometer. \textit{Bottom:} Uncertainties over the \SD response measurement with respect to wavelength in nanometer.}
-    \label{fig:stardice_5mm_response}
-    %~/stardice/analysis/cbp_paper/golden_sample_analysis/dr2/response_plots.ipynb
-\end{figure}
 
 \subsubsection{\SD throughput and filter transmissions with \spinhole pinhole}
 
@@ -279,22 +280,6 @@ The upper Figure~\ref{fig:ccd_positions} show the \SD response obtained with the
     %~/stardice/analysis/cbp_paper/golden_sample_analysis/dr2/2022_03_09_stardice_transmission_grid_auto.ipynb
 \end{figure}
 
-\subsection{Systematic uncertainties}
-\label{sec:systematics}
-
-\subsubsection{Stability of the StarDice responses}
-
-\subsubsection{Gain and linearity}
-\label{sec:gain}
-
-Varying pinhole with StarDice, and CBP
-Varying QSW but depending on result it falls into this subsection or the following
-
-\subsubsection{Pinhole chromaticity}
-
-\subsubsection{Pull distributions}
-
-\subsubsection{Courbes de croissances}
 
 
 
