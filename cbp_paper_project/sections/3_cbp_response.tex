@@ -40,7 +40,7 @@ To measure the CBP response, we must ensure that we aim toward the solar cell. F
 \end{figure}
 
 
-\subsection{Data set description}
+\subsection{Description of the CBP data set}
 \label{sec:cbp_datadesc}
 
 \begin{figure*}[!h]
@@ -53,11 +53,8 @@ To measure the CBP response, we must ensure that we aim toward the solar cell. F
 
 A typical dataset to measure the CBP response is the emission of laser bursts in the solar cell at a given wavelength. Charges in the photodiode and solar cell are recorded jointly, along with the flux in the spectrograph and the time stamps in the digital analyser (see examples in Figure~\ref{fig:sc_dataset_examples}).
 
-The laser emits pulses at a fixed rate of \SI{1}{\kilo\hertz}, with a power that highly depends on the wavelength. To ensure that all instruments work in their linear regime, without saturations, and control the dark current, we decided to shoot light in the solar cell in bursts of pulses, separated by dark times at least as long as the burst length. The number of pulses per burst at each wavelength was selected to minimize the change in total flux per burst collected by the photodiode over the full wavelength range, which is the common instrument between the CBP and \SD response measurements and the one receiving the maximum power in the system (Figure~\ref{fig:npulses}). Therefore, we expect to minimise eventual non-linear effects in the instrumental chain. The CBP system's linearity is checked by varying the laser power in Section~\ref{sec:sc_linearity}. However, we know we have a $1/f$ noise in the solar cell instrumental chain. In order to keep the $1/f$ noise of the solar cell instrumental chain under reasonable bounds, we limited the maximum length of a burst to \SI{200}{\ms}. The required total flux in the photodiode was then adjusted by accumulating several bursts measured independently by the solar cell.
+The laser emits pulses at a fixed rate of \SI{1}{\kilo\hertz}, with a power that highly depends on the wavelength. To ensure that all instruments work in their linear regime, without saturations, and limit the impact of dark current fluctuations, we decided to shoot light in the solar cell in bursts of pulses, separated by dark times at least as long as the burst length. The number of pulses per burst at each wavelength was selected to minimize the change in total flux per burst collected by the photodiode over the full wavelength range, which is the common instrument between the CBP and \SD response measurements and the one receiving the maximum power in the system (Figure~\ref{fig:npulses}). With the \SI{5}{\mm} pinhole with the largest laser power mode the solar cell accumulates around \SI{4}{\nano\coulomb} in a burst. In order to keep the $1/f$ noise of the solar cell instrumental chain under reasonable bounds, we limited the maximum length of a burst to \SI{200}{\ms}. The CBP system's linearity is checked by varying the laser power in Section~\ref{sec:sc_linearity}.  The required total flux in the photodiode was then adjusted by accumulating several bursts measured independently by the solar cell.
 
-%To limit the amplitude of these random fluctuations during the burst, we set the maximum number of pulses to 200 (so \SI{200}{\ms}). If more pulses were requested to maintain the signal level in the photodiode, we compensated with a higher number of bursts.
-
-We used the \SI{5}{\mm} pinhole with the largest laser power mode to get the highest signal-to-noise ratio in the solar cell and the \SD telescope. The solar cell accumulates around \SI{4}{\nano\coulomb} in a burst, with no change of Keysight range. % The Keysight accuracy in this regime is \todo{to check}. 
 During a solar cell measurement run, the laser wavelengths range between \SI{350}{\nano\meter} and \SI{1100}{\nano\meter} included with steps of \SI{1}{\nm}, but are randomly chosen to avoid that long-range $ 1/f$ mode in the solar cell dark current correlates neighboured data points of the CBP response. Several runs were accumulated to enhance the signal-to-noise ratio. In particular, five runs were recorded just before the \SD telescope measurement, and five new runs were launched just after.
 
 Runs with different settings have been conducted to estimate systematic uncertainties. We varied the laser global power (QSW) to assess the linearity of the instrumental light and check the ambient light additive contamination. We varied the solar cell distance to estimate the output CBP scattered light.
@@ -69,12 +66,10 @@ Runs with different settings have been conducted to estimate systematic uncertai
 \caption{Number of laser pulses per burst used for solar cell and StarDICE runs.}\label{fig:npulses}
 \end{figure}
 
-
-
 \subsection{Spectrograph data reduction}
 \label{sec:spectro_reduction}
 
-In our analysis, the spectrograph data are used to monitor the laser wavelength, but also the laser stray light contamination. Its main sources are a \SI{1064}{\nm} component from the Yagg laser pump and a \SI{532}{\nm} half harmonic. Therefore, we had to calibrate it in wavelength and flux. 
+In our analysis, the spectrograph is used to monitor the laser wavelength, and the contamination by laser stray light. The main components of the contamination are a \SI{1064}{\nm} line from the Yagg laser pump and a \SI{532}{\nm} half harmonic. Here, we detail the wavelength and flux calibration procedures for this instrument.
 
 
 \subsubsection{Spectrograph error model estimation}
