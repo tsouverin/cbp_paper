@@ -1,14 +1,8 @@
-\section{StarDICE response}
+\section{Measurement of the StarDICE telescope response}
 \label{sec:rsd}
-
-In this section, we will show the methodology to obtain the \SD telescope response $\Rtel(\lambda)$ by analyzing \SD camera data.
-
-\subsection{Data set description and strategy}
 \label{sec:sd_datadesc}
 
-As described in section \ref{sec:cbp_datadesc}, the laser emits pulses at a rate of \SI{1}{\kilo\hertz} in bursts that are separated with dark times. We set the \spinhole pinhole to measure the \SD throughput and its filter transmissions. Yet, as discussed in Section~\ref{sec:strategy} the calibration of the CBP throughput is obtained with the \bpinhole pinhole, so we use an open transmission measurement of the \SD telescope with both pinholes to intercalibrate the CBP and \SD telescope responses. Figure~\ref{fig:ccd_examples} shows examples of images obtained when the CBP shoots in the \SD CCD camera with two different pinholes. \\
-
-In the following sections, we describe the modelization of the \spinhole pinhole dataset via PSF photometry. Then, we discuss the choice of the baseline photometry used to measure the \SD response, and the method to intercalibrate it with the CBP response. Finally we will show the result obtained.
+In this section, we present the measurement of the \SD telescope response $\Rtel(\lambda)$ from CBP shoots using the \spinhole pinhole. One difficulty is the intercalibration between the \spinhole pinhole and the \bpinhole pinhole with which the CBP transmission has been determined in the previous section. Both produce images which are contained in the \SD sensor as shown in Figure~\ref{fig:ccd_examples}, but the latter forms an image of about 250 pixels in radius while the first forms an image of about 5.6 pixels in radius. Their photometry is thus  very differently affected by issues such as ghost reflexion and light scattered in the tails of the PSF. To produce an accurate measurement of this ratio we start by building a model of the PSF of the \SD/CBP assembly including the reflexion of light in the optics. We use this model to correct the intercalibration ratio measured with run No.~8 data. We then describe the generic photometry method applied to all other runs using the \spinhole pinhole data, and present the resulting response measurements.   
 
 \begin{figure}[h]
     \centering
@@ -18,46 +12,34 @@ In the following sections, we describe the modelization of the \spinhole pinhole
     %~/stardice/analysis/cbp_paper/total_fluxes/ghost_stack_figure.ipynb
 \end{figure}
 
-\subsection{Overscan subtraction}
-\label{sec:overscan}
-For both pinholes, the overscan of each image is estimated and subtracted. The mean of each column $i$ of the horizontal overscan and each row $j$ of the vertical overscan is computed. For each pixel $(i, j)$, we subtract the sum of estimation of the overscan estimated on the column $i$ and the row $j$. \\
 
-\subsection{Modelisation of the \SD data for \spinhole pinhole}
+\subsection{Modelisation of the \SD PSF on \spinhole pinhole data}
 
-%I. model
-%difficulté : PSF : convolution ouverture bizarre + réflexions
-%on peut modéliser à grande distance : addition moffat + réflexions dans l'optique + ghost 
-%description du ghost (2 dans l'infrarouge)
-%modélisation courbe de croissance --> plot résultats
-%bkg --> cohérent avec darks
-%5eme panneau --> chi2/dof
+Figure~\ref{fig:ghost_contrast} shows stacks of images obtained with the \spinhole pinhole in the absence of filter. The illumination of a section of the primary StarDICE mirror results in a superimposition of the \SD telescope PSF, and a set of additional fainter images that we call ghosts. The ghosts result from undesired but unavoidable reflexions on optical surfaces. The most visible ones come from the beam reflexion on the CCD surface and back reflexion on its covering window, as described in Figure~\ref{fig:schema_ghost}.\\
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{fig/ghost_contrast.pdf}
-    \caption{Stack of images at different wavelengths, with one image per nanometer. \textit{Left:} Stack of images between \SI{350}{\nano\meter} and \SI{450}{\nano\meter}. The scale is set on the ZScale from IRAF to make faint features visible. The spot of interest $G_0$ is at the center, and the ghost reflections are at its left. The circles correspond to the aperture photometry at different radii, when an annulus contains ghost contribution, it is colored with respect to the order of the ghost. The red area around the 1$\up{st}$ order ghost represents the area where the photometry of the ghost is measured. \textit{Right:} Same image but for a stack of images between \SI{1000}{\nano\meter} and \SI{1100}{\nano\meter}. We note that the 2$\up{nd}$ order ghost is not visible for the stack in the UV, where the 1$\up{st}$ order is maximal, while it is visible in the IR, where the 1$\up{st}$ order is lower. For the stack in IR, we osberve a degradation of the \SD PSF.}
+    \caption{Stack of images at different wavelengths, with one image per nanometer. \textit{Left:} Stack of images between \SI{350}{\nano\meter} and \SI{450}{\nano\meter}. The scale is set on the ZScale from IRAF to make faint features visible. The spot of interest $G_0$ is at the center, and the ghost reflections are at its left. The circles correspond to the aperture photometry at different radii, when an annulus contains ghost contribution, it is colored with respect to the order of the ghost. The red area around the 1$\up{st}$ order ghost represents the area where the photometry of the ghost is measured. \textit{Right:} Same image but for a stack of images between \SI{1000}{\nano\meter} and \SI{1100}{\nano\meter}. We note that the 2$\up{nd}$ order ghost is not visible for the stack in the UV, where the 1$\up{st}$ order is maximal, while it is visible in the IR, where the 1$\up{st}$ order is lower.}
     \label{fig:ghost_contrast}
     %~/stardice/analysis/cbp_paper/total_fluxes/ghost_stack_figure.ipynb
 \end{figure}
 
-In this section, we develop a modelization of the \spinhole pinhole dataset, where Figure~\ref{fig:ghost_contrast} shows stacks of images obtained with this dataset. The illumination of a section of the primary StarDICE mirror results in a central image resulting from the \SD telescope PSF, and a set of additional fainter images that we call ghosts. The ghosts result from undesired but unavoidable reflexions on optical surfaces. The most visible ones come from the beam reflexion on the CCD surface and back reflexion on its covering window, as described in Figure~\ref{fig:schema_ghost}.\\
+For each images in this dataset, we subtract a bias pattern, estimated on a column and row basis by computing the mean of the horizontal and vertical overscans. We then perform aperture photometry for a radius $r=\SI{20.9}{pixels}$, and then for successive annulus of external radius from \SI{24.9}{pixels} to \SI{419.1}{pixels}. These radii are regularly spaced on a logarithm scale shown in Figure~\ref{fig:ghost_contrast}.
 
-We consider that the \SD telescope PSF can be modelized as a Moffat distribution \citep{moffat} $M(r, \lambda)$ which depends on the radius $r$ and the wavelength $\lambda$ as:
-
+%The overscan estimates is obtaine as the mean n of each column $i$ of the horizontal overscan and each row $j$ of the vertical overscan is computed. For each pixel $(i, j)$, we subtract the sum of estimation of the overscan estimated on the column $i$ and the row $j$. \\
+To fit those data, we propose a model of the \SD telescope PSF as the sum of a Moffat function of radius, a constant background level and contributions from ghost at specific distances from the main spot. The Moffat function \citep{moffat}, integrated in an aperture of radius $r,$ writes:
 \begin{equation}
 M(r, \lambda)= 1 - \left( 1+\frac{r^2}{\alpha(\lambda)^2} \right)^{1-\beta(\lambda)},
 \end{equation}
-with $\alpha(\lambda)$ and $\beta(\lambda)$ the parameters of the Moffat distribution. The flux $F(r, \lambda)$ measured in the CCD with aperture photometry, can be modelized as: 
-
-%Thus, the core of the spot in the CCD is the convolution of the PSF, the CBP output shape, and ghosts from light reflections between the glass before the CCD and the CCD itself, as schematized in Figure~\ref{fig:schema_ghost}. These contributions make the core of the spot complex to model. However the tail of the PSF should not be impacted by the contribution of the CBP output shape and the light diffusion, so it is expected to behave like a Moffat distribution. 
-
+with $\alpha(\lambda)$ and $\beta(\lambda)$ the scale and exponent parameters of the Moffat distribution which depend on the wavelength. The flux $F(r, \lambda)$ measured in the CCD with aperture photometry, can then be modelized as: 
 \begin{equation}
-F(r, \lambda) = A(\lambda) \times \frac{M(r, \lambda) + \Kghostfit(r, \lambda)}{1 + \Kghostfit(r \rightarrow +\infty, \lambda)} + \bkg(r, \lambda),
+F(r, \lambda) = A(\lambda) \times \frac{M(r, \lambda) + \Kghostfit(r, \lambda)}{1 + \Kghostfit(r \rightarrow +\infty, \lambda)} + \pi r^2 bkg(\lambda),
 \label{eq:moffat_model}
 \end{equation}
-with $A(\lambda)$ the total amplitude, $\Kghostfit(r, \lambda) = \frac{\sum_{n=1}^{+\infty} G_n(\lambda)}{A(\lambda)}$ the relative contribution of the sum of all the ghosts $G_n(\lambda)$ and $\bkg(r, \lambda)$ the contribution of the background. The origin of the ghost contribution is schematized in Figure~\ref{fig:schema_ghost}.
+with $A(\lambda)$ the total amplitude, $\Kghostfit(r, \lambda) = \frac{\sum_{n=1}^{+\infty} G_n(\lambda)}{A(\lambda)}$ the relative contribution of the sum of all the ghosts $G_n(\lambda)$, and $bkg(\lambda)$ the background level in ADU/pixel. 
 
-The fit is done with PSF photometry for a radius $r=\SI{20.9}{pixels}$, and then for successive annulus of external radius from \SI{24.9}{pixels} to \SI{419.1}{pixels}. These radii are regularly spaced on a logarithm scale shown in Figure~\ref{fig:ghost_contrast}. The parameters of the fit are adjusted with the \spinhole pinhole dataset No.~8 from Table~\ref{tab:schedule}, with one image per wavelength. To take into account $\Kghostfit(r, \lambda)$, an additive value is fitted for every annulus that contains a ghost contribution. The evolution of the Moffat distribution is expected to be smooth with respect to wavelength, so the parameters $\alpha(\lambda)$ and $\beta(\lambda)$ are developed on a B-spline basis with 15 wavelength nodes regularly spaced between \SI{350}{\nano\meter} to \SI{1100}{\nano\meter}. The same goes for the function $\Kghostfit(r, \lambda)$ as it corresponds to light reflections on surfaces in the optical path. The results of this fit are shown Figure~\ref{fig:result_params}. 
+The evolution of the Moffat distribution is smooth with respect to wavelength. We therefore developp the parameters $\alpha(\lambda)$ and $\beta(\lambda)$  on a B-spline basis with 15 wavelength nodes regularly spaced between \SI{350}{\nano\meter} to \SI{1100}{\nano\meter}. The same goes for the function $\Kghostfit(r, \lambda)$ as it corresponds to light reflections on surfaces in the optical path. This reduce the number of free parameter and allows us to perform outlier rejection of a few annulus whose photometry was affected by a cosmic ray (10 out of 940 measurements). The results of the fit are shown Figure~\ref{fig:result_params}. 
 
 \begin{figure}[h]
     \centering
