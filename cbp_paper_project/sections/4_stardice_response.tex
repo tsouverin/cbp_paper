@@ -2,7 +2,7 @@
 \label{sec:rsd}
 \label{sec:sd_datadesc}
 
-In this section, we present the measurement of the \SD telescope response $\Rtel(\lambda)$ from CBP shoots using the \spinhole pinhole. One difficulty is the intercalibration between the \spinhole pinhole and the \bpinhole pinhole with which the CBP transmission has been determined in the previous section. Both produce images which are contained in the \SD sensor as shown in Figure~\ref{fig:ccd_examples}, but the latter forms an image of about 250 pixels in radius while the first forms an image of about 5.6 pixels in radius. Their photometry is thus  very differently affected by issues such as ghost reflexion and light scattered in the tails of the PSF. To produce an accurate measurement of this ratio we start by building a model of the PSF of the \SD/CBP assembly including the reflexion of light in the optics. We use this model to correct the intercalibration ratio measured with run No.~8 data. We then describe the generic photometry method applied to all other runs using the \spinhole pinhole data, and present the resulting response measurements.   
+In this section, we present the measurement of the \SD telescope response $\Rtel(\lambda)$ from CBP shoots using the \spinhole pinhole. One difficulty is the intercalibration between the \spinhole pinhole and the \bpinhole pinhole with which the CBP transmission has been determined in the previous section. Both produce images which are contained in the \SD sensor as shown in Figure~\ref{fig:ccd_examples}, but the latter forms an image of about 250 pixels in radius while the first forms an image of about 4 pixels in radius. Their photometry is thus  very differently affected by issues such as ghost reflexion and light scattered in the tails of the PSF. To produce an accurate measurement of this ratio we start by building a model of the PSF of the \SD/CBP assembly including the reflexion of light in the optics. We use this model to correct the intercalibration ratio measured with run No.~8 data. We then describe the generic photometry method applied to all other runs using the \spinhole pinhole data, and present the resulting response measurements.   
 
 \begin{figure}[h]
     \centering
@@ -28,7 +28,7 @@ Figure~\ref{fig:ghost_contrast} shows stacks of images obtained with the \spinho
 For each images in this dataset, we subtract a bias pattern, estimated on a column and row basis by computing the mean of the horizontal and vertical overscans. We then perform aperture photometry for a radius $r=\SI{20.9}{pixels}$, and then for successive annulus of external radius from \SI{24.9}{pixels} to \SI{419.1}{pixels}. These radii are regularly spaced on a logarithm scale shown in Figure~\ref{fig:ghost_contrast}.
 
 %The overscan estimates is obtaine as the mean n of each column $i$ of the horizontal overscan and each row $j$ of the vertical overscan is computed. For each pixel $(i, j)$, we subtract the sum of estimation of the overscan estimated on the column $i$ and the row $j$. \\
-To fit those data, we propose a model of the \SD telescope PSF as the sum of a Moffat function of radius, a constant background level and contributions from ghost at specific distances from the main spot. The Moffat function \citep{moffat}, integrated in an aperture of radius $r,$ writes:
+To fit those data, we propose a model of the \SD telescope PSF as the sum of a Moffat function, a constant background level and contributions from ghost at specific distances from the main spot. The Moffat function \citep{moffat}, integrated in an aperture of radius $r,$ writes:
 \begin{equation}
 M(r, \lambda)= 1 - \left( 1+\frac{r^2}{\alpha(\lambda)^2} \right)^{1-\beta(\lambda)},
 \end{equation}
@@ -39,7 +39,7 @@ F(r, \lambda) = A(\lambda) \times \frac{M(r, \lambda) + \Kghostfit(r, \lambda)}{
 \end{equation}
 with $A(\lambda)$ the total amplitude, $\Kghostfit(r, \lambda) = \frac{\sum_{n=1}^{+\infty} G_n(\lambda)}{A(\lambda)}$ the relative contribution of the sum of all the ghosts $G_n(\lambda)$, and $bkg(\lambda)$ the background level in ADU/pixel. 
 
-The evolution of the Moffat distribution is smooth with respect to wavelength. We therefore developp the parameters $\alpha(\lambda)$ and $\beta(\lambda)$  on a B-spline basis with 15 wavelength nodes regularly spaced between \SI{350}{\nano\meter} to \SI{1100}{\nano\meter}. The same goes for the function $\Kghostfit(r, \lambda)$ as it corresponds to light reflections on surfaces in the optical path. This reduce the number of free parameter and allows us to perform outlier rejection of a few annulus whose photometry was affected by a cosmic ray (10 out of 940 measurements). The results of the fit are shown Figure~\ref{fig:result_params}. 
+The evolution of the Moffat distribution is smooth with respect to wavelength. We therefore developp the parameters $\alpha(\lambda)$ and $\beta(\lambda)$  on a B-spline basis with 15 wavelength nodes regularly spaced between \SI{350}{\nano\meter} to \SI{1100}{\nano\meter}. The same goes for the function $\Kghostfit(r, \lambda)$ as it corresponds to light reflections on surfaces in the optical path. This reduces the number of free parameter and allows us to perform outlier rejection of a few annulus whose photometry was affected by a cosmic ray (9 photometric points affected out of 13122 measurements). The results of the fit are shown Figure~\ref{fig:result_params}. 
 
 \begin{figure}[h]
     \centering
@@ -49,18 +49,62 @@ The evolution of the Moffat distribution is smooth with respect to wavelength. W
     %Google slides
 \end{figure}
 
-In the first and second panel, we can see that the $\alpha(\lambda)$ and $\beta(\lambda)$ parameters of the PSF are stable within \SI{350}{\nano\meter} and \SI{900}{\nano\meter}, and change significantly beyond. This is correlated with a change of the PSF shape in the infrared as can be seen in the image stacks in Figure~\ref{fig:ghost_contrast}. 
+The most striking results is a significant degradation of the PSF
+after \SI{950}{nm}, as witnessed by the steep decrease of the value of
+the $\beta$ Moffat parameter and the increase of the $\alpha$
+parameter presented in the first and second panel. This effect is also
+visible when comparing the two stacks in
+Fig.~\ref{fig:ghost_contrast}. We were not able to pin down the exact
+origin of this degradation. A potential explanation could be that one
+of the reflective surface becomes partially transparent at these
+wavelengths and generate diffused light. The consequence of this
+effect on photometry will be further discussed in Sect.
 
-The third panel shows a constant background against wavelength, with a mean of $\mu_\mathrm{bkg, fitted}=\SI{0.267}{ADU/pixel}$ for an exposure time of \SI{1.1}{\second}. This panel show also the result of an independant study of the background analyzing dark images. Two datasets of dark images have been studied, one with the laser turned off, and a second by masking the CBP output with a cap (dataset No.~9 in Table~\ref{tab:schedule}). Both datasets are constants in time and wavelength, and their mean value of ADU/pixel are compatible, so we combine them into one dataset of darks. The mean photometry value of this dataset is represented by the black dashed line in this third panel, and is $\mu_\mathrm{dark, photometry}=\SI{0.252}{ADU/pixel}$ with a standard deviation $\sigma_\mathrm{dark, photometry}=\SI{0.059}{ADU/pixel}$. We conclude that the estimation of the background with the fit is consistent with the dark datasets results. \\
+The $\alpha(\lambda)$ and $\beta(\lambda)$ best-fit parameters are
+otherwise fairly stable within \SI{350}{\nano\meter} and
+\SI{900}{\nano\meter}. The third panel shows the background level
+reconcustred across all wavelengths. With a mean of
+$\mu_\mathrm{bkg, fitted}=\SI{0.267}{ADU/pixel}$ for an exposure time
+of \SI{1.1}{\second}, it is very consistent with the values measured
+on dark images. Two datasets of dark images have been studied, one
+with the laser turned off, and a second by masking the CBP output with
+a cap (dataset No.~9 in Table~\ref{tab:schedule}). Both datasets show
+no trend in time or wavelength, and have a mean value of
+$\mu_\mathrm{dark, photometry}=\SI{0.252}{ADU/pixel}$ and a standard
+deviation $\sigma_\mathrm{dark, photometry}=\SI{0.059}{ADU/pixel}$,
+represented by the black dashed line and shaded area in this third
+panel.
 
-The fourth panel presents the relative contribution of the first order ghost $G_1(\lambda)$, $\Kghostfitfirst(\lambda) = \frac{G_1(\lambda)}{A(\lambda)}$ in percent, superimposed with the fraction $\Kghost=\frac{G_1(\lambda)}{G_0(\lambda)}$ obtained by photometry measurements on the first order ghost $G_1(\lambda)$ and the main spot $G_0(\lambda)$. The method to perform ghost photometry is detailed in Appendix~\ref{sec:ghost_photometry}. The ratio $\Kghost$ and $\Kghostfitfirst$ obtained with two different methods on two different datasets are superimposing well below \SI{950}{\nano\meter}, which gives us confidence about the accuracy of this measurement. The deviation above \SI{950}{\nano\meter} between the two methods can be explained by the following arguments. the $\alpha(\lambda)$ and $\beta(\lambda)$ parameters indicate a deterioration of the PSF, which starts to overflow in the ghost photometry. In addition, interference fringes are appearing in the focal plane at these wavelengths, complicating the ghost photometry. As the fit accounts for the PSF evolution, the fitted result gives more confidence in its accuracy.
+The fourth panel presents the relative contribution of the first order
+ghost $G_1(\lambda)$,
+$\Kghostfitfirst(\lambda) = \frac{G_1(\lambda)}{A(\lambda)}$ in
+percent. We compared these reconstructed values with direct photometry
+of the visible first order ghost pattern performed in 2D images as
+detailed in Appendix~\ref{sec:ghost_photometry} $G_1(\lambda)$ dived
+by the photometry of the main spot $G_0(\lambda)$. This more direct
+determination of the ratio $\Kghost$ is shown as the dashed black
+line. The two different methods match perfectly up to \SI{950}{nm}
+showing that the identified ghost constitutes the only significant
+deviation to the Moffat profile. Beyond \SI{950}{nm} the second method
+does not give an accurate photometry for the ghost because it starts
+to be mixed with the core of the PSF.
 
-The reduced chi-squared of the fit in the fifth panel reach a value close to 1 at every wavelength, which indicates that the model satisfactorily describes the dataset.
+%fraction $\Kghost=\frac{G_1(\lambda)}{G_0(\lambda)}$ obtained by photometry measurements on the first order ghost $G_1(\lambda)$ and the main spot $G_0(\lambda)$. The method to perform ghost photometry . The ratio and $\Kghostfitfirst$ obtained with two different methods on two different datasets are superimposing well below \SI{950}{\nano\meter}, which gives us confidence about the accuracy of this measurement. The deviation above \SI{950}{\nano\meter} between the two methods can be explained by the following arguments. the $\alpha(\lambda)$ and $\beta(\lambda)$ parameters indicate a deterioration of the PSF, which starts to overflow in the ghost photometry. In addition, interference fringes are appearing in the focal plane at these wavelengths, complicating the ghost photometry. As the fit accounts for the PSF evolution, the fitted result gives more confidence in its accuracy.
+
+The reduced chi-squared of the fit is 1.86 explained by the fact that
+the Moffat shape does not describe the complex shape of the PSF
+core. To mitigate this issue, and as we are mainly interested in
+modeling the tails of the PSF, we start our profile modeling at a
+rather large inner aperture of 20.9 pixels where residuals no longer
+display visible structure and the chi-square display no trend in
+wavelength. Going to larger inner aperture increase the quality of the
+fit but decrease its stability as the scale parameter $\alpha$ is no
+longer properly constrained.
 
 \begin{figure}[h]
      \centering
      \resizebox{\hsize}{!}{\includegraphics{fig/result_params.pdf}}
-     \caption{Best fitting parameters for the model of Equation~\ref{eq:moffat_model}. Red plain lines correspond to the result of the fit, and black dashed lines to the values expected. From top to bottom: the first and second panel represent respectively the $\alpha(\lambda)$ and $\beta(\lambda)$ parameters from the Moffat distribution; the third panel shows the background contribution per pixel and its mean value in red, while the dark dashed line is the mean value of the dark; the fourth panel represents $\Kghostfitfirst(\lambda)$, and $\Kghost$; the fifth panel represents the reduced chi-squared of the fit.}
+     \caption{Best fitting parameters for the model of Equation~\ref{eq:moffat_model}. Red plain lines correspond to the result of the fit, and black dashed lines, when applicable, correspond to the values expected. From top to bottom: the first and second panel represent respectively the $\alpha(\lambda)$ and $\beta(\lambda)$ parameters from the Moffat distribution; the third panel shows the background contribution per pixel and its mean value in red, while the dark dashed line is the mean value of the dark; the fourth panel represents $\Kghostfitfirst(\lambda)$, and $\Kghost$; the fifth panel represents the reduced chi-squared of the fit.}
      \label{fig:result_params}
     %~/stardice/analysis/cbp_paper/total_fluxes/fit_results.ipynb
 \end{figure}
