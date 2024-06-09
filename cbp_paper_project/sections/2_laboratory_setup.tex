@@ -185,7 +185,7 @@ After cancelling the dark current drift, the analysis of the solar cell dark sig
 
 The precision of the analysis can be significantly improved if the laser pulses can be accurately identified within the photocurrent timeseries. This is particularly crucial for solar cell measurements, where signal-to-noise ratios are typically lower.
 
-To accomplish such synchronization, we recorded the timing of all three trigger lines of the laser and both electrometers on a single microcontroller. Upon detecting a TTL pulse on any of these lines, the microcontroller registers a 32-bit timestamp using its internal clock counter, enabling synchronization with a resolution of 500 nanoseconds over extended durations (up to 2100 seconds). This custom synchronization device, whose code is openly accessible \cite{logic\_timer}, is referred to as the digital analyzer throughout the remainder of this text.
+To accomplish such synchronization, we recorded the timing of all three trigger lines of the laser and both electrometers on a single microcontroller. Upon detecting a TTL pulse on any of these lines, the microcontroller registers a 32-bit timestamp using its internal clock counter, enabling synchronization with a resolution of 500 nanoseconds over extended durations (up to 2100 seconds). This custom synchronization device, whose code is openly accessible \cite{logic_timer}, is referred to as the digital analyzer throughout the remainder of this text.
 
 \subsection{Measurement principle}
 
