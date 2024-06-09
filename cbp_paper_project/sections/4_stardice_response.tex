@@ -1,4 +1,4 @@
-\section{Measurement of the StarDICE telescope response}
+\section{Measurement of the \SD telescope response}
 \label{sec:rsd}
 \label{sec:sd_datadesc}
 
@@ -81,8 +81,7 @@ ghost $G_1(\lambda)$,
 $\Kghostfitfirst(\lambda) = \frac{G_1(\lambda)}{A(\lambda)}$ in
 percent. We compared these reconstructed values with direct photometry
 of the visible first order ghost pattern performed in 2D images as
-detailed in Appendix~\ref{sec:ghost_photometry} $G_1(\lambda)$ dived
-by the photometry of the main spot $G_0(\lambda)$. This more direct
+detailed in Appendix~\ref{sec:ghost_photometry}. This more direct
 determination of the ratio $\Kghost$ is shown as the dashed black
 line. The two different methods match perfectly up to \SI{950}{nm}
 showing that the identified ghost constitutes the only significant
@@ -241,7 +240,7 @@ Looking at the relative uncertainties, the results show a precision of \textasci
 
 \subsubsection{\SD Responses variations}
 
-As the CBP is illuminated a portion of the \SD primary mirror, the response measured can be subject to variations according to the mirror position targeted. Dataset No.~2 and No.~3 were acquired to investigate these variations. This paper focuses on Dataset No.2, as it is used to synthesize the full pupil transmission in Section\ref{sec:pupil_stitching}. The \SD responses for the four radial mirror positions (see Figure\ref{fig:8_mirror_positions}) are shown in the left panel of Figure\ref{fig:radial_positions}.
+As the CBP is illuminated a portion of the \SD primary mirror, the response measured can be subject to variations according to the mirror position targeted. Dataset No.~2 and No.~3 were acquired to investigate these variations. This paper focuses on dataset No.2, as it is used to synthesize the full pupil transmission in Section\ref{sec:pupil_stitching}. The \SD responses for the four radial mirror positions (see Figure\ref{fig:8_mirror_positions}) are shown in the left panel of Figure\ref{fig:radial_positions}.
 
 The bottom panel displays the relative differences compared to the mean spline through the four responses. Two notable features emerge: one above \SI{900}{\nano\meter}, caused by interference fringing patterns in the sensor, and another below \SI{400}{\nano\meter}, which was unexpected, showing a discrepancy of more than \SI{20}{\%} between the different responses. This feature might be explained by the Hilux coating\footnote{\url{https://www.orionoptics.co.uk/optical-coatings/}} on the \SD mirrors, whose reflectivity varies with the light incidence angle.
 
@@ -253,7 +252,7 @@ On the other hand, the dataset No.~12 allows for measuring variabilities of the 
     \centering
     \includegraphics[width=\columnwidth]{fig/radial_positions.pdf}
     \includegraphics[width=\columnwidth]{fig/ccd_positions.pdf}
-    \caption{\textit{Top:} \SD response for the different radial positions on the mirror with a fix focal plane position (left), and different focal plane positions  with a fix mirror position (right). The colors are matching with positions illustrated in Figures~\ref{fig:8_mirror_positions} and \ref{fig:ccd_grid}, and the black dashed line correspond to the mean spline. \textit{Bottom:} Relative difference between the data and the mean spline. The shaded dots represent the curves with \SI{1}{\nano\meter} resolution, while the bright lines are binned to a \SI{10}{\nano\meter} resolution.}
+    \caption{\textit{Top:} \SD response for the different radial positions on the mirror with a fix focal plane position (left), and different focal plane positions  with a fix mirror position (right). The colors are matching with positions illustrated in Figures~\ref{fig:8_mirror_positions} and \ref{fig:ccd_grid}, and the black dashed line correspond to the mean spline. \textit{Bottom:} Relative difference between the data and the mean spline, binned to a \SI{10}{\nano\meter} resolution.}
     \label{fig:radial_positions}
     %~/stardice/analysis/cbp_paper/golden_sample_analysis/dr5/2022_03_01_stardice_transmission_radius.ipynb
 \end{figure*}
