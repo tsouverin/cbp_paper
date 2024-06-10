@@ -122,7 +122,7 @@ longer properly constrained.
 %On va mesurer l'ensemble des spots CBP avec l'ouverture à 20 pixels sachant que dans l'IR c'est pas fou 
 %*98\% du flux stable en couleur
 
-\subsection{Accounting for CBP laser light contamination}\label{sec:sd_contaminations}
+\subsection{Accounting for CBP light contamination}\label{sec:sd_contaminations}
 
 As for the photodiode and the solar cell (see Sections~\ref{sec:532_cont} and~\ref{sec:fluorescence}), the total signal measured in the \SD camera $\Qccdmes$ is the sum of the flux from the main laser line $\Qccdcal$ and the flux from the \SI{532}{\nm} contamination $\Qccd^{532}$, the $\lambda_{\rm comp}$ contamination $\Qccd^{\lambda_{\rm comp}}$, and the integrating sphere fluorescence $\Qccd^{\mathrm{fluo}}$, as follows:
 \begin{equation}
@@ -144,7 +144,16 @@ The results of this procedure are best illustrated by its impact on the \SD $g$ 
 
 \subsection{Pinhole intercalibration}
 
-Figure~\ref{fig:stardice_5mm_response} shows the \SD response obtained with the \bpinhole pinhole and no filter.
+Because we use a different pinhole for the CBP response and the \SD response measurement, we must intercalibrate the CBP response with both pinholes. The CBP response $\Rcbp$ defined in Equation~\ref{eq:rsd} can be developed follows:
+
+\begin{equation}
+	\Rcbp(\lambda) \equiv \Rcbp^{\spinhole}(\lambda) = \Rcbp^{\bpinhole}(\lambda) \times \Kpinholes,
+\end{equation}
+with $\Kpinholes$ the intercalibration term and $\Rcbp^{\spinhole}$ (resp. $\Rcbp^{\bpinhole}$) the CBP response measured with the \spinhole pinhole (resp. \bpinhole pinhole). 
+
+We estimate the correction term $\Kpinholes$ as the ratio of the \SD responses obtained with both pinholes from runs No.~8. The \bpinhole pinhole photometry is performed as follows. The background is estimated with dark exposures from the dark datasets, and the spatial mean of all these dark images is computed to obtain a master dark. When performing aperture photometry on the \bpinhole image, we subtract a background equivalent to the aperture photometry of the master dark at a similar position and radius, obtaining $\Qccd^{\bpinhole}$. The optimal radius is evaluated at 300 pixels for the \bpinhole pinhole to contain the main spot and the 1\up{st} order ghost. Figure~\ref{fig:stardice_5mm_response} shows the \SD response obtained with the \bpinhole pinhole and no filter. 
+
+%We could have increased the radius to contain the iris flux, but it would have added as much noise as the signal gained. 
 
 \begin{figure}[h]
     \centering
@@ -154,17 +163,11 @@ Figure~\ref{fig:stardice_5mm_response} shows the \SD response obtained with the 
     %~/stardice/analysis/cbp_paper/golden_sample_analysis/dr2/response_plots.ipynb
 \end{figure}
 
-It is necessary to intercalibrate the \SD response measurements obtained with the \spinhole pinhole with the CBP response measurements obtained with the \bpinhole pinhole. To link these measurements, we measure the \SD responses with the \spinhole pinhole and the \bpinhole pinhole and compute the pinholes ratio $\Kpinholes$. This ratio is defined such as the $\Rcbp$ defined in Equation~\ref{eq:rsd} is the \spinhole pinhole CBP response $\Rcbp^{\spinhole}$, which can be obtained with the \bpinhole pinhole CBP response $\Rcbp^{\bpinhole}$:
+%When shooting with the \bpinhole pinhole, the main spot is not a pointlike source, hence the data reduction of $\Qccd^{\bpinhole}$ is different than the baseline photometry. The overscan subtraction and the light contamination correction are done with the same method as the \spinhole pinhole, detailed in \ref{sec:photometry_small}. However, the background subtraction cannot be performed the same way. 
 
-\begin{equation}
-	\Rcbp(\lambda) \equiv \Rcbp^{\spinhole}(\lambda) = \Rcbp^{\bpinhole}(\lambda) \times \Kpinholes
-\end{equation}
+%When using \bpinhole pinhole, the main spot takes a significant area of the focal plane, meaning there is not enough background in the image to reconstruct it. The background contribution is estimated by aperture photometry in the master dark at the same position and same radius as the laser-on images. $\Qccd^{\bpinhole}$ is measured with aperture photometry, after background subtraction. The optimal radius is evaluated at 300 pixels for the \bpinhole pinhole to contain the main spot and the 1\up{st} order ghost. We could have increased the radius to contain the iris flux, but it would have added as much noise as the signal gained. 
 
-When shooting with the \bpinhole pinhole, the main spot is not a pointlike source, hence the data reduction of $\Qccd^{\bpinhole}$ is different than the baseline photometry. The overscan subtraction and the light contamination correction are done with the same method as the \spinhole pinhole, detailed respectively in \ref{sec:overscan} and \ref{sec:sd_contaminations}. However, the background subtraction cannot be performed the same way. 
-
-When using \bpinhole pinhole, the main spot takes a significant area of the focal plane, meaning there is not enough background in the image to reconstruct it. The background is measured with dark exposures with the dark datasets mentioned above, and the spatial mean of all these dark images is computed to obtain a master dark. The background contribution is estimated by aperture photometry in the master dark at the same position and same radius as the laser-on images. $\Qccd^{\bpinhole}$ is measured with aperture photometry, after background subtraction. The optimal radius is evaluated at 300 pixels for the \bpinhole pinhole to contain the main spot and the 1\up{st} order ghost. We could have increased the radius to contain the iris flux, but it would have added as much noise as the signal gained. 
-
-To compare the \SD responses for both pinholes, we need to measure the fluxes with aperture photometry at the same radius so that they contain the same features, such as the ghost contribution. This way there is no other consideration than the geometry of the pinholes. We estimate the \spinhole pinhole flux $F(300, \lambda)$, $\Qccd^{\bpinhole}$ with the method described in Section~\ref{sec:photometry_big}. We compute the ratio $\Kpinholes=\frac{F(300)}{\Qccd^{\bpinhole}}$ and show the result in Figure~\ref{fig:ratio_pinholes}. The linear fit of this ratio is used to intercalibrate the \bpinhole pinhole $\Rcbp(\lambda)$ obtained and the \spinhole pinhole \SD for every measurement of this analysis.
+To compare the \SD responses for both pinholes, we need to measure the fluxes with aperture photometry at the same radius so that they contain the same features, such as the ghost contribution. This way there is no other consideration than the geometry of the pinholes. We estimate the \spinhole pinhole flux $F(300, \lambda)$. We compute the ratio $\Kpinholes=\frac{F(300)}{\Qccd^{\bpinhole}}$ and show the result in Figure~\ref{fig:ratio_pinholes}. The linear fit of this ratio is used to intercalibrate the \bpinhole pinhole $\Rcbp(\lambda)$ obtained and the \spinhole pinhole \SD for every measurement of this analysis.
 
 %The non-null slope and not expected as the ratio between the two pinholes should correspond only to the ratio of surfaces of the illuminated area at the input CBP. We suspect that some light diffusion on the edges of the pinholes or other complex reflections in the setup could give this ratio a chromatic dependence.
 \begin{figure}[h]
