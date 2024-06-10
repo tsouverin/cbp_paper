@@ -87,7 +87,9 @@ Fig.~\ref{fig:lambdathetafitresults}.
 \begin{figure}
   \centering
   \includegraphics[width=1\linewidth]{fig/diffraction_dust.png}
-  \caption{Diffraction rings due to the presence of a dust spot on the r filter. Red circles are over-plotted to ease the visualisation.}
+  \caption{Diffraction rings due to the presence of a dust spot on the
+    r filter, intercepting the CBP beam. Red circles are over-plotted
+    to ease the visualisation.}
   \label{fig:dust}
 \end{figure}
 
@@ -151,12 +153,10 @@ in the StarDICE response model.
 
 The full pupil transmission is synthesized by numerically averaging
 the above model assuming that the pupil is a perfect annulus with an
-inner radius of \SI{55}{mm} and an outer radius of \SI{203}{mm}. A
+inner radius of \SI{55}{mm} and an outer radius of \SI{203}{mm}, corresponding to an effective mirror area of \SI{1202}{cm^2}. A
 rectangular quadrature with 100 evenly sampled points in radius has
 been used for the averaging. The curves have been normalized using the
-CBP response from Sect.\ref{sec:cbp}. An estimate of the
-absolute transmission curve is then computed assuming an effective
-mirror area of TX. The resulting transmission curves are shown in
+CBP response from Sect.\ref{sec:cbp}. The resulting transmission curves are shown in
 Fig.~\ref{fig:fullpupiltrans}.
 \begin{figure}
   \centering
@@ -166,43 +166,176 @@ Fig.~\ref{fig:fullpupiltrans}.
 \end{figure}
 
 
-\subsection{Final error budget}
+\subsection{Final uncertainty budget}
 
-We present the impact of the various uncertainty sources on absolute
-stellar fluxes in Table~\ref{tab:budget}.
+The impact of the uncertainties in our determination of the full-pupil
+transmission curves depend on the application. We first consider the
+use of the CBP as the sole source for absolute calibration of the
+instrument response and then its use in conjonction with a broadband
+star-like calibration light-source.
+
+\subsubsection{Uncertainties in absolute fluxes}
+\label{sec:absolute}
+
+The first obvious application is to take
+each curve as an absolute calibration of the instrument throughput and
+use it to interpret broadband fluxes measured by this instrument,
+according to the equation:
+\begin{equation}
+  \label{eq:mb}
+  \phi_b = \int_\lambda  R_b(\lambda) A(\lambda) S(\lambda) \lambda d\lambda
+\end{equation}
+where $R_b$ is the full pupil response curve of the instrument
+synthesized previously, $S$ is the top of the atmosphere spectrum of
+the target and $A$ is the atmospheric transmission for this
+observation. Setting aside the question of the atmospheric
+transmission, the error $\delta R_b$ on the passband will translate
+into an error on the synthesized flux $\delta \phi$, whose magnitude
+depends on the spectrum of the object. As an illustration we
+propagated all our uncertainties to the synthetic fluxes of the
+primary spectrophotometric standards G191B2B. We report the results in
+Table~\ref{tab:budget} as the relative uncertainty on the broadband
+flux $\sigma(\delta \phi)/\phi$ for each band, with one line per
+contributions. The table does not include the uncertainty on the gray
+scale, mainly coming from the uncertainty in the effective area of the
+telescope which cannot be determined accurately with such a setup. 
+
+% Pas de gray scale
 \begin{table}
   \centering
-  \caption{Relative uncertainty on the synthetic magnitudes of
-    G191B2B, split by contributions.}
+  \caption{Relative uncertainty in the synthetic broadband fluxes of
+    G191B2B, split by contributions, in permil.}
   \label{tab:budget}
-\begin{tabular}{lrrrrrr}
-  \toprule
-  \toprule
-  source & u & g & r & i & z & y \\
-  $[$mmag$]$\\
-  \midrule
-  StarDICE & 0.5 & 0.2 & 0.2 & 0.3 & 1.0 & 3.8 \\
-  $\eta_{SC}$ & 1.6 & 0.1 & 0.1 & 0.1 & 0.1 & 0.1 \\
-  CBP & 2.2 & 0.5 & 1.2 & 0.0 & 0.0 & 0.1 \\
-  \midrule
-  Stat (total) & 2.7 & 0.5 & 1.2 & 0.3 & 1.0 & 3.8 \\
-  \midrule
-  Scattered light & 2.7 & 3.1 & 3.8 & 4.3 & 4.8 & 5.3 \\
-  Repeatability & 0.8 & 0.4 & 0.5 & 1.1 & 1.1 & 1.1 \\
-  Linearity & 0.2 & 0.2 & 0.3 & 0.5 & 0.5 & 0.5 \\
-  Contamination & 4.4 & 0.6 & 0.8 & 0.1 & 0.1 & 0.1 \\
-  Mirror sampling noise & 5.4 & 5.4 & 5.4 & 5.4 & 5.4 & 5.4 \\
-  \midrule
-  Syst (total) & 7.5 & 6.3 & 6.7 & 7.0 & 7.4 & 7.7 \\
-  \midrule
-  Total & 8.0 & 6.3 & 6.8 & 7.1 & 7.4 & 8.6 \\
-%  \bottomrule
-\end{tabular}
+  \begin{tabular}{lrrrrrr}
+    \toprule
+    \toprule
+    Source & $u^\dag$ & $g$ & $r$ & $i$ & $z$ & $y$ \\
+    & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$\\
+    \midrule
+    StarDICE & 0.5 & 0.2 & 0.2 & 0.3 & 1.0 & 3.8 \\
+    $\eta_{SC}$ & 1.6 & 0.1 & 0.1 & 0.1 & 0.1 & 0.1 \\
+    CBP & 2.2 & 0.5 & 1.2 & 0.0 & 0.0 & 0.1 \\
+    \midrule
+    Stat (total) & 2.7 & 0.5 & 1.2 & 0.3 & 1.0 & 3.8 \\
+    \midrule
+    Scattered light & 2.7 & 3.1 & 3.8 & 4.3 & 4.8 & 5.3 \\
+    Repeatability & 0.8 & 0.4 & 0.5 & 1.1 & 1.1 & 1.1 \\
+    Linearity & 0.2 & 0.2 & 0.3 & 0.5 & 0.5 & 0.5 \\
+    Contamination & 4.4 & 0.6 & 0.8 & 0.1 & 0.1 & 0.1 \\
+    Mirror sampling noise & 5.4 & 5.4 & 5.4 & 5.4 & 5.4 & 5.4 \\
+    NIST photodiode & 0.2 & 0.1 & 0.0 & 0.0 & 0.0 & 0.1 \\
+    Solar Cell temperature & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 3.9 \\
+    \midrule
+    Syst (total) & 7.5 & 6.3 & 6.7 & 7.0 & 7.4 & 8.7 \\
+    \midrule
+    Total & 8.0 & 6.3 & 6.8 & 7.1 & 7.4 & 9.4 \\
+    \bottomrule
+  \end{tabular}
+  \tablefoot{$^\dag$Our measurement does not capture the blue side of the $u$ band filter. We propagate uncertainties as if the transmission was dropping to 0 at the edge of the measurement to illustrate the performances that would be obtained from a complete measurement. For all practical purposes however, the actual $u$ band transmission cannot be determined from the existing measures.}
 \end{table}
+
+The dominant contributor to the uncertainty in our flux reconstruction
+is the mirror sampling noise. With the CBP beam sampling only a small
+fraction of the primary mirror, and therefore a small fraction of the
+filters, any inhomogeneities in the transmission of the filter ends up
+causing a noise in the band to band ratio of transmissions. This noise
+decreases with more sampling points on the primary mirrors but doing
+so is expansive.
+
+The next significant issue is the difficulty to get rid of
+non-collimated (scattered) light during the calibration of the CBP on
+the solar-cell array. A natural way to deal with this issue would be
+to significantly increase the solar-cell CBP distance. In our case
+however the beam created by the \bpinhole pinhole already barely fit
+inside the footprint of the solar cell. Increasing the solar-cell CBP
+distance would have caused issues for the collimated beam in exchange
+for getting rid of the non-collimated light.
+
+Some caution needs to be payed to changes in the working temperature
+of photodiodes when calibrating $y$ band. In our current measurement,
+the uncertainty in the difference in temperature between the
+calibration of the solar-cell and its use to calibrate the CBP is
+quite large (\SI{1.6}{\celsius}). This has easily been fixed in latter
+iteration of the solar-cell design by including temperature sensors
+directly cell enclosure.
+
+Lastly, our mitigation procedure for the contamination of the beam by
+light at different wavelengths is satisfactory for all bands but
+$u$. This is due to the remaining uncertainties in the determination
+of the phosphorescence contribution in the integrating sphere.
 
 \begin{figure}
   \centering
   \includegraphics[width=1\linewidth]{fig/bandcorrelation.pdf}
-  \caption{Correlation of the uncertainties on the synthetic magnitudes of G191B2B.}
+  \caption{Correlation of the uncertainties on the synthetic fluxes of G191B2B.}
   \label{fig:correlation}
 \end{figure}
+
+In addition, most systematic uncertainties have modes coherent accross
+wavelengths. As a result, the errors induced on broadband magnitudes
+are correlated across bands, with typical correlation levels in the
+20-40\% range. The correlation matrix resulting from the full
+propagation of uncertainties identified in Table~\ref{tab:budget} is
+displayed in Fig.~\ref{fig:correlation}. Again, we do not account for
+the uncertainty in the gray scale which is perfectly correlated
+between all bands and would dominate the uncertainty budget.
+
+\subsubsection{Uncertainties in relative fluxes}
+\label{sec:relative}
+
+The more common application is to rely on the curves to predict actual
+observations of a spectrophotometric standard of known flux and
+determine an independant re-calibration factor for each band. The
+errors on the interpretation of observations of another object will
+then depend on the difference in color between the object and the
+spectrophotometric standard, canceling for objects whose spectrum is
+very similar to the spectrum of the standard.
+
+For the StarDICE telescope, the role of photometric standard is played
+by a collection of narrow-spectrum LEDs, whose observations sets the
+absolute normalization of each bands. The telescope is then used to
+follow CALSPEC standard stars and precisely measure their broadband
+fluxes. In this operation, all uncertainties which mostly impact the
+normalisation of the passbands cancel out. In order to illustrate the
+impact of the uncertainties in our passband determination in this
+case, we modeled the spectrum of 6 calibration LEDs as Gaussian shapes
+centered on the central wavelength of each filter with a full-width
+half-max of 7\% in wavelength. We then propagate the uncertainties to
+the ratio of broadband fluxes for the LEDs and G191B2B. The results
+are presented in Table \ref{tab:led}. As expected, most broadband
+error sources cancel out, resulting in an accuracy of the order of 1
+permil, matching the requirements for the StarDICE experiment.
+
+\begin{table}
+  \centering
+  \caption{Uncertainties in the flux of G191B2B after recalibration by observation of narrow-spectrum LEDs centered on the filter passband.}
+  \label{tab:led}
+  \begin{tabular}{lrrrrrr}
+    \toprule
+    Source & u & g & r & i & z & y \\
+           & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$\\
+    \midrule
+    StarDICE & 0.2 & 0.3 & 0.2 & 0.2 & 0.5 & 1.8 \\
+    $\eta_{SC}$ & 0.4 & 0.1 & 0.1 & 0.1 & 0.0 & 0.1 \\
+    CBP & 0.5 & 0.5 & 1.1 & 0.0 & 0.0 & 0.0 \\
+    \midrule
+    Stat (total) & 0.7 & 0.6 & 1.1 & 0.2 & 0.5 & 1.8 \\
+    \midrule
+    Scattered light & 0.0 & 0.1 & 0.0 & 0.0 & 0.0 & 0.0 \\
+    Repeatability & 0.0 & 0.0 & 0.1 & 0.0 & 0.0 & 0.0 \\
+    Linearity & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+    Contamination & 0.1 & 0.1 & 0.0 & 0.0 & 0.0 & 0.0 \\
+    Mirror sampling noise & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+    NIST photodiode & 0.1 & 0.1 & 0.0 & 0.0 & 0.0 & 0.1 \\
+    Solar Cell temperature & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.6 \\
+    \midrule
+    Syst (total) & 0.2 & 0.2 & 0.1 & 0.0 & 0.0 & 0.6 \\
+    \midrule
+    Total & 0.7 & 0.6 & 1.2 & 0.2 & 0.5 & 1.9 \\
+    \bottomrule
+  \end{tabular}
+  
+  
+\end{table}
+
+
