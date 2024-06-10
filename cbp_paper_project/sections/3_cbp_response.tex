@@ -302,8 +302,6 @@ are higher in the blue part as the laser is weaker in this regime (around $0.1\%
 
 Figure~\ref{fig:wavelength_error_budget} details the total error budget from wavelength calibration for three different runs: two runs shooting at StarDICE with two pinholes and one run shooting at the solar cell. Uncertainty on wavelength $\sigma_\lambda$ is primarily dominated by wavelength calibration uncertainties in the range 400 to \SI{1080}{\nm}. Statistical uncertainty dominates around $\SI{532}{\nm}$ and close to the spectrograph sensor edges. Except in these cases, $\sigma_\lambda$ is well below $\SI{1}{\angstrom}$, which allows for precisely measuring the telescope filter band-passes better than the Angstrom level.   
 
-\todo{Expliquer comment on propage les incertitudes de $\sigma_\lambda$ sur les résultats finaux.}
-
 %cbp_paper_plots.py
 \begin{figure}[!h]
 \centering
@@ -484,11 +482,6 @@ To measure the influence of scattered light in the CBP beam, we measured the CBP
     \label{fig:sc_distance}
 \end{figure}
 
-\subsubsection{Solar cell QE variations with angle and temperature}
-
-\todo{Do we write here the results ?}
-
-
 \subsubsection{Repeatability}
 
 Finally, we measured three times the value of the CBP response during our measurement campaign. For run $i$, we computed the CBP charge ratio $r_{\rm CBP}^{\mathrm{run}\ i}$, applying dark subtraction and laser contamination correction, binned in \SI{1}{\nano\meter} intervals in $\lambda_L$. Then, we computed the mean CBP response $\overline{r_{\rm CBP}}$ as the mean of the three different runs. We observed $\approx 1$\,permil differences between the three CBP charge ratios and $\overline{r_{\rm CBP}}$ (Figure~\ref{fig:SCrepeatability}), depending slightly with wavelength.
@@ -543,7 +536,7 @@ It can be computed for each laser burst. We averaged the values to increase the 
     \overline{\Rcbp(\hat{\lambda}_c)} = \left\langle\frac{\Qsolarcal(\lambda_c)}{\Qphotcal(\lambda_c) \times \epsilon_{\mathrm{solar}}(\lambda_c) \times e}\right\rangle_{\lambda_c\in [\lambda,\lambda+\delta \lambda]}.
     \label{eq:rcbp3}
 \end{equation} 
-The average is performed on every burst of the three runs, with a $5\sigma$ clipping, and $\hat{\lambda}_c$ is the mean calibrated wavelength in a $\delta \lambda = \SI{1}{\nano\meter}$ bin. All uncertainties are combined in quadrature (Figure~\ref{fig:cbp_response} bottom). The total uncertainty is between 3 and $5\,$permil \todo{Check this statement at the end of the analysis as only the chromatic part is important.} in the visible range, due to scattered light systematic, and slightly higher in the UV and IR ranges.
+The average is performed on every burst of the three runs, with a $5\sigma$ clipping, and $\hat{\lambda}_c$ is the mean calibrated wavelength in a $\delta \lambda = \SI{1}{\nano\meter}$ bin. All uncertainties are combined in quadrature (Figure~\ref{fig:cbp_response} bottom).
 
 
 

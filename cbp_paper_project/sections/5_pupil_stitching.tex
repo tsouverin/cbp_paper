@@ -15,9 +15,8 @@ precision in central wavelengths.
 Finally, we estimate statistical and systematic errors on the final
 transmission curves, propagating them through the analysis process. A
 better understanding of these errors in interpreting broadband
-photometry can be achieved by integrating them as uncertainties on
-filter normalization and central wavelength, which can be easily
-translated into errors in colors and color-terms.
+photometry is obtained using the spectrophotometric standard star
+G191B2B as a sample star.
 
 
 \subsection{Radial model of the instrument transmission}
@@ -70,16 +69,15 @@ Fig.~\ref{fig:lambdathetafitresults}.
   \centering
   \includegraphics[width=1\linewidth]{./fig/lambdathetafitresults.pdf}
   \caption{Model of the wavelength and radial dependency of the
-    StarDICE response to CBP illumination $R(\lambda)$ (see
-    Eq.~\ref{eq:rtot}). Each panel display the raw measurements at the
-    4 sampled position for each of the filter configurations: no
-    filters (Open), with one of the 6 photometric filters ($ugrizy$)
-    or with the grating looking either at the zeroth order or the
-    first order spots. The panel immediately below each panel display
-    the residuals to the model. For easy comparison, all panels are
-    normalized to the peak of the response, which occurs in the open
-    configuration at $\lambda = \SI{398}{nm}$ and
-    $\theta = \SI{6.2}{\degree}$.  }
+    StarDICE response to CBP illumination $R(\lambda)$. Each panel
+    display the raw measurements at the 4 sampled position for each of
+    the filter configurations: no filters (Open), with one of the 6
+    photometric filters ($ugrizy$) or with the grating looking either
+    at the zeroth order or the first order spots. The panel
+    immediately below each panel display the residuals to the
+    model. For easy comparison, all panels are normalized to the peak
+    of the response, which occurs in the open configuration at
+    $\lambda = \SI{398}{nm}$ and $\theta = \SI{6.2}{\degree}$.  }
   \label{fig:lambdathetafitresults}
 \end{figure*}
 
@@ -145,7 +143,11 @@ in the StarDICE response model.
 \begin{figure}
   \centering
   \includegraphics[width=1\linewidth]{fig/metrics.pdf}
-  \caption{Discrepancies between model and raw measurements at different mirror locations summarized according to 3 metrics: summarize}
+  \caption{Discrepancies between model and raw measurements at
+    different mirror locations summarized according to 2 metrics:
+    \emph{Top:} relative difference in the integral of the passband,
+    expressed in millimagnitudes; \emph{Bottom:} relative difference
+    in central wavelength computed as the barycenter of the passband.}
   \label{fig:metrics}
 \end{figure}
 

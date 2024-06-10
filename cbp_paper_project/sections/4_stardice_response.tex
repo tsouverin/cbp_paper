@@ -173,7 +173,7 @@ To compare the \SD responses for both pinholes, we need to measure the fluxes wi
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{fig/ratio_pinholes.pdf}
-    \caption{Ratio $\Kpinholes$ with respect to wavelength. The black line corresponds to a linear fit between \SI{400}{\nm} and \SI{900}{\nm}.}
+    \caption{Ratio $\Kpinholes$ as a function of wavelength, relative to the prediction given by the ratio of the nominal area of the pinholes. The black line corresponds to a linear fit between \SI{400}{\nm} and \SI{900}{\nm}.}
     \label{fig:ratio_pinholes}
     %~/stardice/analysis/cbp_paper/total_fluxes/ratio_pinholes.ipynb
 \end{figure}
@@ -201,7 +201,7 @@ While most of this effect is directly explained by the aperture correction, a sm
 %
 % TODO une conclusion qui dit: Les résultats sont valables pour cette photométrie, si la PSF sur le ciel n'est pas trop différente. Entre 900 et 400 ça devrait faire gros. Mais au-delà va savoir. Les résultats seront révisés quand on aura la PSF sur le ciel
 % 
-We can conclude that the baseline aperture photometry for the \spinhole pinhole can be used for the range between \SI{400}{\nano\meter} and \SI{900}{\nano\meter}. Below \SI{400}{\nano\meter} there is a need to take care of the ghost contribution. Above \SI{900}{\nano\meter}, this method does not measure a representative flux of the target. It is believed that the \SD telescope is the one responsible for the PSF degradation, one possible explanation is that the primary mirror is becoming partially transparent and generating defocused light. Anyhow, the CBP measurements cannot be trusted in this wavelength range. 
+We conclude that the instrument response determined for our large aperture photometry of the \spinhole pinhole is likely to be applicable to similar star photometry with minimal aperture corrections in the range between \SI{400}{\nano\meter} and \SI{900}{\nano\meter}. Below \SI{400}{\nano\meter} there will be a need to take into account the ghosting pattern for the full aperture which will mix partially with the photometry aperture. Above \SI{900}{\nano\meter}, our method is unlikely to give a representative determination of the response of the instrument to star flux. At this stage we think that the \SD telescope is responsible for the PSF degradation, with one possible explanation being that the primary mirror becomes partially transparent and generates diffused light. Further discussion of the applicability of the measured transmission to on sky data will require study of the PSF on stellar images and is left for future work.
 
 
 % The bottom panel corresponds to the aperture correction that is needed to apply to the aperture photometry measurement. It is around 2\% below \SI{950}{\nano\meter}, and increases by one order of magnitude in the infrared. This increase is correlated with the variation of the Moffat parameters $\alpha$ and $\beta$, showing that the PSF is drastically changing in the near-infrared. This issue is discussed in more details section \ref{sec:ir}. The third panel shows a constant background against wavelength, at a mean of \SI{0.27}{ADU/pixel}.
