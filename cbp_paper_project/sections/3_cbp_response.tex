@@ -1,29 +1,31 @@
 \section{CBP response calibration with a solar cell}
 \label{sec:rcbp}
 
-\subsection{Preparatory settings}
+\subsection{Optics setup}
 
-Before illuminating the solar cell with the CBP, several actions have to be taken to maximise the quality of the data sets:
-\begin{itemize}
-\item place the pinholes at the focus of the CBP telescope
-\item tune the telescope iris
-\item align the CBP and the solar cell in position and angle
-\item mask every ambient light
-\item spectrograph calibration
-\item \todo{think a lot about what we forgot}
-\end{itemize}
+The CBP optics have two degrees of freedom that must be adjusted
+before determining its transmission: (1) the focuser distance, which
+needs to be tuned so that the pinhole is at the focal plane of the
+telescope and produces a collimated beam; and (2) the size of the iris
+diaphragm, which needs to be adjusted so that no light misses the CBP
+secondary mirror.
 
+To adjust the focuser distance, we re-imaged the CBP pinhole in the
+StarDICE camera using the StarDICE telescope set up for infinity
+focus. We then adjusted the CBP focus to minimize the size of the
+image in the camera and tightened the locking screws. However, since
+this procedure was conducted before the first stellar light of the
+StarDICE telescope, we had to use a theoretical value for its focal
+plane position. As a result, we estimate that the collimation of the
+CBP beam may be off by up to $\delta f / f = 0.002$. We did check that
+the focus was reasonably stable to manual changes of the pinhole
+slots.
 
-\subsubsection{Iris}
-
-\todo{Marc}
-
-\subsubsection{Focussing}
-
-\todo{Marc}
-
-The CBP was aligned with the StarDICE telescope to improve the focus. The StarDICE camera was set close to infinity with no filter. We adjusted the CBP focus to get the smallest extension of the pinhole image. A slight offset was then added to account for the small change in focus introduced by tightening the locking screws. The focus was to check to resist slot changes and even complete removal and reinstallation of the pinhole.
-
+To adjust the size of the iris diaphragm, we gradually closed it while
+monitoring the flux output of the CBP until the flux started to
+decrease. We then locked the diaphragm at the position immediately
+preceding the flux drop. This ensured that no light was missed by the
+CBP secondary mirror.
 
 \subsubsection{Alignment of the CBP}
 
@@ -38,7 +40,7 @@ To measure the CBP response, we must ensure that we aim toward the solar cell. F
 \end{figure}
 
 
-\subsection{Data set description}
+\subsection{Description of the CBP data set}
 \label{sec:cbp_datadesc}
 
 \begin{figure*}[!h]
@@ -51,11 +53,8 @@ To measure the CBP response, we must ensure that we aim toward the solar cell. F
 
 A typical dataset to measure the CBP response is the emission of laser bursts in the solar cell at a given wavelength. Charges in the photodiode and solar cell are recorded jointly, along with the flux in the spectrograph and the time stamps in the digital analyser (see examples in Figure~\ref{fig:sc_dataset_examples}).
 
-The laser emits pulses at a fixed rate of \SI{1}{\kilo\hertz}, with a power that highly depends on the wavelength. To ensure that all instruments work in their linear regime, without saturations, and control the dark current, we decided to shoot light in the solar cell in bursts of pulses, separated by dark times at least as long as the burst length. The number of pulses per burst at each wavelength was selected to minimize the change in total flux per burst collected by the photodiode over the full wavelength range, which is the common instrument between the CBP and \SD response measurements and the one receiving the maximum power in the system (Figure~\ref{fig:npulses}). Therefore, we expect to minimise eventual non-linear effects in the instrumental chain. The CBP system's linearity is checked by varying the laser power in Section~\ref{sec:sc_linearity}. However, we know we have a $1/f$ noise in the solar cell instrumental chain. In order to keep the $1/f$ noise of the solar cell instrumental chain under reasonable bounds, we limited the maximum length of a burst to \SI{200}{\ms}. The required total flux in the photodiode was then adjusted by accumulating several bursts measured independently by the solar cell.
+The laser emits pulses at a fixed rate of \SI{1}{\kilo\hertz}, with a power that highly depends on the wavelength. To ensure that all instruments work in their linear regime, without saturations, and limit the impact of dark current fluctuations, we decided to shoot light in the solar cell in bursts of pulses, separated by dark times at least as long as the burst length. The number of pulses per burst at each wavelength was selected to minimize the change in total flux per burst collected by the photodiode over the full wavelength range, which is the common instrument between the CBP and \SD response measurements and the one receiving the maximum power in the system (Figure~\ref{fig:npulses}). With the \SI{5}{\mm} pinhole with the largest laser power mode the solar cell accumulates around \SI{4}{\nano\coulomb} in a burst. In order to keep the $1/f$ noise of the solar cell instrumental chain under reasonable bounds, we limited the maximum length of a burst to \SI{200}{\ms}. The CBP system's linearity is checked by varying the laser power in Section~\ref{sec:sc_linearity}.  The required total flux in the photodiode was then adjusted by accumulating several bursts measured independently by the solar cell.
 
-%To limit the amplitude of these random fluctuations during the burst, we set the maximum number of pulses to 200 (so \SI{200}{\ms}). If more pulses were requested to maintain the signal level in the photodiode, we compensated with a higher number of bursts.
-
-We used the \SI{5}{\mm} pinhole with the largest laser power mode to get the highest signal-to-noise ratio in the solar cell and the \SD telescope. The solar cell accumulates around \SI{4}{\nano\coulomb} in a burst, with no change of Keysight range. % The Keysight accuracy in this regime is \todo{to check}. 
 During a solar cell measurement run, the laser wavelengths range between \SI{350}{\nano\meter} and \SI{1100}{\nano\meter} included with steps of \SI{1}{\nm}, but are randomly chosen to avoid that long-range $ 1/f$ mode in the solar cell dark current correlates neighboured data points of the CBP response. Several runs were accumulated to enhance the signal-to-noise ratio. In particular, five runs were recorded just before the \SD telescope measurement, and five new runs were launched just after.
 
 Runs with different settings have been conducted to estimate systematic uncertainties. We varied the laser global power (QSW) to assess the linearity of the instrumental light and check the ambient light additive contamination. We varied the solar cell distance to estimate the output CBP scattered light.
@@ -67,12 +66,10 @@ Runs with different settings have been conducted to estimate systematic uncertai
 \caption{Number of laser pulses per burst used for solar cell and StarDICE runs.}\label{fig:npulses}
 \end{figure}
 
-
-
 \subsection{Spectrograph data reduction}
 \label{sec:spectro_reduction}
 
-In our analysis, the spectrograph data are used to monitor the laser wavelength, but also the laser stray light contamination. Its main sources are a \SI{1064}{\nm} component from the Yagg laser pump and a \SI{532}{\nm} half harmonic. Therefore, we had to calibrate it in wavelength and flux. 
+In our analysis, the spectrograph is used to monitor the laser wavelength, and the contamination by laser stray light. The main components of the contamination are a \SI{1064}{\nm} line from the Yagg laser pump and a \SI{532}{\nm} half harmonic. Here, we detail the wavelength and flux calibration procedures for this instrument.
 
 
 \subsubsection{Spectrograph error model estimation}
@@ -305,8 +302,6 @@ are higher in the blue part as the laser is weaker in this regime (around $0.1\%
 
 Figure~\ref{fig:wavelength_error_budget} details the total error budget from wavelength calibration for three different runs: two runs shooting at StarDICE with two pinholes and one run shooting at the solar cell. Uncertainty on wavelength $\sigma_\lambda$ is primarily dominated by wavelength calibration uncertainties in the range 400 to \SI{1080}{\nm}. Statistical uncertainty dominates around $\SI{532}{\nm}$ and close to the spectrograph sensor edges. Except in these cases, $\sigma_\lambda$ is well below $\SI{1}{\angstrom}$, which allows for precisely measuring the telescope filter band-passes better than the Angstrom level.   
 
-\todo{Expliquer comment on propage les incertitudes de $\sigma_\lambda$ sur les résultats finaux.}
-
 %cbp_paper_plots.py
 \begin{figure}[!h]
 \centering
@@ -487,11 +482,6 @@ To measure the influence of scattered light in the CBP beam, we measured the CBP
     \label{fig:sc_distance}
 \end{figure}
 
-\subsubsection{Solar cell QE variations with angle and temperature}
-
-\todo{Do we write here the results ?}
-
-
 \subsubsection{Repeatability}
 
 Finally, we measured three times the value of the CBP response during our measurement campaign. For run $i$, we computed the CBP charge ratio $r_{\rm CBP}^{\mathrm{run}\ i}$, applying dark subtraction and laser contamination correction, binned in \SI{1}{\nano\meter} intervals in $\lambda_L$. Then, we computed the mean CBP response $\overline{r_{\rm CBP}}$ as the mean of the three different runs. We observed $\approx 1$\,permil differences between the three CBP charge ratios and $\overline{r_{\rm CBP}}$ (Figure~\ref{fig:SCrepeatability}), depending slightly with wavelength.
@@ -546,7 +536,7 @@ It can be computed for each laser burst. We averaged the values to increase the 
     \overline{\Rcbp(\hat{\lambda}_c)} = \left\langle\frac{\Qsolarcal(\lambda_c)}{\Qphotcal(\lambda_c) \times \epsilon_{\mathrm{solar}}(\lambda_c) \times e}\right\rangle_{\lambda_c\in [\lambda,\lambda+\delta \lambda]}.
     \label{eq:rcbp3}
 \end{equation} 
-The average is performed on every burst of the three runs, with a $5\sigma$ clipping, and $\hat{\lambda}_c$ is the mean calibrated wavelength in a $\delta \lambda = \SI{1}{\nano\meter}$ bin. All uncertainties are combined in quadrature (Figure~\ref{fig:cbp_response} bottom). The total uncertainty is between 3 and $5\,$permil \todo{Check this statement at the end of the analysis as only the chromatic part is important.} in the visible range, due to scattered light systematic, and slightly higher in the UV and IR ranges.
+The average is performed on every burst of the three runs, with a $5\sigma$ clipping, and $\hat{\lambda}_c$ is the mean calibrated wavelength in a $\delta \lambda = \SI{1}{\nano\meter}$ bin. All uncertainties are combined in quadrature (Figure~\ref{fig:cbp_response} bottom).
 
 
 
