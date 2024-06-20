@@ -227,10 +227,11 @@ telescope which cannot be determined accurately with such a setup.
     Mirror sampling noise & 5.4 & 5.4 & 5.4 & 5.4 & 5.4 & 5.4 \\
     NIST photodiode & 0.2 & 0.1 & 0.0 & 0.0 & 0.0 & 0.1 \\
     Solar Cell temperature & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 3.9 \\
+    wl cal & 0.7 & 0.6 & 0.5 & 0.4 & 0.3 & 0.3 \\
     \midrule
-    Syst (total) & 7.5 & 6.3 & 6.7 & 7.0 & 7.4 & 8.7 \\
+    Syst (total) & 7.6 & 6.3 & 6.7 & 7.1 & 7.4 & 8.7 \\
     \midrule
-    Total & 8.0 & 6.3 & 6.8 & 7.1 & 7.4 & 9.4 \\
+    Total & 8.0 & 6.3 & 6.8 & 7.1 & 7.5 & 9.4 \\
     \bottomrule
   \end{tabular}
   \tablefoot{$^\dag$Our measurement does not capture the blue side of the $u$ band filter. We propagate uncertainties as if the transmission was dropping to 0 at the edge of the measurement to illustrate the performances that would be obtained from a complete measurement. For all practical purposes however, the actual $u$ band transmission cannot be determined from the existing measures.}
@@ -308,6 +309,16 @@ are presented in Table \ref{tab:led}. As expected, most broadband
 error sources cancel out, resulting in an accuracy of the order of 1
 permil, matching the requirements for the StarDICE experiment.
 
+In contrast, the sensitivity to wavelength calibration generally
+increase in a way that depends on the spectra of the LEDs. The flux of
+LEDs whose spectrum overlap with the edges of the filters are more
+strongly affected by wavelength calibration errors than LEDs whose
+spectrum is largely contained in the filter passband. The design of
+the StarDICE artificial star include both cases, with the idea that
+overlapping LEDs can provide a handle to test (or correct) for filter
+front errors. Here we report sensitivity for non-overlapping LEDs
+assuming no specific correction.
+
 \begin{table}
   \centering
   \caption{Uncertainties in the flux of G191B2B after recalibration by observation of narrow-spectrum LEDs centered on the filter passband.}
@@ -330,13 +341,17 @@ permil, matching the requirements for the StarDICE experiment.
     Mirror sampling noise & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
     NIST photodiode & 0.1 & 0.1 & 0.0 & 0.0 & 0.0 & 0.1 \\
     Solar Cell temperature & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.6 \\
+    wl cal$^\dag$ & 0.3 & 0.5 & 0.6 & 1.1 & 0.9 & 1.4 \\
     \midrule
-    Syst (total) & 0.2 & 0.2 & 0.1 & 0.0 & 0.0 & 0.6 \\
+    Syst (total) & 0.3 & 0.5 & 0.6 & 1.1 & 0.9 & 1.5 \\
     \midrule
-    Total & 0.7 & 0.6 & 1.2 & 0.2 & 0.5 & 1.9 \\
+    Total & 0.8 & 0.8 & 1.3 & 1.1 & 1.1 & 2.4 \\
     \bottomrule
   \end{tabular}
-  
+  \tablefoot{$^\dag$The impact of wavelength calibration on
+    led-calibrated fluxes depends significantly on the exact spectrum
+    of the LEDs. The numbers presented comes from simulation of a
+    realistic case, but the numbers for actual LEDs may differ.}
   
 \end{table}
 
