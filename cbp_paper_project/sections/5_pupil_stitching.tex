@@ -5,17 +5,17 @@ The reflectivity of the telescope and the transmission of the filters
 both exhibit a distinct radial dependency. Although the filter
 transmission dependence is expected due to its interferometric nature,
 the origin of the telescope reflectivity dependence remains
-unclear. Despite this, we can construct an empirical model that
+unclear. Despite of this, we can construct an empirical model that
 assumes smooth transitions between measurements and calculate the
 theoretical "full pupil" transmission by averaging the model over the
 illuminated portion of the primary mirror. These two steps are
 necessary to achieve sub-percent color accuracy and sub-nanometer
-precision in central wavelengths.
+precision in central wavelengths determination.
 
-Finally, we estimate statistical and systematic errors on the final
-transmission curves, propagating them through the analysis process. A
+We also estimate statistical and systematic errors on the final
+transmission curves, and propagate them through the analysis process. A
 better understanding of these errors in interpreting broadband
-photometry is obtained using the spectrophotometric standard star
+photometry, \textbf{SZF: together with a first check of the smooth transmission variation assumption} is obtained using the spectrophotometric standard star
 G191B2B as a sample star.
 
 
@@ -26,7 +26,7 @@ The open transmission of the telescope is modeled as a smooth 2D
 function of wavelength and incidence angle. The function is defined on
 a basis of cubic B-splines, with \num{35} regularly spaced wavelength
 nodes covering the range from \SIrange{350}{1100}{nm}, and two nodes
-in angles corresponding to the inner and outer edges of the
+at angles corresponding to the inner and outer edges of the
 occultation-free primary mirror, ranging from \SIrange{1.97}{7.24}
 {\degree}. These angles represent radii of \SIrange{55}{203}{mm} for a
 primary mirror with a focal length of \SI{1600}{mm}.
@@ -39,7 +39,7 @@ follows:
 T(\lambda, \theta) = \mathcal T\left(\frac{\lambda}{\sqrt{1 -
     (\sin(\theta) / n_\text{eff})^2}}\right)\,.
 \end{equation}
-Here, $n_\text{eff}$ is an effective index for the inserted filter,
+Here, $n_\text{eff}$ is an effective index for the filter,
 and T is a piece-wise linear function of wavelength. The piece-wise
 linear function is initially created with \num{150} regularly spaced
 nodes between \SIrange{350}{1100}{nm}, providing a general resolution
@@ -51,7 +51,7 @@ that filter fronts are typically modeled with up to approximately
 \SI{0.3}{nm} resolution.
 
 
-Lastly, the photometry for the grating zeroth and first orders is
+In the specific case of the  grating zeroth and first orders, the photometry is
 adjusted using a cubic B-spline model with \num{105} nodes in
 wavelength.
 
@@ -61,9 +61,10 @@ or with all seven filters and the grating. The baseline model has
 \num{1979} free parameters: \num{148} for the open transmission,
 approximately $6\times165$ for each of the $ugrizy$ filters, and
 \num{420} for each of the grating orders. Unfortunately, the blue edge
-of the $u$-band filters cannot be accurately determined by this
+of the $u$-band filter cannot be accurately measured with this
 data. Fit results are displayed in
 Fig.~\ref{fig:lambdathetafitresults}.
+\textbf{SZF: les résidus de l'open transmission sont sur une échelle différente des autres}
 
 \begin{figure*}
   \centering
@@ -98,11 +99,13 @@ decrease of the transmission of the $r$ filters for the sample
 measurement at \SI{3.7}{\degree} with respect to the average of the
 other three.  After investigating this issue, we identified that PSF
 tails in the corresponding images displayed a diffraction figure
-consistent with a dust particle on the filter surface intercepting the
-beam. Based on the approximate area of the beam spot
+consistent with the presence of a dust particle
+on the filter surface intercepting the CBP beam.
+Based on the approximate area of the beam spot
 ($\sim\SI{12}{mm^2}$), and the estimated particle size range (between
 \SIrange{200}{300}{\micro\metre}), we calculated a potential decrease
-in transmission of up to ~$\SI{0.6}{\percent}$. This value aligns well
+in transmission for this specific partial illumination of the primary
+mirror of up to ~$\SI{0.6}{\percent}$. This value is in good agreement
 with the observed decrease. Similar discrepancies were found for some
 observations in $u$, $g$ and $y$ bands, although determining particle
 sizes from diffraction features was not possible in these cases. We
@@ -128,8 +131,10 @@ with the idea that the position of the CCD-window ghost in the images
 will enable precise determination of the position of the beam in the
 mirror. Two issues were overlooked at this stage which complicate the
 determination of the geometry from the position of the ghosts: (1) The
-wedge of the window and (2) the ghost positions depend of the
-conjugation relation between the CBP and the telescope
+unknown wedge of the CCD window and (2) the ghost positions dependence on the
+conjugation relation between the CBP and the telescope. The complexity of 
+including those parameters in a full model of the telescope+CBP sets the
+analysis of those data out of the scope of the current paper. 
 
 The bottom panel in Fig.~\ref{fig:metrics} displays the difference
 between the measured central wavelength and the model-predicted value
@@ -208,7 +213,7 @@ telescope which cannot be determined accurately with such a setup.
   \caption{Relative uncertainty in the synthetic broadband fluxes of
     G191B2B, split by contributions, in permil.}
   \label{tab:budget}
-  \begin{tabular}{lrrrrrr}
+  \begin{tabular}{@{}l@{}rrrrrr@{}}
     \toprule
     \toprule
     Source & $u^\dag$ & $g$ & $r$ & $i$ & $z$ & $y$ \\
@@ -227,10 +232,11 @@ telescope which cannot be determined accurately with such a setup.
     Mirror sampling noise & 5.4 & 5.4 & 5.4 & 5.4 & 5.4 & 5.4 \\
     NIST photodiode & 0.2 & 0.1 & 0.0 & 0.0 & 0.0 & 0.1 \\
     Solar Cell temperature & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 3.9 \\
+    wl cal & 0.7 & 0.6 & 0.5 & 0.4 & 0.3 & 0.3 \\
     \midrule
-    Syst (total) & 7.5 & 6.3 & 6.7 & 7.0 & 7.4 & 8.7 \\
+    Syst (total) & 7.6 & 6.3 & 6.7 & 7.1 & 7.4 & 8.7 \\
     \midrule
-    Total & 8.0 & 6.3 & 6.8 & 7.1 & 7.4 & 9.4 \\
+    Total & 8.0 & 6.3 & 6.8 & 7.1 & 7.5 & 9.4 \\
     \bottomrule
   \end{tabular}
   \tablefoot{$^\dag$Our measurement does not capture the blue side of the $u$ band filter. We propagate uncertainties as if the transmission was dropping to 0 at the edge of the measurement to illustrate the performances that would be obtained from a complete measurement. For all practical purposes however, the actual $u$ band transmission cannot be determined from the existing measures.}
@@ -239,10 +245,10 @@ telescope which cannot be determined accurately with such a setup.
 The dominant contributor to the uncertainty in our flux reconstruction
 is the mirror sampling noise. With the CBP beam sampling only a small
 fraction of the primary mirror, and therefore a small fraction of the
-filters, any inhomogeneities in the transmission of the filter ends up
+filters, any inhomogeneity in the transmission of the filter ends up
 causing a noise in the band to band ratio of transmissions. This noise
-decreases with more sampling points on the primary mirrors but doing
-so is expansive.
+decreases with more sampling points on the primary mirrors, at a large
+observational cost.
 
 The next significant issue is the difficulty to get rid of
 non-collimated (scattered) light during the calibration of the CBP on
@@ -250,7 +256,7 @@ the solar-cell array. A natural way to deal with this issue would be
 to significantly increase the solar-cell CBP distance. In our case
 however the beam created by the \bpinhole pinhole already barely fit
 inside the footprint of the solar cell. Increasing the solar-cell CBP
-distance would have caused issues for the collimated beam in exchange
+distance would have caused issues for the collimated beam calibration in exchange
 for getting rid of the non-collimated light.
 
 Some caution needs to be payed to changes in the working temperature
@@ -261,10 +267,10 @@ quite large (\SI{1.6}{\celsius}). This has easily been fixed in latter
 iteration of the solar-cell design by including temperature sensors
 directly cell enclosure.
 
-Lastly, our mitigation procedure for the contamination of the beam by
-light at different wavelengths is satisfactory for all bands but
-$u$. This is due to the remaining uncertainties in the determination
-of the phosphorescence contribution in the integrating sphere.
+Our mitigation procedure for the contamination of the beam by light
+at different wavelengths is found satisfactory for all bands but $u$. This
+is due to the remaining uncertainties in the determination of the
+phosphorescence contribution in the integrating sphere.
 
 \begin{figure}
   \centering
@@ -273,7 +279,7 @@ of the phosphorescence contribution in the integrating sphere.
   \label{fig:correlation}
 \end{figure}
 
-In addition, most systematic uncertainties have modes coherent accross
+Lastly, most systematic uncertainties have modes coherent across
 wavelengths. As a result, the errors induced on broadband magnitudes
 are correlated across bands, with typical correlation levels in the
 20-40\% range. The correlation matrix resulting from the full
@@ -285,16 +291,17 @@ between all bands and would dominate the uncertainty budget.
 \subsubsection{Uncertainties in relative fluxes}
 \label{sec:relative}
 
-The more common application is to rely on the curves to predict actual
+The more common application of telescope transmission measurements is
+to rely on the transmission curves to predict actual
 observations of a spectrophotometric standard of known flux and
-determine an independant re-calibration factor for each band. The
+determine an independent re-calibration factor for each band. The
 errors on the interpretation of observations of another object will
 then depend on the difference in color between the object and the
 spectrophotometric standard, canceling for objects whose spectrum is
 very similar to the spectrum of the standard.
 
 For the StarDICE telescope, the role of photometric standard is played
-by a collection of narrow-spectrum LEDs, whose observations sets the
+by a collection of narrow-spectrum LEDs, whose observations set the
 absolute normalization of each bands. The telescope is then used to
 follow CALSPEC standard stars and precisely measure their broadband
 fluxes. In this operation, all uncertainties which mostly impact the
@@ -302,17 +309,32 @@ normalisation of the passbands cancel out. In order to illustrate the
 impact of the uncertainties in our passband determination in this
 case, we modeled the spectrum of 6 calibration LEDs as Gaussian shapes
 centered on the central wavelength of each filter with a full-width
-half-max of 7\% in wavelength. We then propagate the uncertainties to
+half-max of 7\% in wavelength.
+
+\textbf{SZF: là je trouve qu'il faut mettre une équation, ou développer un peu
+  le ratio qu'on calcule.}
+
+We then propagate the uncertainties to
 the ratio of broadband fluxes for the LEDs and G191B2B. The results
 are presented in Table \ref{tab:led}. As expected, most broadband
 error sources cancel out, resulting in an accuracy of the order of 1
 permil, matching the requirements for the StarDICE experiment.
 
+In contrast, the sensitivity to wavelength calibration generally
+increase in a way that depends on the spectra of the LEDs. The flux of
+LEDs whose spectrum overlap with the edges of the filters are more
+strongly affected by wavelength calibration errors than LEDs whose
+spectrum is largely contained in the filter passband. The design of
+the StarDICE artificial star include both cases, with the idea that
+overlapping LEDs can provide a handle to test (or correct) for filter
+front errors. Here we report sensitivity for non-overlapping LEDs
+assuming no specific correction.
+
 \begin{table}
   \centering
   \caption{Uncertainties in the flux of G191B2B after recalibration by observation of narrow-spectrum LEDs centered on the filter passband.}
   \label{tab:led}
-  \begin{tabular}{lrrrrrr}
+  \begin{tabular}{@{}l@{}rrrrrr@{}}
     \toprule
     Source & u & g & r & i & z & y \\
            & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$\\
@@ -330,13 +352,17 @@ permil, matching the requirements for the StarDICE experiment.
     Mirror sampling noise & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
     NIST photodiode & 0.1 & 0.1 & 0.0 & 0.0 & 0.0 & 0.1 \\
     Solar Cell temperature & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.6 \\
+    wl cal$^\dag$ & 0.3 & 0.5 & 0.6 & 1.1 & 0.9 & 1.4 \\
     \midrule
-    Syst (total) & 0.2 & 0.2 & 0.1 & 0.0 & 0.0 & 0.6 \\
+    Syst (total) & 0.3 & 0.5 & 0.6 & 1.1 & 0.9 & 1.5 \\
     \midrule
-    Total & 0.7 & 0.6 & 1.2 & 0.2 & 0.5 & 1.9 \\
+    Total & 0.8 & 0.8 & 1.3 & 1.1 & 1.1 & 2.4 \\
     \bottomrule
   \end{tabular}
-  
+  \tablefoot{$^\dag$The impact of wavelength calibration on
+    led-calibrated fluxes depends significantly on the exact spectrum
+    of the LEDs. The numbers presented comes from simulation of a
+    realistic case, but the numbers for actual LEDs may differ.}
   
 \end{table}
 
