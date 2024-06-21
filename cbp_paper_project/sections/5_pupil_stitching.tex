@@ -15,7 +15,7 @@ precision in central wavelengths determination.
 We also estimate statistical and systematic errors on the final
 transmission curves, and propagate them through the analysis process. A
 better understanding of these errors in interpreting broadband
-photometry, \textbf{SZF: together with a first check of the smooth transmission variation assumption} is obtained using the spectrophotometric standard star
+photometry is obtained using the spectrophotometric standard star
 G191B2B as a sample star.
 
 
@@ -64,7 +64,6 @@ approximately $6\times165$ for each of the $ugrizy$ filters, and
 of the $u$-band filter cannot be accurately measured with this
 data. Fit results are displayed in
 Fig.~\ref{fig:lambdathetafitresults}.
-\textbf{SZF: les résidus de l'open transmission sont sur une échelle différente des autres}
 
 \begin{figure*}
   \centering
@@ -78,7 +77,9 @@ Fig.~\ref{fig:lambdathetafitresults}.
     immediately below each panel display the residuals to the
     model. For easy comparison, all panels are normalized to the peak
     of the response, which occurs in the open configuration at
-    $\lambda = \SI{398}{nm}$ and $\theta = \SI{6.2}{\degree}$.  }
+    $\lambda = \SI{398}{nm}$ and $\theta = \SI{6.2}{\degree}$.
+    %\textbf{SZF: les résidus de l'open transmission sont sur une échelle différente des autres}
+ }
   \label{fig:lambdathetafitresults}
 \end{figure*}
 
@@ -160,11 +161,12 @@ in the StarDICE response model.
 
 The full pupil transmission is synthesized by numerically averaging
 the above model assuming that the pupil is a perfect annulus with an
-inner radius of \SI{55}{mm} and an outer radius of \SI{203}{mm}, corresponding to an effective mirror area of \SI{1202}{cm^2}. A
+inner radius of \SI{55}{mm} and an outer radius of \SI{203}{mm},
+corresponding to an effective mirror area of \SI{1202}{cm^2}. A
 rectangular quadrature with 100 evenly sampled points in radius has
 been used for the averaging. The curves have been normalized using the
-CBP response from Sect.\ref{sec:cbp}. The resulting transmission curves are shown in
-Fig.~\ref{fig:fullpupiltrans}.
+CBP response from Sect.\ref{sec:cbp}. The resulting transmission
+curves are shown in Fig.~\ref{fig:fullpupiltrans}.
 \begin{figure}
   \centering
   \includegraphics[width=1\linewidth]{fig/fullpupill.pdf}
@@ -309,16 +311,13 @@ normalisation of the passbands cancel out. In order to illustrate the
 impact of the uncertainties in our passband determination in this
 case, we modeled the spectrum of 6 calibration LEDs as Gaussian shapes
 centered on the central wavelength of each filter with a full-width
-half-max of 7\% in wavelength.
-
-\textbf{SZF: là je trouve qu'il faut mettre une équation, ou développer un peu
-  le ratio qu'on calcule.}
-
-We then propagate the uncertainties to
-the ratio of broadband fluxes for the LEDs and G191B2B. The results
-are presented in Table \ref{tab:led}. As expected, most broadband
-error sources cancel out, resulting in an accuracy of the order of 1
-permil, matching the requirements for the StarDICE experiment.
+half-max of 7\% in wavelength. 
+To simulate the effect of the passband recalibration on LED
+observations, we propagate the uncertainties on the \emph{ratios} of
+broadband fluxes between the LEDs and G191B2B. The results are
+presented in Table \ref{tab:led}. As expected, most broadband error
+sources cancel out, resulting in an accuracy of the order of 1 permil,
+matching the requirements for the StarDICE experiment.
 
 In contrast, the sensitivity to wavelength calibration generally
 increase in a way that depends on the spectra of the LEDs. The flux of
