@@ -226,7 +226,7 @@ for c in cats.keys():
                  yerr=np.sqrt(cat["spectro_laser_wl_cal_stat"][ind]**2+cat["spectro_laser_wl_cal_stat"][ind]**2), 
                  marker="+", linestyle="none", label=label)
     counter += len(cat["spectro_laser_wl"])
-plt.errorbar(set_wl, wl_cal-set_wl, yerr=np.sqrt(wl_cal_syst**2+wl_cal_stat**2), marker="+", linestyle="none", label="from stacked spectra", color="k", zorder=42)
+plt.errorbar(set_wl, wl_cal-set_wl, yerr=np.sqrt(wl_cal_syst**2+wl_cal_stat**2), marker="+", linestyle="-", label="from stacked spectra", color="k", zorder=42)
 print("Number of data points:" , counter)
 #plt.grid()
 #plt.title(f"Data release: {data_release}")
@@ -642,7 +642,6 @@ plt.show()
 
 # ## Solar cell dark current
 
-# + jupyter={"outputs_hidden": true}
 datapath="/data/STARDICE/cbp/cbp_bench2/golden_sample/2022_02_22_2022_02_22_stardice_transmission_75um/"
 #datapath="/data/STARDICE/cbp/cbp_bench2/solarcell/2022_02_24_solarcell_goldensample/"
 #catalog_C3 = np.load(os.path.join(datapath, 'catalog_method_C3.npy'))
