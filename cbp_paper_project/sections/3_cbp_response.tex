@@ -48,16 +48,16 @@ To measure the CBP response, we must ensure that we aim toward the solar cell. F
 %cbp_paper_plots
 \includegraphics[width=\columnwidth]{sc_dataset_469}
 \includegraphics[width=\columnwidth]{sc_dataset_966}
-\caption{Data set examples. From top to bottom: typical data sets for digital analyser (pin state 4 is the Keithley output, pin state 2 the laser trigger output, pin state 1 the Keysight start and end time acquisition time stamps), charges in the photodiode, charges in the solar cell, flux in the spectrograph. Left: typical data set at \SI{469}{\nm}. Right: typical data set at \SI{966}{\nm}.}\label{fig:sc_dataset_examples}
+\caption{Data set examples when targeting the solar cell. From top to bottom: typical data sets for digital analyser (pin state 4 is the Keithley output, pin state 2 the laser trigger output, pin state 1 the Keysight start and end time acquisition time stamps), charges in the photodiode, charges in the solar cell, flux in the spectrograph. Left: typical data set at \SI{469}{\nm}. Right: typical data set at \SI{966}{\nm}.}\label{fig:sc_dataset_examples}
 \end{figure*}
 
 A typical dataset to measure the CBP response is the emission of laser bursts in the solar cell at a given wavelength. Charges in the photodiode and solar cell are recorded jointly, along with the flux in the spectrograph and the time stamps in the digital analyser (see examples in Figure~\ref{fig:sc_dataset_examples}).
 
 The laser emits pulses at a fixed rate of \SI{1}{\kilo\hertz}, with a power that highly depends on the wavelength. To ensure that all instruments work in their linear regime, without saturations, and limit the impact of dark current fluctuations, we decided to shoot light in the solar cell in bursts of pulses, separated by dark times at least as long as the burst length. The number of pulses per burst at each wavelength was selected to minimize the change in total flux per burst collected by the photodiode over the full wavelength range, which is the common instrument between the CBP and \SD response measurements and the one receiving the maximum power in the system (Figure~\ref{fig:npulses}). With the \SI{5}{\mm} pinhole with the largest laser power mode the solar cell accumulates around \SI{4}{\nano\coulomb} in a burst. In order to keep the $1/f$ noise of the solar cell instrumental chain under reasonable bounds, we limited the maximum length of a burst to \SI{200}{\ms}. The CBP system's linearity is checked by varying the laser power in Section~\ref{sec:sc_linearity}.  The required total flux in the photodiode was then adjusted by accumulating several bursts measured independently by the solar cell.
 
-During a solar cell measurement run, the laser wavelengths range between \SI{350}{\nano\meter} and \SI{1100}{\nano\meter} included with steps of \SI{1}{\nm}, but are randomly chosen to avoid that long-range $ 1/f$ mode in the solar cell dark current correlates neighboured data points of the CBP response. Several runs were accumulated to enhance the signal-to-noise ratio. In particular, five runs were recorded just before the \SD telescope measurement, and five new runs were launched just after.
+During a solar cell measurement run, the laser wavelengths range between \SI{350}{\nano\meter} and \SI{1100}{\nano\meter} included with steps of \SI{1}{\nm}, but are randomly chosen to avoid that long-range $ 1/f$ mode in the solar cell dark current correlates neighboured data points of the CBP response. Several runs were accumulated to enhance the signal-to-noise ratio. In particular, five runs (dataset No.~4 from Table~\ref{tab:schedule}) were recorded just before the \SD telescope measurement (dataset No.~5), and five new runs (dataset No.~6) were launched just after.
 
-Runs with different settings have been conducted to estimate systematic uncertainties. We varied the laser global power (QSW) to assess the linearity of the instrumental light and check the ambient light additive contamination. We varied the solar cell distance to estimate the output CBP scattered light.
+Runs with different settings have been conducted to estimate systematic uncertainties, we varied the laser global power (QSW) to assess the linearity of the instrumental light (dataset No.~4 and 6). Additionnaly, we checked the ambient light additive contamination (dataset No.~10) and varied the solar cell distance to estimate the output CBP scattered light (dataset No.~11).
 
 %cbp_paper_plots.py
 \begin{figure}[!h]
@@ -84,9 +84,9 @@ The master bias was subtracted from all dark exposures. From those data, we meas
 \end{equation}
 with $\sigma_{ro}$ the readout noise, $G$ the sensor gain and $\sigma_G$ a statistical noise on the gain itself. The fit of this model to data led to the following values (Figure~\ref{fig:spectro_ptc}):
 \begin{align}
-    \sigma_{ro} &= 1.26\ \mathrm{ADU}, \\
-    G & = 25.8\ e^-/\mathrm{ADU} ,\\
-    \sigma_G & = 0.7\%.
+    & \sigma_{ro} = 1.26\ \mathrm{ADU}, \\
+    & G = 25.8\ e^-/\mathrm{ADU} ,\\
+    & \sigma_G = 0.7\%.
 \end{align}
 The first two values are compatible with the CCD specifications given by the spectrograph vendor. 
 
@@ -103,14 +103,15 @@ The first two values are compatible with the CCD specifications given by the spe
 
 The spectrograph exposure times were adjusted to avoid the saturation level for all wavelengths. However, the sampling rate was not tunable, and time stamps were unavailable. So we took as many spectra $N(\lambda_p)$ as possible during an acquisition and then analysed them. Some contained laser light, and others were darks. We assumed a spectrum is dark if there are no spectrograph pixels above its median plus a threshold in the region around the laser wavelength. This algorithm works for most spectra except for very weak laser lines that come too close to a hot pixel, which happens very rarely.
 
-After this sorting of the spectra in two categories ("laser on" and "laser off"), we subtract the master bias $B(\lambda_p)$ and compute a master dark spectrum $D(\lambda_p)$, taking the median of all the dark spectra. This master dark is subtracted from all spectra, which removes the spectrograph baseline and hot pixels. The spectra containing laser lines are stacked to increase the signal-to-noise ratio. We call $S(\lambda_p)$ the stacked spectrum after bias and dark subtraction:
+After sorting the spectra in two categories "laser on" and "laser off", we subtract the master bias $B(\lambda_p)$ and compute a master dark spectrum $D(\lambda_p)$, taking the median of all the "laser off" spectra (see Equation~\ref{eq:master_dark_spectro}). This master dark is subtracted from all spectra, which removes the spectrograph baseline and hot pixels. The spectra containing laser lines are stacked to increase the signal-to-noise ratio. We call $S(\lambda_p)$ the stacked spectrum after bias and dark subtraction:
 \begin{align}
+\label{eq:master_dark_spectro}
 D(\lambda_p) & = \sum_{i \in \left\lbrace \text{laser off}\right\rbrace}\left( N_i(\lambda_p) - B(\lambda_p)\right), \\
     S(\lambda_p) & = \sum_{i \in \left\lbrace \text{laser on}\right\rbrace}\left( N_i(\lambda_p) - D(\lambda_p) - B(\lambda_p)\right).
 \end{align}
 The spectrograph error model is applied to get the intensity uncertainties $\sigma_p$ for each spectrum $i$:
 \begin{equation}\label{eq:spectro_error_model_data}
-\sigma^2_{i,p} =\sigma_{ro}^2 +  (N_i(\lambda_p) - B(\lambda_p))/G + \sigma_G^2 (N_i(\lambda_p) - B(\lambda_p))^2
+\sigma^2_{i,p} =\sigma_{ro}^2 +  (N_i(\lambda_p) - B(\lambda_p))/G + \sigma_G^2 (N_i(\lambda_p) - B(\lambda_p))^2.
 \end{equation}
 As the signal-to-noise in the stacked spectrum is very high, we assimilate the $S(\lambda_p)$ value to its empirical average to get $\sigma_{i,p}$. The uncertainties are propagated to the stacked spectrum $S(\lambda_p)$.
 
@@ -147,7 +148,7 @@ To transform raw sensor wavelengths $\lambda_p$ into calibrated wavelengths $\la
     \chi_\lambda^2(a_3, a_2, a_1, a_0) = \sum_{\text{lines}} \left(\lambda_t-a_3 \lambda_g^3 - a_2 \lambda_g^2-a_1 \lambda_g -a_0\right)^2
 \end{equation}
 over the four polynomial coefficients $a_3, a_2, a_1$ and $a_0$. The sum is performed over lines with high significance (signal-to-noise ratio above 20), and known doublet lines were excluded. The minimisation yields  the four best-fit parameters $\hat a_i$ associated with their covariance matrix. 
-As the initial Gaussian fit was unweighted, the covariance matrix is then re-scaled with a global factor to get a final reduced $\chi_\lambda^2$ of one that we call $\mathbf{C}_\lambda$. 
+As the initial Gaussian fit was unweighted, the covariance matrix $\mathbf{C}_\lambda$ is then re-scaled with a global factor to get a final reduced $\chi_\lambda^2$ of one. 
 Finally, detected line centroids $\lambda_g$ are transformed into calibrated wavelengths $\lambda_c$ using the third order polynomial function $c(\lambda_g)$ with the four best fit parameters:  
 \begin{equation}
     \lambda_c \equiv c(\lambda_g) \equiv \hat a_3 \lambda_g^3 + \hat a_2 \lambda_g^2+\hat a_1 \lambda_g +\hat a_0
@@ -157,7 +158,9 @@ and the $\sigma_\lambda^{\rm cal}$ calibration uncertainties are
     \sigma_\lambda^{\rm cal} = \left(\vec J_c^T \mathbf{C}_\lambda \vec J_c\right)^{1/2},\quad \vec J_c = \left(\lambda_g^3, \lambda_g^2, \lambda_g, 1\right).
 \end{equation}
 
-In Figure~\ref{fig:spectro_calib_syst}, we plot the residuals of the fit $c(\lambda_g)-\lambda_t$ in the upper panel, showing the agreement between the re-scaled data uncertainties and the uncertainties propagated to the third order polynomial function $c(\lambda_g)$ using $\mathbf{C}_\lambda$. In the lower panel, the spectrograph calibration systematic uncertainties $\sigma_\lambda^{\rm cal}$ are emphasised: they are lower than $\SI{0.1}{\nm}$ in the entire wavelength range, even lower than \SI{0.025}{\nm} in the visible spectrum. During the data acquisition campaign, we did not unplug and plug again the optical fibre going from the integrating sphere to the spectrograph. Such an action on the spectrograph side could have changed the wavelength calibration in principle, even if beforehand, we checked the fibre placement in the spectrograph was very reproducible and did not change the wavelength scale. 
+In Figure~\ref{fig:spectro_calib_syst}, we plot the residuals of the fit $c(\lambda_g)-\lambda_t$ in the upper panel, showing the agreement between the re-scaled data uncertainties and the uncertainties propagated to the third order polynomial function $c(\lambda_g)$ using $\mathbf{C}_\lambda$. In the lower panel, the spectrograph calibration systematic uncertainties $\sigma_\lambda^{\rm cal}$ are emphasised: they are lower than $\SI{0.1}{\nm}$ in the entire wavelength range, even lower than \SI{0.025}{\nm} in the visible spectrum.
+
+% During the data acquisition campaign, we did not unplug and plug again the optical fibre going from the integrating sphere to the spectrograph. Such an action on the spectrograph side could have changed the wavelength calibration in principle, even if beforehand, we checked the fibre placement in the spectrograph was very reproducible and did not change the wavelength scale. 
 
 %spectrograph_calibration.py
 \begin{figure}[!h]
@@ -166,10 +169,7 @@ In Figure~\ref{fig:spectro_calib_syst}, we plot the residuals of the fit $c(\lam
 \caption{Spectrograph calibration plot. Top: difference between the tabulated Hg-Ar emission line wavelengths $\lambda_t$ and the wavelengths computed using the spectrograph calibration function $c(\lambda_g)$. Data taken before and after the data acquisition campaign are superimposed. Their uncertainties were re-scaled with a common factor to get a final reduced $\chi^2$ of one. The red band represents the systematic uncertainty band from the $c(\lambda_g)$ fit on data with the uncertainty rescaling. Bottom: emphasis on the systematic uncertainties of the spectrograph calibration procedure.}\label{fig:spectro_calib_syst}
 \end{figure}
 
- 
-
-
-Thanks to this procedure, we were able to apply the fitted third order polynomial correction to all detected wavelength $\lambda_g$ to get calibrated wavelengths $\lambda_c$. We used the \SI{532}{\nm} line to check the quoted statistical errors $\sigma_\lambda^{\rm noise}$ on wavelength. For all data sets, we plotted the fitted line position versus time. The RMS is compatible with the quoted error bars on wavelength for lower signal-to-noise ratio data sets. But for the high signal-to-noise ratio data sets, some dispersion is unaccounted for, explained by the fact that the Gaussian profile is an incomplete model of high signal-to-noise lines. Therefore, we added a $\sigma_\lambda^{\rm PSF}=\SI{0.012}{\nm}$ statistical uncertainty due to PSF modelling on wavelength uncertainty to get a normal distribution for the residuals normalised by the full statistical uncertainties (see Figure~\ref{fig:wavelength_error_model_consistency}), the latter being
+We applied the third order polynomial to calibrate $\lambda_g$ into $\lambda_c$. We used the \SI{532}{\nm} line to check the quoted statistical errors $\sigma_\lambda^{\rm noise}$ on wavelength. For all data sets, we plotted the fitted line position versus time. The RMS is compatible with the quoted error bars on wavelength for lower signal-to-noise ratio data sets. But for the high signal-to-noise ratio data sets, some dispersion is unaccounted for, explained by the fact that the Gaussian profile is an incomplete model of high signal-to-noise lines. Therefore, we added a $\sigma_\lambda^{\rm PSF}=\SI{0.012}{\nm}$ statistical uncertainty due to PSF modelling on wavelength uncertainty to get a normal distribution for the residuals normalised by the full statistical uncertainties (see Figure~\ref{fig:wavelength_error_model_consistency}), the latter being
 \begin{equation}
     \left(\sigma_{\lambda}^{\rm stat}\right)^2 =  \left(\sigma_{\lambda}^{\rm noise}\right)^2 +  \left(\sigma_{\lambda}^{\rm PSF}\right)^2.
 \end{equation}
@@ -210,17 +210,18 @@ In one data set, we accumulated several laser bursts, and a per-burst analysis w
 
 Photodiode data are charge time series with stair-case shape. Each step is a laser burst, and the step height roughly gives the charge $\Qphotmes$ accumulated during a laser burst (see Figures~\ref{fig:sc_dataset_examples} and~\ref{fig:pd_reduc}). The length of the charge rise is the laser burst duration $\tau_b$ while flat sequences are dark times. For the photodiode, the time stamps come directly from the digital analyser clock, with a sampling at \SI{50}{\hertz}. The digital analyser clock also provides the time stamps of the laser pulses. 
 
-For each burst, we fit straight lines in the charge sequence during the dark times before and after a laser burst, removing the closest points to the burst. We call $t_1$ and $t_2$ the time stamps of the beginning and ending of the laser burst, respectively, given by the laser trigger output itself.%\footnote{Technically, the laser time stamps provide the beginning of the pulse, so we add \SI{1}{\ms} to the last trigger time stamps from the laser to account for the pulse duration.}. 
+For each burst, we fit straight lines in the charge sequence during the dark times before and after a laser burst, removing the closest points to the burst. We call $t_1$ and $t_2$ the time stamps of the beginning and ending of the laser burst, respectively, given by the laser trigger output itself. 
+%\footnote{Technically, the laser time stamps provide the beginning of the pulse, so we add \SI{1}{\ms} to the last trigger time stamps from the laser to account for the pulse duration.}. 
 The accumulated charge $\Qphotmes$ during a burst is then
+\begin{equation}
+q_{\rm phot}^{\rm dark}(t) = a_{\rm phot} t + b_{\rm phot}
+\end{equation}
 \begin{align}
-q_{\rm phot}^{\rm dark}(t)  = & a_{\rm phot} t + b_{\rm phot} \\
-\Qphotmes  = & q_{\rm phot,2}^{\rm dark}(t_2) - q_{\rm phot,1}^{\rm dark}(t_1)\\ & - \frac{1}{2} \left[ q_{\rm phot,1}^{\rm dark}(t_2) -  q_{\rm phot,1}^{\rm dark}(t_1) + q_{\rm phot,2}^{\rm dark}(t_2) - q_{\rm phot,2}^{\rm dark}(t_1)  \right]   \notag 
+\Qphotmes = \, &q_{\rm phot,2}^{\rm dark}(t_2) - q_{\rm phot,1}^{\rm dark}(t_1)\\ & - \frac{1}{2} \left[ q_{\rm phot,1}^{\rm dark}(t_2) -  q_{\rm phot,1}^{\rm dark}(t_1) + q_{\rm phot,2}^{\rm dark}(t_2) - q_{\rm phot,2}^{\rm dark}(t_1)  \right]   \notag 
 \end{align}
-where $q_{\rm phot,j}^{\rm dark}(t_i)$ is the line fit of the dark part $j$ ($j=1$ before the burst, $j=2$ after) evaluated at time $t_i$. After this procedure, the subtraction $q_{\rm phot,2}^{\rm dark}(t_2) - q_{\rm phot,1}^{\rm dark}(t_1)$ gives the raw height of the burst step in the charge sequence\footnote{Moreover, doing the subtraction removes systematics inaccuracy coming from the Keithley electrometer.} while the terms in brackets remove the averaged contribution of the dark current using both dark times before and after the burst. Note that we do not model anything during the burst time, as the laser power stability does not guarantee that this can be modelled with a simple mathematical function. The only model assumption is that dark sequences are modelled with straight lines.
+where $q_{\rm phot,j}^{\rm dark}(t_i)$ is the line fit of the dark part $j$ ($j=1$ before the burst, $j=2$ after) evaluated at time $t_i$. The term in brackets subtract an estimation of the dark current contribution during the burst itself. After this procedure, the subtraction $q_{\rm phot,2}^{\rm dark}(t_2) - q_{\rm phot,1}^{\rm dark}(t_1)$ gives the raw height of the burst step in the charge sequence\footnote{Moreover, doing the subtraction removes systematics inaccuracy coming from the Keithley electrometer.} while the terms in brackets remove the averaged contribution of the dark current using both dark times before and after the burst. Note that we do not model anything during the burst time, as the laser power stability does not guarantee that this can be modelled with a simple mathematical function. The only model assumption is that dark sequences are modelled with straight lines.
 
 The fit of the two parameters $a_{\rm phot}$ and $b_{\rm phot}$ of each $q_{\rm phot,j}^{\rm dark}(t)$ line models is performed via a standard $\chi^2$ minimisation, using the \texttt{curve\_fit} method from python library \texttt{scipy}. Uncertainties on the data points, equally weighted, are tuned so that the final reduced $\chi^2$ is one. As a result, we assume that the fit residuals are only due to Gaussian instrumental noise, as justified by Figure~\ref{fig:pd_reduc}. The analysis of the residuals also confirms our choice to use order 1 polynomial functions to model the dark sequences.
-
-
 
 %cbp_paper_plots.py
 \begin{figure}[!h]
@@ -253,7 +254,7 @@ Solar cell charge time series are very similar to photodiode time series (see Fi
 \caption{Solar cell charge sequence reduction process at wavelength $\lambda_L=\SI{469}{\nm}$. Pairs of vertical black at the left and right of a burst encompass the fitted dark sequences. Coloured curves are the dark model fitted within these dark times. The top panel shows the raw charges acquired with the solar cell, while the bottom panel shows the residuals to the dark model fit during dark times only.}\label{fig:sc_reduc}
 \end{figure}
 
-As for the photodiode, we modelled the dark sequence before and after each burst. The solar cell dark model is the sum of a linear function plus two sinus functions at fixed frequency \SI{50}{\hertz} and \SI{100}{\hertz}:
+As for the photodiode, we modelled the dark sequence before and after each burst. The solar cell dark model is the sum of a linear function plus two sinusoidal functions at fixed frequency \SI{50}{\hertz} and \SI{100}{\hertz}:
 \begin{align}
     q_{\rm solar}^{\rm dark}(t) = a_{\rm solar}t + b_{\rm solar} & + A_{50} \sin \left( 100 \pi t + \phi_{50}\right)  \notag \\  & +  A_{100} \sin \left( 200 \pi t + \phi_{100}\right)
 \end{align}
@@ -263,7 +264,7 @@ The accumulated charge $\Qsolarmes$ during a burst is then
 \begin{align}\label{eq:qsolar}
 \Qsolarmes  = & q_{\rm solar,2}^{\rm dark}(t_2) - q_{\rm solar, 1}^{\rm dark}(t_1) \\  &  - \frac{1}{2} \left[q_{\rm solar,1}^{\rm dark}(t_2) - q_{\rm solar,1}^{\rm dark}(t_1) + q_{\rm solar,2}^{\rm dark}(t_2) - q_{\rm solar,2}^{\rm dark}(t_1)  \right]    \notag
 \end{align}
-where the indices $1$ and $2$ refer again to data before and after the burst, respectively. The purpose of the term in brackets is to subtract an estimation of the dark current contribution during the burst itself. Free $q_{\rm solar}^{\rm dark}(t)$ parameters were fitted, minimising a $\chi^2$ with a Newton-Raphson gradient descent. Power lines are well fitted by the model (no more periodic oscillations in the residuals) as shown in Figure~\ref{fig:sc_reduc_zoom} where $A_{50}$ was about $\SI{50}{\pico\coulomb}$.
+where the indices $1$ and $2$ refer again to data before and after the burst, respectively.  Free $q_{\rm solar}^{\rm dark}(t)$ parameters were fitted, minimising a $\chi^2$ with a Newton-Raphson gradient descent. Power lines are well fitted by the model (no more periodic oscillations in the residuals) as shown in Figure~\ref{fig:sc_reduc_zoom} where $A_{50}$ was about $\SI{50}{\pico\coulomb}$.
 The $1/f$ noise is not modelled in $q_{\rm solar}^{\rm dark}(t)$ as it is subdominant, but the lowest frequency modes are captured by the values of $a_{\rm solar}$ and $b_{\rm solar}$. To get a close estimate of their contributions during the burst, we fit the dark sequences only during $\tau_b/2$ around the burst to rely on their extrapolation inside the burst window (with a minimum of 12 data points to encompass at least one \SI{50}{\hertz} period). %Doing so, both linear functions are the sum of both darks containing the same $1/f$ noise power as during the laser burst and only the long-wave modes that pollute the laser burst.
 Indeed, as exhibited in Figure~\ref{fig:sc_reduc_zoom}, fits of $q_{\rm solar,2}^{\rm dark}(t)$ after the first burst (orange) and of $q_{\rm solar,1}^{\rm dark}(t)$ before the second burst (green) do not superimpose because of the departure from linearity due to the long-range $1/f$ noise. So restricting the fits in two windows of size $\max(\SI{22}{\ms},\tau_b/2)$ permits to capture contaminating $1/f$ modes no longer than $\tau_b$. 
 
@@ -283,7 +284,7 @@ A first CBP response estimation can be computed as $r_{\rm CBP}^{\rm mes} = \Qso
 \begin{equation}
     \sigma_{\mathrm CBP}^{\rm stat} = r_{\rm CBP}^{\rm mes} \sqrt{\left(\frac{\Ssolarstat}{\Qsolarmes}\right)^2 +  \left(\frac{\Sphotstat}{\Qphotmes}\right)^2 }
 \end{equation}
-are higher in the blue as the laser is weaker in this regime (around $0.1\%$) than in the red (around $0.01\%$). They were estimated as the difference between all data points and a spline interpolatino, normalised by the statistical uncertainties. They follow a Gaussian distribution of mean 0 and RMS$\;\approx 1$, as expected. If we compute a mean CBP response
+are higher in the blue as the laser is weaker in this regime (around $0.1\%$) than in the red (around $0.01\%$). They were estimated as the difference between all data points and a spline interpolatino, normalised by the statistical uncertainties. They follow a Gaussian distribution of mean 0 and RMS$\;\approx 1$, as expected. 
 
 %cbp_paper_plots.py
 \begin{figure}[!h]
@@ -300,7 +301,7 @@ are higher in the blue as the laser is weaker in this regime (around $0.1\%$) th
 \subsubsection{Wavelength calibration}\label{sec:wavelength_syst}
 
 
-Figure~\ref{fig:wavelength_error_budget} details the total error budget from wavelength calibration for three different runs: two runs shooting at StarDICE with two pinholes and one run shooting at the solar cell. Uncertainty on wavelength $\sigma_\lambda$ is primarily dominated by wavelength calibration uncertainties in the range 400 to \SI{1080}{\nm}. Statistical uncertainty dominates around $\SI{532}{\nm}$ and close to the spectrograph sensor edges. Except in these cases, $\sigma_\lambda$ is well below $\SI{1}{\angstrom}$.% which allows for precisely measuring the telescope filter band-passes better than the Angstrom level.   
+Figure~\ref{fig:wavelength_error_budget} details the total error budget from wavelength calibration for three different runs: two runs shooting at StarDICE with two pinholes and one run shooting at the solar cell. Uncertainty on wavelength $\sigma_\lambda$ is primarily dominated by wavelength calibration uncertainties in the range 400 to \SI{1080}{\nm}. Statistical uncertainty dominates around $\SI{532}{\nm}$ and close to the spectrograph sensor edges. Except in these cases, $\sigma_\lambda$ is well below $\SI{0.1}{\nano\meter}$.% which allows for precisely measuring the telescope filter band-passes better than the Angstrom level.   
 
 %cbp_paper_plots.py
 \begin{figure}[!h]
@@ -309,7 +310,7 @@ Figure~\ref{fig:wavelength_error_budget} details the total error budget from wav
 \caption{Total error budget (red) of calibrated wavelengths $\lambda_c$ for three different runs (from top to bottom: StarDICE run with \SI{75}{\um} pinhole, solar cell run with \SI{5}{mm} pinhole, StarDICE run with \SI{5}{mm} pinhole) as a function of the laser set wavelength $\lambda_L$. Detection uncertainties (grey) represent PSF modelling uncertainties and Gaussian fit uncertainties, while calibration uncertainties (black) come from the Hg-Ar lamp calibration procedure. }\label{fig:wavelength_error_budget}
 \end{figure}
 
-To evaluate the systematic uncertainty on the CBP response due to the wavelength calibration, we computed $r_{\rm CBP}$ at $\lambda_c+\sigma_{\lambda^{\rm cal}}$ and $\lambda_c-\sigma_{\lambda^{\rm cal}}$. The difference between both CBP responses is well below the statistical uncertainty since the CBP response varies slowly in $\lambda$ and the whole $\sigma_\lambda$ is sub-Angstrom (see Figure~\ref{fig:cbp_charge_ratio}). The wavelength measurement uncertainty has a systematic effect mainly in the determination of the sharp edges of the filter band-passes.
+To evaluate the systematic uncertainty on the CBP response due to the wavelength calibration, we computed $r_{\rm CBP}$ at $\lambda_c+\sigma_{\lambda^{\rm cal}}$ and $\lambda_c-\sigma_{\lambda^{\rm cal}}$. The difference between both CBP responses is well below the statistical uncertainty since the CBP response varies slowly in $\lambda$ (Figure~\ref{fig:cbp_charge_ratio}) and the whole $\sigma_\lambda$ < \SI{0.1}{\nano\meter} (Figure~\ref{fig:wavelength_error_budget}). The wavelength measurement uncertainty has a systematic effect mainly in the determination of the sharp edges of the filter band-passes.
 
 %The importance of $\sigma_\lambda$ as a systematic uncertainty lies essentially in the determination of the telescope filter band-passes and the position of their sharp edges.
 
@@ -324,7 +325,7 @@ To evaluate the systematic uncertainty on the CBP response due to the wavelength
     \label{fig:sc_dark}
 \end{figure}
 
-To check contamination by ambient light, we ran a solar cell acquisition with a cap on the CBP telescope. This mimics a regular solar cell acquisition without direct light, therefore measuring in particular the laser light leaks during operation. The measurement of this indirect ambient light $\Qsolar^{\rm dark}$ constitutes a "dark" for our CBP calibration. From this specific run, we built a dark CBP response $r_{\mathrm{CBP}}^{\rm dark} = \Qsolar^{\rm dark} / \Qphot^{\rm dark}$ where $\Qsolar^{\rm dark}$ (resp. $\Qphot^{\rm dark}$) is the burst charge collected in the solar cell (resp. the photodiode). For each $\lambda_L$, burst ratios are averaged with a $5\sigma$ clipping, giving the blue curve $r_{\mathrm{CBP}}^{\rm dark}(\lambda_L)$ in Figure~\ref{fig:sc_dark}. The dark contribution in our solar cell data is then evaluated as follows:
+To check contamination by ambient light, we ran a solar cell acquisition with a cap on the CBP telescope. This mimics a regular solar cell acquisition without direct light, therefore measuring in particular the laser light leaks during operation. The measurement of this indirect ambient light $\Qsolar^{\rm dark}$ constitutes a "dark" for our CBP calibration. From this specific run, we built a dark CBP response $r_{\mathrm{CBP}}^{\rm dark} = \Qsolar^{\rm dark} / \Qphot^{\rm dark}$ where $\Qsolar^{\rm dark}$ (resp. $\Qphot^{\rm dark}$) is the burst charge collected in the solar cell (resp. the photodiode). For each $\lambda_L$, burst ratios are averaged with a $5\sigma$ clipping, giving the blue curve $r_{\mathrm{CBP}}^{\rm dark}(\lambda_L)$ in Figure~\ref{fig:sc_dark}. The high dispersion below \SI{670}{\nano\meter} corresponds to the wavelength regime where the laser power is low, inducing a faint ambient light poorly measured. The dark contribution in our solar cell data is then evaluated as follows:
 \begin{equation}
     \Qsolar^{\rm dark} = r_{\mathrm{CBP}}^{\rm dark}(\lambda_L) \times \Qphotmes(\lambda_L)
 \end{equation}
@@ -369,7 +370,7 @@ We denote the level of contamination in the photodiode $\Qphot^{\lambda_L}/\Qpho
     \label{fig:QEs}
 \end{figure}
     
-We measured $\alpha(\lambda_L)$ at every wavelength using the spectrograph fluxes for the main line and the \SI{532}{nm} contaminant (Figure~\ref{fig:alpha_532}). We rejected data where $\sigma_{\lambda} < \SI{0.1}{\nm}$ in order to remove instances where the main line and the \SI{532}{nm} contaminant are poorly separated. In the 532 - \SI{540}{nm} range, where unambiguous separation between the main line and the contaminant proved infeasible, we extrapolated the $\Qspectro^{532}$ values by a linear interpolation over the full range where $\Qspectro^{532}$ was available.
+We measured $\alpha(\lambda_L)$ at every wavelength using the spectrograph fluxes for the main line and the \SI{532}{nm} contaminant (Figure~\ref{fig:alpha_532}). We rejected data where $\sigma_{\lambda} > \SI{0.1}{\nm}$ in order to remove instances where the main line and the \SI{532}{nm} contaminant are poorly separated. In the 532 - \SI{540}{nm} range, where unambiguous separation between the main line and the contaminant proved infeasible, we extrapolated the $\Qspectro^{532}$ values by a linear interpolation over the full range where $\Qspectro^{532}$ was available.
 The resulting $\alpha(\lambda_L)$ yield a rather flat curve between 540 and \SI{644}{\nm} with small wiggles around a global slope of $\sim 1\% $.
 Uncertainties are propagated in the extrapolation range using the standard error propagation formula, taking into account the covariances between the 2 model parameters. With this $\alpha$ model, we deduced the true photodiode charges coming from the main laser line at $\lambda_L$
 \begin{equation}
@@ -549,6 +550,6 @@ The average is performed on every burst of the three runs, with a $5\sigma$ clip
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{fig/cbp_response.pdf}
-    \caption{Top: CBP response $\overline{\Rcbp(\hat{\lambda}_c)}$ obtained with the \bpinhole and $\delta \lambda = \SI{1}{\nano\meter}$. Bottom: relative uncertainties.}
+    \caption{Top: CBP response $\overline{\Rcbp(\hat{\lambda}_c)}$ obtained with the \bpinhole{} pinhole and $\delta \lambda = \SI{1}{\nano\meter}$. Bottom: relative uncertainties.}
     \label{fig:cbp_response}
 \end{figure}

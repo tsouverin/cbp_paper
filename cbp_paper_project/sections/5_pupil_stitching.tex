@@ -75,7 +75,7 @@ Fig.~\ref{fig:lambdathetafitresults}.
     photometric filters ($ugrizy$) or with the grating looking either
     at the zeroth order or the first order spots. The panel
     immediately below each panel display the residuals to the
-    model. For easy comparison, all panels are normalized to the peak
+    model as a fraction of the data. For easy comparison, all panels are normalized to the peak
     of the response, which occurs in the open configuration at
     $\lambda = \SI{398}{nm}$ and $\theta = \SI{6.2}{\degree}$.
     %\textbf{SZF: les résidus de l'open transmission sont sur une échelle différente des autres}
@@ -86,10 +86,9 @@ Fig.~\ref{fig:lambdathetafitresults}.
 
 \begin{figure}
   \centering
-  \includegraphics[width=1\linewidth]{fig/diffraction_dust.png}
+  \includegraphics[width=1\linewidth]{fig/diffraction_dust.pdf}
   \caption{Diffraction rings due to the presence of a dust spot on the
-    r filter, intercepting the CBP beam. Red circles are over-plotted
-    to ease the visualisation.}
+    r filter, intercepting the CBP beam.}
   \label{fig:dust}
 \end{figure}
 
@@ -101,7 +100,7 @@ measurement at \SI{3.7}{\degree} with respect to the average of the
 other three.  After investigating this issue, we identified that the
 corresponding images displayed a diffraction figure consistent with
 the presence of a dust particle on the filter surface intercepting the
-CBP beam.  Based on the approximate area of the beam spot
+CBP beam, visible in Figure~\ref{fig:dust}. Based on the approximate area of the beam spot
 ($\sim$\SI{12}{\milli\metre\squared}), and the estimated particle size range (between
 \SIrange{200}{300}{\micro\metre}), we calculated a potential decrease
 in transmission for this specific partial illumination of the primary
@@ -143,7 +142,7 @@ for all 4 radius positions. The model accurately reproduces the
 central wavelengths of all filters with a standard deviation of only
 $\SI{0.13}{nm}$. This represents an improvement by an order of
 magnitude compared to a model that neglects wavelength shift
-considerations, highlighting the importance of including this effect
+considerations due to light incidence angle on the filter, highlighting the importance of including this effect
 in the StarDICE response model.
 
 \begin{figure}
@@ -233,8 +232,8 @@ telescope which cannot be determined accurately with such a setup.
     Contamination & 4.4 & 0.6 & 0.8 & 0.1 & 0.1 & 0.1 \\
     Mirror sampling noise & 5.4 & 5.4 & 5.4 & 5.4 & 5.4 & 5.4 \\
     NIST photodiode & 0.2 & 0.1 & 0.0 & 0.0 & 0.0 & 0.1 \\
-    Solar Cell temperature & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 3.9 \\
-    wl cal & 0.7 & 0.6 & 0.5 & 0.4 & 0.3 & 0.3 \\
+    Solar cell temperature & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 3.9 \\
+    Wavelength calibration & 0.7 & 0.6 & 0.5 & 0.4 & 0.3 & 0.3 \\
     \midrule
     Syst (total) & 7.6 & 6.3 & 6.7 & 7.1 & 7.4 & 8.7 \\
     \midrule
@@ -305,8 +304,9 @@ very similar to the spectrum of the standard.
 For the StarDICE telescope, the role of photometric standard is played
 by a collection of narrow-spectrum LEDs, whose observations set the
 absolute normalization of each bands. The telescope is then used to
-follow CALSPEC standard stars and precisely measure their broadband
-fluxes. In this operation, all uncertainties which mostly impact the
+observe CALSPEC standard stars and precisely measure their broadband
+fluxes, anchoring them to the LEDs absolute calibration.
+In this operation, all uncertainties which mostly impact the
 normalisation of the passbands cancel out. In order to illustrate the
 impact of the uncertainties in our passband determination in this
 case, we modeled the spectrum of 6 calibration LEDs as Gaussian shapes
@@ -350,8 +350,8 @@ assuming no specific correction.
     Contamination & 0.1 & 0.1 & 0.0 & 0.0 & 0.0 & 0.0 \\
     Mirror sampling noise & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
     NIST photodiode & 0.1 & 0.1 & 0.0 & 0.0 & 0.0 & 0.1 \\
-    Solar Cell temperature & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.6 \\
-    wl cal$^\dag$ & 0.3 & 0.5 & 0.6 & 1.1 & 0.9 & 1.4 \\
+    Solar cell temperature & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.6 \\
+    Wavelength calibration$^\dag$ & 0.3 & 0.5 & 0.6 & 1.1 & 0.9 & 1.4 \\
     \midrule
     Syst (total) & 0.3 & 0.5 & 0.6 & 1.1 & 0.9 & 1.5 \\
     \midrule

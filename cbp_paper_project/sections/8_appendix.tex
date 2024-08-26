@@ -25,11 +25,10 @@ This study is pursued for the 3 runs of dataset No.~4, and 2 runs of dataset No.
 This method allows for estimation of $G_1(\lambda)$, but we must investigate the contribution of ghosts of higher order $G_{n>1}$. Because of the faint intensity of these orders, the method described above cannot be performed, so we estimate their contribution from the $1^{\mathrm{st}}$ order ghost analysis. Let be $\Rwindow$ the reflection coefficient at the interface air-window, and $\Rccd$ the reflection coefficient at the interface air-CCD. We know the transmission of the window $T_\mathrm{window}(\lambda)$ from manufacturer datasheets, so we can infer $\Rwindow$:
  
 \begin{equation}
-    \Rwindow = 1 - T_\mathrm{window}(\lambda).
+    \Rwindow = 1 - T_\mathrm{window}(\lambda),
     \label{eq:rwindow}
 \end{equation}
- 
-\noindent We define $F(\lambda)$ the flux collected in the camera, $G_0(\lambda)$ the quantity of light collected in the main spot, and $G_\mathrm{n}(\lambda)$ the quantity of light collected in the ghost of order $n$. $G_0(\lambda)$ and $G_\mathrm{n}(\lambda)$ are a function of $F(\lambda)$: 
+which is represented as the blue curve in Figure~\ref{fig:reflectivities}. We define $F(\lambda)$ the flux collected in the camera, $G_0(\lambda)$ the quantity of light collected in the main spot, and $G_\mathrm{n}(\lambda)$ the quantity of light collected in the ghost of order $n$. $G_0(\lambda)$ and $G_\mathrm{n}(\lambda)$ are a function of $F(\lambda)$: 
 
 \begin{equation}
      G_0(\lambda) = (1-\Rwindow)^{2} \times (1-\Rccd) \times F(\lambda), 
@@ -66,9 +65,19 @@ This method allows for estimation of $G_1(\lambda)$, but we must investigate the
 \noindent As we measure the photometry of the 1\up{st} order ghost $G_1(\lambda)$, we want to verify that the ghosts of higher orders $G_{\mathrm{n}>1}(\lambda)$ are negligible. Using the Equations~\ref{eq:ratio_ghost}, \ref{eq:g0} and \ref{eq:gn}, we can compute $\Rccd$:
 
 \begin{equation}
-    \Rccd = \frac{\Kghost}{\Rwindow (2 - \Rwindow)}.
+    \Rccd = \frac{\Kghost}{\Rwindow (2 - \Rwindow)},
     \label{eq:rccd}
 \end{equation}
+reported as the red curve in Figure~\ref{fig:reflectivities}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\columnwidth]{fig/reflectivities.pdf}
+    \caption{Reflectivities of the CCD $\Rccd$ in red, and the camera window $\Rwindow$ in blue, both against the wavelength.}
+    \label{fig:reflectivities}
+    %~/stardice/analysis/cbp_paper/golden_sample_analysis/dr2/ghost_convergence.ipynb   
+\end{figure}
+
 
 We measured $G_1(\lambda)$ with photometry, and estimate $G_{\mathrm{n}>1}$ with the equations above. We show the ratio $K_{G_{\mathrm{n}>1}/G_0}$ in Figure~\ref{fig:ratio_ginf_g0}, and we see that $K_{G_{\mathrm{n}>1}/G_0}$ is always below the per mil level. Since $G_{\mathrm{n}>1}$ contribute for less than a per mil of $G_0(\lambda)$, we decide to neglect it.
 

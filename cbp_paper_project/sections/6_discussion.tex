@@ -5,34 +5,33 @@ We determined the response of the 16'' StarDICE telescope using a
 collimated beam projector (CBP) powered by a tunable laser. Our
 procedure involved three main steps. In a first step we measured the
 throughput of the CBP with a wavelength sampling of \SI{1}{nm} between
-350 and \SI{1100}{nm} by illuminating a calibrated photodiode. We then
-used the calibrated beam to map the response of the photometric
-instrument at all wavelengths and at several positions on its primary
+350 and \SI{1100}{nm} by illuminating a calibrated solar cell. We then
+used the calibrated beam to map the response of the StarDICE telescope
+at all wavelengths and at several positions on its primary
 mirror. Lastly, we interpolated between the sample points to
-synthesize the equivalent response of the instrument to illumination
+synthesize the equivalent response of the telescope to illumination
 of its full pupill.
 
 A key aspect in the process of calibrating the CBP beam is that the
 sensitive area of the photodiode is large enough to cover entirely the
-beam. While the measurement is then simple in its principle, special
+beam. While the measurement is simple in its principle, special
 care must be given to several aspects of the setup and analysis to
-reach the required level of accuracy. Most notably, (1) the laser beam
-must be filtered to improve the purity of its wavelength
-composition. Even with the mitigation measures we adopted, unavoidable
-contamination had to be subtracted in the analysis; (2) the setup must
-minimize scattered light which affects differently the calibration
-photodiode and the calibrated telescope; (3) achieving sufficient
-signal to noise ratio in the calibration photodiode necessitates to
-fight hight level of pink noise. This was achieved by selecting higher
-impedance cells, increasing the amount of flux in the photodiode by
-selecting a larger pinhole, grouping the light deposit in short bursts
-separated by dark period and using a good synchronization in time
-between the bursts and the photocurrent measurement. Surprisingly, the
-change in pinhole also induces a small but measurable change in the
-chromatic throughput of the CBP which must be accounted for. We did
-not found significant non-linearities in our measurement
-chain. Repeating the measurements allowed to identified slight
-evolution in the throughput which were easily corrected.
+reach the required level of accuracy. Most notably: (1) the laser beam must be filtered to improve the purity of its wavelength
+composition, even with the mitigation measures we adopted, unavoidable
+contamination had to be subtracted in the analysis; (2) the setup must minimize scattered light which affects differently the calibration solar cell and the calibrated telescope; (3) achieving sufficient signal to noise ratio in the solar cell implies to fight with high level of pink noise.
+
+To deal with this issue, we selected a solar cell with high
+impedance, and grouped the light deposit in short bursts to reduce the
+pink noise effects while illuminating the solar cell.
+These bursts were separated by dark periods. Using a good synchronization in time
+between the bursts and the photocurrent measurements, 
+we could estimate the dark current contribution and correct it.
+Additionnaly, we increased the collected flux in the solar cell 
+by selecting a larger pinhole, inducing a small but measurable change in the
+chromatic throughput of the CBP, which must be accounted for.
+We did not found significant non-linearities in our measurement
+chain. Repeating the measurements allowed to identify slight
+evolution in the throughput which were easily corrected
 
 Most of the measurement time is spent in mapping the telescope
 response which scales linearly with the number of filters,
@@ -45,16 +44,13 @@ images. With our fully automated setup, collecting this dataset required
 7 days of uninterrupted operation. 
 
 The survey allowed to determine filter fronts with a precision of
-about 0.2~nm, to accurately measure out-of-band leaks at a relative
+about \SI{0.2}{\nano\meter}, to accurately measure out-of-band leaks at a relative
 level of \num{e-3} and revealed an unexpected and strong dependency of
 the mirror reflectivity with the incidence angle in the UV. As a
-result we expect that the uncertainties in our determination of the
+result we were able to show through simulations that the uncertainties in our determination of the
 telescope passbands will not contribute more than 1\textperthousand\
 uncertainty in the measurement of broadband flux with StarDICE after
-calibration by observations of the artificial star. Providing the
-necessary amount of calibration time, similar numbers are to be
-expected for the determination of LSST passbands by the Rubin CBP
-allowing accurate interpretation of the ratios of fluxes between the
-established photometric standards and the supernovae observed to map
-the expansion history of the universe.
+calibration by observations of the artificial star. 
+
+The results presented in this paper also serve as a proof of concept for the Rubin CBP, specifically designed for measuring the LSST passbands at the Vera C. Rubin Observatory. Although scaling this setup from a 16'' to a \SI{8}{\meter} telescope will be challenging in many regards, similar numbers are to be expected for the determination of LSST passbands if the necessary amount of calibration time is provided. This calibration will allow an accurate interpretation of the flux ratios between the established photometric standards and the SNe Ia observed to map the expansion history of the Universe.
 
