@@ -18,7 +18,7 @@ beam. While the measurement is simple in its principle, special
 care must be given to several aspects of the setup and analysis to
 reach the required level of accuracy. Most notably: (1) the laser beam must be filtered to improve the purity of its wavelength
 composition, even with the mitigation measures we adopted, unavoidable
-contamination had to be subtracted in the analysis; (2) the setup must minimize scattered light which affects differently the calibration solar cell and the calibrated telescope; (3) achieving sufficient signal to noise ratio in the solar cell implies to fight with high level of pink noise.
+contamination had to be subtracted in the analysis; (2) the setup must minimize scattered light which affects differently the calibration solar cell and the calibrated telescope; (3) achieving sufficient signal to noise ratio in the solar cell implies to fight with high level of $1/f$ noise (pink noise).
 
 To deal with this issue, we selected a solar cell with high
 impedance, and grouped the light deposit in short bursts to reduce the
@@ -36,14 +36,14 @@ evolution in the throughput which were easily corrected
 Most of the measurement time is spent in mapping the telescope
 response which scales linearly with the number of filters,
 resolution in wavelength and number of mirror samples taken. Our main
-4-positions survey which yields subpercent precision on the
-synthesized passbands involved about 30000 images. The complete
+4-positions analysis which yields subpercent precision on the
+synthesized passbands involved about \num{30000} images. The complete
 dataset, including runs for the characterization of systematics,
-pinhole intercalibration and focal plane survey, is closer to 200000
+pinhole intercalibration and focal plane measurements, close \num{200000}
 images. With our fully automated setup, collecting this dataset required
 7 days of uninterrupted operation. 
 
-The survey allowed to determine filter fronts with a precision of
+Our analysis allowed to determine filter fronts with a precision of
 about \SI{0.2}{\nano\meter}, to accurately measure out-of-band leaks at a relative
 level of \num{e-3} and revealed an unexpected and strong dependency of
 the mirror reflectivity with the incidence angle in the UV. As a
@@ -52,5 +52,5 @@ telescope passbands will not contribute more than 1\textperthousand\
 uncertainty in the measurement of broadband flux with StarDICE after
 calibration by observations of the artificial star. 
 
-The results presented in this paper also serve as a proof of concept for the Rubin CBP, specifically designed for measuring the LSST passbands at the Vera C. Rubin Observatory. Although scaling this setup from a 16'' to a \SI{8}{\meter} telescope will be challenging in many regards, similar numbers are to be expected for the determination of LSST passbands if the necessary amount of calibration time is provided. This calibration will allow an accurate interpretation of the flux ratios between the established photometric standards and the SNe Ia observed to map the expansion history of the Universe.
+The results presented in this paper also serve as a proof of concept for the Rubin CBP, specifically designed for measuring the LSST passbands at the Vera C. Rubin Observatory. Although scaling this setup from a 16'' to a \SI{8}{\meter} telescope will be challenging in many regards, similar numbers are to be expected for the determination of LSST passbands if the necessary amount of calibration time is provided. This calibration will allow an accurate interpretation of the flux ratios between the established photometric standards and the SNe Ia observed to map the expansion history of the Universe. On the other hand, the development of a traveling version of the CBP is currently undergoing \citep{2024RASTI...3..125S}, in order to calibrate the fitler transmissions of on-going and future SNe Ia surveys.
 

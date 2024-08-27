@@ -2,12 +2,12 @@
 \label{sec:rsd}
 \label{sec:sd_datadesc}
 
-In this section, we present the measurement of the \SD{} telescope response $\Rtel(\lambda)$ from CBP shoots using the \spinhole pinhole. One difficulty is the intercalibration between the \spinhole pinhole and the \bpinhole pinhole with which the CBP transmission has been determined in the previous section. Both produce images that are contained in the \SD sensor as shown in Figure~\ref{fig:ccd_examples}, but the latter form an image of about 250 pixels in radius while the first forms an image of about 4 pixels in radius. Their photometry is thus very differently affected by issues such as ghost reflection and light scattered in the tails of the PSF. In this section we start by building a model of the PSF of \SD+ CBP  including the reflection of light in the optics. We use this model to correct the intercalibration ratio between the two pinhole sizes, measured with run No.~8 data. We then describe the generic photometry method applied to all other runs using the \spinhole pinhole data, and present the resulting response measurements.   
+In this section, we present the measurement of the \SD{} telescope response $\Rtel(\lambda)$ from CBP shoots using the \spinhole pinhole. One difficulty is the intercalibration between the \spinhole pinhole and the \bpinhole pinhole with which the CBP transmission has been determined in the previous section. Both produce images that are contained in the \SD sensor as shown in Figure~\ref{fig:ccd_examples}, but the latter form an image of about 250 pixels in radius while the former forms an image of about 4 pixels in radius. Their photometry is thus very differently affected by issues such as ghost reflection and light scattered in the tails of the PSF. In this section we start by building a model of the PSF of \SD+ CBP  including the reflection of light in the optics. We use this model to correct the intercalibration ratio between the two pinhole sizes, measured with run No.~8 data. We then describe the generic photometry method applied to all other runs using the \spinhole pinhole data, and present the resulting response measurements.   
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{fig/ccd_examples.pdf}
-    \caption{Examples of images obtained when the CBP shoots in the \SD telescope at $\lambda_L=\SI{450}{\nm}$ with the \bpinhole pinhole on the right and \spinhole pinhole on the left. The ghost reflection is visible for both images at the left of the main spot. In the \bpinhole pinhole image, a large annulus around the main spot is visible and corresponds to light diffusion around a mechanical iris at the input of the CBP.}
+    \caption{Examples of images obtained when the CBP shoots in the \SD telescope at $\lambda_L=\SI{450}{\nm}$ with the \bpinhole pinhole on the right and \spinhole pinhole on the left. The ghost reflection is visible for both images at the left of the main spot. In the \bpinhole pinhole image, a large annulus around the main spot is visible and corresponds to light diffusion around the mechanical iris at the input of the CBP.}
     \label{fig:ccd_examples}
     %~/stardice/analysis/cbp_paper/total_fluxes/ghost_stack_figure.ipynb
 \end{figure}
@@ -29,7 +29,7 @@ Figure~\ref{fig:ghost_contrast} shows stacks of images obtained with the \spinho
 For each image in this dataset, we subtract a bias pattern, estimated on a column and row basis by computing the mean of the horizontal and vertical overscans. We compute the centroïd of the signal, and then perform aperture photometry by summing pixels within a radius $r=\SI{20.9}{pixels}$, and then for successive annulus of external radius from \SI{24.9}{pixels} to \SI{419.1}{pixels}. These radii are regularly spaced on a logarithm scale shown in Figure~\ref{fig:ghost_contrast}.
 
 %The overscan estimates are obtained as the mean n of each column $i$ of the horizontal overscan and each row $j$ of the vertical overscan is computed. For each pixel $(i, j)$, we subtract the sum of the estimation of the overscan estimated on the column $i$ and the row $j$. \\
-We model the \SD telescope PSF as the sum of a Moffat function, a constant background level, and contributions from ghosts at specific distances from the main spot. The Moffat function \citep{moffat}, integrated in an aperture of radius $r,$ writes:
+We model the \SD telescope PSF as the sum of a Moffat function, a constant background level, and contributions from ghosts at specific distances from the main spot. The Moffat function \citep{moffat}, integrated in an aperture of radius $r,$ reads:
 \begin{equation}
 M(r, \lambda)= 1 - \left( 1+\frac{r^2}{\alpha(\lambda)^2} \right)^{1-\beta(\lambda)},
 \end{equation}
@@ -222,7 +222,7 @@ We conclude that the instrument response determined for our large aperture photo
 \subsection{Results}
 \subsubsection{\SD response and filter transmissions}
 
-We measured the \SD response with the empty slot of the filterwheel, and the transmission of the $ugrizy$ filters, as well as the grating transmission with dataset No.~6, using the \spinhole pinhole, shooting at a fix mirror and focal plane position. Figure~\ref{fig:stardice_75um_response} shows the results obtained, following the procedure based on aperture photometry. We note that the wavelength coverage does not scan the full passband of the $u$ filter. Filling the gap between our measurements and the atmospheric UV cut off would need additional measurements out of the scope of this paper.
+We measured the \SD response with the empty slot of the filterwheel, and the transmission of the $ugrizy$ filters, as well as the grating transmission with dataset No.~6, using the \spinhole pinhole, shooting at a fixed mirror and focal plane position. Figure~\ref{fig:stardice_75um_response} shows the results obtained, following the procedure based on aperture photometry. We note that the wavelength coverage does not scan the full passband of the $u$ filter. Filling the gap between our measurements and the atmospheric UV cut off would need additional measurements out of the scope of this paper.
 
 After accounting for the relative uncertainties, we demonstrate a precision of \textasciitilde\SI{0.5}{\%} per bin of \SI{1}{nm} for all the filter transmissions, the empty filterwheel slot, and the 1$^\mathrm{st}$ order of the diffraction grating from \SIrange{400}{950}{\nano\meter}. The \SI{0.2}{nm} wavelength accuracy of our measurements is illustrated by the fine resolution of the sharp filter edges.
 
@@ -253,16 +253,24 @@ Since the CBP only illuminates a portion of the primary mirror, we need several 
 %Figure \ref {fig:radial_positions} displays the results of the transmission measurements at different radii (Dataset No.~2) on its left panel, and the variations over the focal plane (Dataset No.~12) on its right panel.
 Figure \ref{fig:radial_positions} is divided into two panels. The left panel exhibits the results of transmission measurements taken at various radii (corresponding to Dataset No.~2), while the right panel displays the spatial variations in these measurements across the focal plane (representing Dataset No.~12).
 
-For both datasets, we display the average behavior by fitting a smooth spline through the different measurements. The variations in the red, above \SI{900}{\nano\meter} are due to small scale variations caused by interference fringing in the detector. As expected, their impact is larger when the optical path differences between measurements is smaller, i.e. when we explore the variations over the focal plane (right panel).
+\begin{figure*}[h!]
+    \centering
+    \includegraphics[width=\columnwidth]{fig/radial_positions.pdf}
+    \includegraphics[width=\columnwidth]{fig/ccd_positions.pdf}
+    \caption{\textit{Top:} \SD response for the different radial positions on the mirror with a fix focal plane position (left), and different focal plane positions  with a fix mirror position (right). The colors in the left plot are matching with positions illustrated in Figure~\ref{fig:8_mirror_positions}, while each color in the right plot represent a position on the focal plane. In both plots the black dashed line correspond to the mean spline. \textit{Bottom:} Relative difference between the data and the mean spline, binned to a \SI{10}{\nano\meter} resolution to smooth the effect of fringing.}
+    \label{fig:radial_positions}
+    %~/stardice/analysis/cbp_paper/golden_sample_analysis/dr5/2022_03_01_stardice_transmission_radius.ipynb
+\end{figure*}
 
-The most striking feature of figure \ref{fig:radial_positions} needing discussion is the large (\SI{20}{\%}) variation of transmission measured in the different quadrants of the primary mirror below \SI{400}{\nano\meter}. We didn't reach a firm conclusion concerning the explanation of this behavior, but the more solid assumption is that it might be explained by the Hilux coating\footnote{\url{https://www.orionoptics.co.uk/optical-coatings/}} on the \SD mirrors, whose reflectivity varies with the light incidence angle. This large effect prevented us to make good use of the measurement in the 4 telescope quadrants (Dataset No.~3) as the radius corresponding to those measurement could not be determined with sufficient precision.
+For both datasets, we display the average behavior by fitting a smooth spline through the different measurements. The variations above \SI{900}{\nano\meter} are due to small scale variations caused by interference fringing in the detector. As expected, the impact is larger when the optical path differences between measurements is smaller, i.e. when we explore the variations over the focal plane (right panel). We also note the yellow curve being off the mean spline by \textasciitilde 1\%, corresponding to a local non-uniformity in the focal plane, but we didn't investigate this aspect yet. 
+
+The most striking feature of Figure~\ref{fig:radial_positions} needing discussion is the large (\SI{20}{\%}) variation of transmission measured in the different quadrants of the primary mirror below \SI{400}{\nano\meter}. We didn't reach a firm conclusion concerning the explanation of this behavior, but the more solid assumption is that it might be explained by the Hilux coating\footnote{\url{https://www.orionoptics.co.uk/optical-coatings/}} on the \SD mirrors, whose reflectivity varies with the light incidence angle. This large effect prevented us to make good use of the measurement in the 4 telescope quadrants (dataset No.~3) as the radius corresponding to those measurement could not be determined with sufficient precision, which impact will be quantified in Section~\ref{sec:final_uncertainty_budget}.
 
 In the 400-\SI{900}{\nano\meter} region, the variations over the focal plane and
-between primary mirror quadrants are below the percent level. This relative
+between primary mirror positions are below the percent level. This relative
 homogeneity of the telescope response allows to pursue the modeling of the full
 pupil response of the instrument expecting a reasonable accuracy without the
-need of additional data, as discussed further in section
-\ref{sec:pupil_stitching}.
+need of additional data, as discussed further in section \ref{sec:pupil_stitching}.
 
 Also regarding the modeling of the full pupil transmission,
 figure~\ref{fig:blueshift} shows the measurement of the expected interference
@@ -275,16 +283,7 @@ correspond to higher incidence angles, illustrating how the accuracy of those
 measurements allows to consider their interpolation in order to obtain the full
 pupil transmission of the telescope.
 
-\begin{figure*}[ht]
-    \centering
-    \includegraphics[width=\columnwidth]{fig/radial_positions.pdf}
-    \includegraphics[width=\columnwidth]{fig/ccd_positions.pdf}
-    \caption{\textit{Top:} \SD response for the different radial positions on the mirror with a fix focal plane position (left), and different focal plane positions  with a fix mirror position (right). The colors in the left plot are matching with positions illustrated in Figure~\ref{fig:8_mirror_positions}, while each color in the right plot represent a position on the focal plane. In both plots the black dashed line correspond to the mean spline. \textit{Bottom:} Relative difference between the data and the mean spline, binned to a \SI{10}{\nano\meter} resolution to smooth the effect of fringing.}
-    \label{fig:radial_positions}
-    %~/stardice/analysis/cbp_paper/golden_sample_analysis/dr5/2022_03_01_stardice_transmission_radius.ipynb
-\end{figure*}
-
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=1\columnwidth]{fig/blue_shift_filter_edges.pdf}
     \caption{Zoom on the \SD filter transmissions measured at different radial positions on the mirror, between the $g$ and $r$ filters (top panel) and the $z$ and $y$ filters (bottom panel). The colors correspond with radius labeled in Figure~\ref{fig:8_mirror_positions}.}

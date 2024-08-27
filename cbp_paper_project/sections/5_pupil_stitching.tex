@@ -40,7 +40,7 @@ T(\lambda, \theta) = \mathcal T\left(\frac{\lambda}{\sqrt{1 -
     (\sin(\theta) / n_\text{eff})^2}}\right)\,.
 \end{equation}
 Here, $n_\text{eff}$ is an effective index for the filter,
-and T is a piece-wise linear function of wavelength. The piece-wise
+and $\mathcal{T}$ is a piece-wise linear function of wavelength. The piece-wise
 linear function is initially created with \num{150} regularly spaced
 nodes between \SIrange{350}{1100}{nm}, providing a general resolution
 of \SI{5}{nm}. In cases where more precision is needed, we further
@@ -95,7 +95,7 @@ Fig.~\ref{fig:lambdathetafitresults}.
 
 Overall, the model provides a satisfactory description of the
 dataset. The most significant discrepancy is a noticeable gray
-decrease of the transmission of the $r$ filters for the sample
+decrease of the transmission of the $r$ filter for the sample
 measurement at \SI{3.7}{\degree} with respect to the average of the
 other three.  After investigating this issue, we identified that the
 corresponding images displayed a diffraction figure consistent with
@@ -175,6 +175,7 @@ curves are shown in Fig.~\ref{fig:fullpupiltrans}.
 
 
 \subsection{Final uncertainty budget}
+\label{sec:final_uncertainty_budget}
 
 The impact of the uncertainties in our determination of the full-pupil
 transmission curves depend on the application. We first consider the
@@ -221,7 +222,7 @@ telescope which cannot be determined accurately with such a setup.
     & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$\\
     \midrule
     StarDICE & 0.5 & 0.2 & 0.2 & 0.3 & 1.0 & 3.8 \\
-    $\eta_{SC}$ & 1.6 & 0.1 & 0.1 & 0.1 & 0.1 & 0.1 \\
+    $\Esolar$ & 1.6 & 0.1 & 0.1 & 0.1 & 0.1 & 0.1 \\
     CBP & 2.2 & 0.5 & 1.2 & 0.0 & 0.0 & 0.1 \\
     \midrule
     Stat (total) & 2.7 & 0.5 & 1.2 & 0.3 & 1.0 & 3.8 \\
@@ -260,7 +261,7 @@ inside the footprint of the solar cell. Increasing the solar-cell CBP
 distance would have caused issues for the collimated beam calibration in exchange
 for getting rid of the non-collimated light.
 
-Some caution needs to be payed to changes in the working temperature
+Some caution needs to be paid to changes in the working temperature
 of photodiodes when calibrating $y$ band. In our current measurement,
 the uncertainty in the difference in temperature between the
 calibration of the solar-cell and its use to calibrate the CBP is
@@ -311,7 +312,7 @@ normalisation of the passbands cancel out. In order to illustrate the
 impact of the uncertainties in our passband determination in this
 case, we modeled the spectrum of 6 calibration LEDs as Gaussian shapes
 centered on the central wavelength of each filter with a full-width
-half-max of 7\% in wavelength. 
+half-maximum of 7\% in wavelength. 
 To simulate the effect of the passband recalibration on LED
 observations, we propagate the uncertainties on the \emph{ratios} of
 broadband fluxes between the LEDs and G191B2B. The results are
@@ -339,7 +340,7 @@ assuming no specific correction.
            & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$\\
     \midrule
     StarDICE & 0.2 & 0.3 & 0.2 & 0.2 & 0.5 & 1.8 \\
-    $\eta_{SC}$ & 0.4 & 0.1 & 0.1 & 0.1 & 0.0 & 0.1 \\
+    $\Esolar$ & 0.4 & 0.1 & 0.1 & 0.1 & 0.0 & 0.1 \\
     CBP & 0.5 & 0.5 & 1.1 & 0.0 & 0.0 & 0.0 \\
     \midrule
     Stat (total) & 0.7 & 0.6 & 1.1 & 0.2 & 0.5 & 1.8 \\
