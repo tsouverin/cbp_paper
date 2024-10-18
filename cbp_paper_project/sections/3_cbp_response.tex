@@ -301,7 +301,7 @@ are higher in the blue as the laser is weaker in this regime (around $0.1\%$) th
 \subsubsection{Wavelength calibration}\label{sec:wavelength_syst}
 
 
-Figure~\ref{fig:wavelength_error_budget} details the total error budget from wavelength calibration for three different runs: two runs shooting at StarDICE with two pinholes and one run shooting at the solar cell. Uncertainty on wavelength $\sigma_\lambda$ is primarily dominated by wavelength calibration uncertainties in the range 400 to \SI{1080}{\nm}. Statistical uncertainty dominates around $\SI{532}{\nm}$ and close to the spectrograph sensor edges. Except in these cases, $\sigma_\lambda$ is well below $\SI{0.1}{\nano\meter}$.% which allows for precisely measuring the telescope filter band-passes better than the Angstrom level.   
+Figure~\ref{fig:wavelength_error_budget} details the total error budget from wavelength calibration for three different runs: two runs shooting at StarDICE with two pinholes and one run shooting at the solar cell. Uncertainty on wavelength $\sigma_\lambda$ is primarily dominated by wavelength calibration uncertainties in the range 400 to \SI{1080}{\nm}. Statistical uncertainty dominates around $\SI{532}{\nm}$ and close to the spectrograph sensor edges. Except in these cases, $\sigma_\lambda$ is well below $\SI{0.1}{\nano\meter}$. For the three runs presented in Figure~\ref{fig:wavelength_error_budget}, there is no noticeable differences despite the different experimental conditions.
 
 %cbp_paper_plots.py
 \begin{figure}[!h]
@@ -475,7 +475,7 @@ To assess the value of systematic uncertainties on the CBP response due to non-l
 
 \subsubsection{CBP scattered light varying the solar cell distance}
 
-To measure the influence of scattered light in the CBP beam, we measured the CBP throughput by putting the solar cell \SI{16}{\cm} farther and compared it to the initial value. At this new position, we measured again the CBP dark from solar cell $\Qsolar^{\rm dark}$. Dark subtraction and laser contamination correction are applied. The comparison of both transmissions is presented in Figure~\ref{fig:sc_distance}. There is a decrease of the total light of about 3\textperthousand\ with a chromatic effect of about 2.5\textperthousand\ difference between \SI{350}{\nano\meter} and \SI{1100}{\nano\meter}. This constitutes the dominant systematics in the CBP throughput measurement.
+To measure the influence of scattered light in the CBP beam, we measured the CBP throughput by putting the solar cell \SI{16}{\cm} farther and compared it to the initial value. At this new position, we measured again the CBP dark from solar cell $\Qsolar^{\rm dark}$. Dark subtraction and laser contamination correction are applied. The comparison of both transmissions is presented in Figure~\ref{fig:sc_distance}. There is a decrease of the total light of about 3\textperthousand\ with a chromatic effect of about 2.5\textperthousand\ difference between \SI{350}{\nano\meter} and \SI{1100}{\nano\meter}, quantified by the linear fit in Figure~\ref{fig:sc_distance}. This constitutes the dominant systematics in the CBP throughput measurement.
 
 %cbp_paper_plots.ipynb
 \begin{figure}[h]
@@ -516,13 +516,13 @@ and in the photodiode as:
         \Qphotmes(\lambda_L)&\ \text{elsewhere}
 \end{array}\right. 
 \end{equation}
-All uncertainties from the evaluation of all these terms were propagated. The summary of the error budget on the CBP response is decomposed in Figure~\ref{fig:cbp_budget} as a function of laser wavelength $\lambda_L$. Systematics coming from the wavelength calibration are not represented. Indeed, as the CBP response varies slowly with wavelength, it is negligible compared to others.  In the visible range, scattered light systematics dominates. In the far infrared, the subtraction of the $\lambda_{\mathrm{comp}}$ photons is the main systematic uncertainty, while in the UV range fluorescence correction systematic dominates.
+All uncertainties from the evaluation of all these terms were propagated. The summary of the error budget on the CBP response is decomposed in Figure~\ref{fig:cbp_budget} as a function of laser wavelength $\lambda_L$. Systematics coming from the wavelength calibration are not represented. Indeed, as the CBP response varies slowly with wavelength, it is negligible compared to others.  In the visible range, scattered light systematics dominates. In the near infrared, the subtraction of the $\lambda_{\mathrm{comp}}$ photons is the main systematic uncertainty, while in the UV range fluorescence correction systematic dominates.
 
 %cbp_paper_plots.ipynb
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{fig/cbp_error_budget.png}
-    \caption{Total error budget for CBP response.}
+    \caption{Total error budget for CBP response. Total systematic budget (black dots) results from the quadratic sum of all the CBP systematic uncertainties (the statistical uncertainties and the solar cell QE uncertainties are excluded here).}
     \label{fig:cbp_budget}
 \end{figure}
 
