@@ -66,62 +66,39 @@ Runs with different settings have been conducted to estimate systematic uncertai
 \caption{Number of laser pulses per burst used for solar cell and StarDICE runs.}\label{fig:npulses}
 \end{figure}
 
-\subsection{Spectrograph data reduction}
-\label{sec:spectro_reduction}
-
-In our analysis, the spectrograph is used to monitor the laser wavelength, and the contamination by laser stray light. The main components of the contamination are a \SI{1064}{\nm} line from the Yagg laser pump and a \SI{532}{\nm} half harmonic. Here, we detail the wavelength and flux calibration procedures for this instrument.
+\subsection{Spectrograph data analysis}
 
 
-\subsubsection{Spectrograph error model estimation}
+In our analysis, the spectrograph is used to monitor the laser wavelength, and the contamination extra emission lines in addition to the main laser line. The main components of the contamination are a \SI{532}{\nm} half harmonic and a \SI{1064}{\nm} line from the Yagg laser pump. Here, we detail the wavelength and flux calibration procedures for this instrument.
+
+
+
+\subsubsection{Spectrograph data reduction}\label{sec:spectro_reduction}
+
 
 The spectrograph was characterised by taking a series of dark exposures with four different exposure times (the same used in the CBP response measurement) to evaluate its gain and readout noise. The goal is to build an error model for the spectrograph.
 
-For each exposure time, a master dark is constructed, averaging all the spectra. Then, for each spectrograph pixel, we fitted a line through the master dark values as a function of the exposure times. The intercept gave the sensor bias value for each pixel, and a master bias $B(\lambda_p)$ is assembled from the intercept values, with $\lambda_p$ the raw spectrograph wavelength value before any calibration associated with each sensor pixel $p$. 
-
-The master bias was subtracted from all dark exposures. From those data, we measured the readout noise and sensor gain. Let's call $D(\lambda_p)$ the dark exposure minus the master bias value for pixel $p$. For each exposure time, the variance $\sigma_p^2$ and average $\bar{D}(\lambda_p)$ of each $D(\lambda_p)$ pixel were computed. The variance evolution with the average is well described by a second-order polynomial function, parameterised as follows:
-\begin{equation}\label{eq:spectro_error_model}
-\sigma^2_p =\sigma_{ro}^2 +  \bar{D}(\lambda_p)/G + \sigma_G^2 \bar{D}^2(\lambda_p)
-\end{equation}
-with $\sigma_{ro}$ the readout noise, $G$ the sensor gain and $\sigma_G$ a statistical noise on the gain itself. The fit of this model to data led to the following values (Figure~\ref{fig:spectro_ptc}):
-\begin{align}
-    & \sigma_{ro} = 1.26\ \mathrm{ADU}, \\
-    & G = 25.8\ e^-/\mathrm{ADU} ,\\
-    & \sigma_G = 0.7\%.
-\end{align}
-The first two values are compatible with the CCD specifications given by the spectrograph vendor. 
-
-%spectrograph_dark_and_bias.py
-\begin{figure}[!h]
-\centering
-\includegraphics[width=\columnwidth]{spectro_ptc}
-\caption{Spectrograph photon transfer curve to estimate gain and read-out noise. Pixel variance from dark spectra is represented versus their averages for four different exposure times $\tau_{\mathrm{exp}}$.}\label{fig:spectro_ptc}
-\end{figure}
+For each exposure time, a master dark is constructed, averaging all the spectra. Then, for each spectrograph pixel, we fitted a line through the master dark values as a function of the exposure times. The intercept gave the sensor bias value for each pixel, and a master bias $B(\lambda_p)$ is assembled from the intercept values (corresponding to null exposure time), with $\lambda_p$ the raw spectrograph wavelength value before any calibration associated with each sensor pixel $p$. 
 
 
-\subsubsection{Spectrograph data extraction}
+The spectrograph could not be synchronised with the laser bursts. Therefore for a given laser burst we get spectra with different amplitudes (see bottom row Figure~\ref{fig:sc_dataset_examples}.
+All spectra are stacked into a curve $S(\lambda_p)$ to get the maximum signal to noise.
 
 
-The spectrograph exposure times were adjusted to avoid the saturation level for all wavelengths. However, the sampling rate was not tunable, and time stamps were unavailable. So we took as many spectra $N(\lambda_p)$ as possible during an acquisition and then analysed them. Some contained laser light, and others were darks. We assumed a spectrum is dark if there are no spectrograph pixels above its median plus a threshold in the region around the laser wavelength. This algorithm works for most spectra except for very weak laser lines that come too close to a hot pixel, which happens very rarely.
 
-After sorting the spectra in two categories "laser on" and "laser off", we subtract the master bias $B(\lambda_p)$ and compute a master dark spectrum $D(\lambda_p)$, taking the median of all the "laser off" spectra (see Equation~\ref{eq:master_dark_spectro}). This master dark is subtracted from all spectra, which removes the spectrograph baseline and hot pixels. The spectra containing laser lines are stacked to increase the signal-to-noise ratio. We call $S(\lambda_p)$ the stacked spectrum after bias and dark subtraction:
-\begin{align}
-\label{eq:master_dark_spectro}
-D(\lambda_p) & = \sum_{i \in \left\lbrace \text{laser off}\right\rbrace}\left( N_i(\lambda_p) - B(\lambda_p)\right), \\
-    S(\lambda_p) & = \sum_{i \in \left\lbrace \text{laser on}\right\rbrace}\left( N_i(\lambda_p) - D(\lambda_p) - B(\lambda_p)\right).
-\end{align}
-The spectrograph error model is applied to get the intensity uncertainties $\sigma_p$ for each spectrum $i$:
-\begin{equation}\label{eq:spectro_error_model_data}
-\sigma^2_{i,p} =\sigma_{ro}^2 +  (N_i(\lambda_p) - B(\lambda_p))/G + \sigma_G^2 (N_i(\lambda_p) - B(\lambda_p))^2.
-\end{equation}
-As the signal-to-noise in the stacked spectrum is very high, we assimilate the $S(\lambda_p)$ value to its empirical average to get $\sigma_{i,p}$. The uncertainties are propagated to the stacked spectrum $S(\lambda_p)$.
-
-Then, to detect emission lines in $S(\lambda_p)$, we fit locally Gaussian profiles on top of a linear background. The $\lambda_g$ fit is unweighted as for the spectrograph calibration process. We searched for the laser line and lines at \SI{532}{\nm} and from two-photon conversions. Indeed, we noticed the presence of a \SI{532}{\nm} line in the regime 532 to \SI{669}{\nm} and of a weak line when the laser is set to wavelength above \SI{1064}{\nm}. If we call $\lambda_L$ the wavelength at which the laser was set, we observed the production of photons at wavelength $\lambda_{\text{comp}}$, which seems given by
+Then, to detect emission lines in $S(\lambda_p)$, we fit locally Gaussian profiles on top of a linear background. Let's call $\lambda_g$ the line centroid fitted by this Gaussian profile. The fit is unweighted to avoid any dependence of $\lambda_g$ with the line flux, and we verified it was the case. We searched for the laser line and lines at \SI{532}{\nm} and from two-photon conversions. Indeed, we noticed the presence of a \SI{532}{\nm} line in the regime 532 to \SI{669}{\nm} and of a weak line when the laser is set to wavelength above \SI{1064}{\nm}. For the latter, if we call $\lambda_L$ the wavelength at which the laser was set, we observed the production of photons at wavelength $\lambda_{\text{comp}}$, which seems given by
 \begin{equation}
  \frac{2}{\SI{1064}{\nm}} \approx \frac{1}{\lambda_L} + \frac{1}{\lambda_{\text{comp}}}
  \end{equation} 
 due to the conversion of two \SI{1064}{\nm} photons into a laser photon at $\lambda_L$ and a complementary photon at $\lambda_{\text{comp}}$ that ended in the laser beam. In practice, we observed a small emission line in the spectrograph when $\lambda_L > \SI{1064}{\nm}$, nearly symmetrical of the laser line with respect to \SI{1064}{\nm}. 
 
-An example of a stacked spectra with the detection of the laser line at \SI{643}{\nm} and the pump line at \SI{532}{\nm} is shown in Figure~\ref{fig:spectro_reduc_643}, before spectrograph wavelength calibration. The average intensity value far from the emission lines is zero, with statistical error bars compatible with the observed dispersion. Intensity uncertainties are propagated up to the line centroid wavelength. 
+The Gaussian profile fit is unweighted, but a statistical uncertainty $\sigma_\lambda^{\rm noise}$ is still estimated for $\lambda_g$ as 
+\begin{equation}\label{eq:sigma_lambda_stat}
+    \sigma_\lambda^{\rm noise}= \dfrac{1}{\sum_p F_p} \sqrt{\sum_p \left(\lambda_p - \lambda_g\right)^2 \sigma_p^2}
+\end{equation}
+with $F_p$ the flux in pixel $p$ after master bias subtraction. The sums are performed over a window of size $\pm 3 \sigma_g$ around $\lambda_g$ where $\sigma_g$ is the fitted line Gaussian profile RMS. Equation~\ref{eq:sigma_lambda_stat} corresponds to the propagation uncertainty formula for the average wavelength weighted by flux $F_p$ in a $\pm 3 \sigma_g$  window around $\lambda_g$. This allows to consider the shot noise without biasing the $\lambda_g$ fit.
+
+An example of a stacked spectrum with the detection of the laser line at \SI{643}{\nm} and the pump line at \SI{532}{\nm} is shown in Figure~\ref{fig:spectro_reduc_643}, before spectrograph wavelength calibration. % The average intensity value far from the emission lines is zero.
 
 %cbp_paper_plots.py
 \begin{figure}[!h]
@@ -131,34 +108,30 @@ An example of a stacked spectra with the detection of the laser line at \SI{643}
 \end{figure}
 
 
-The laser line flux $\Qspectromain$, the \SI{532}{\nm} line flux $\Qspectro^{532}$ and the $\lambda_{\rm comp}$ line flux $\Qspectro^{\rm comp}$ flux are computed summing the pixels in a window of $\pm 3 \sigma_g$ where $\sigma_g$ is the RMS of the fitted Gaussian profile, after dark and bias subtraction. Associated statistical uncertainties are computed from the standard error propagation of the $\sigma_{i,p}$ values. These fluxes are used to correct solar cell and photodiode charges as well as the \SD photometry from the $\SI{532}{\nm}$ line contamination (see Section~\ref{sec:532_cont}).  %As the \SI{532}{\nm} line flux is always at most 1\% of the laser line flux,
+
+\subsubsection{Spectrograph wavelength calibration}
+
+We calibrated the spectrograph according to the manufacturer's specifications before and after the main data acquisition run to measure the CBP and \SD responses. Light from a Hg-Ar lamp was injected into the integrating sphere to illuminate the spectrograph sensor. The spectral lamp data were reduced as described in Section~\ref{sec:spectro_reduction}.
 
 
 
-\subsubsection{Wavelength calibration}
-
-We calibrated the spectrograph according to the manufacturer's specifications before and after the main data acquisition run to measure the CBP and \SD responses. Light from a Hg-Ar lamp was injected into the integrating sphere to illuminate the spectrograph sensor. The master bias $B(\lambda_p)$ was subtracted from all spectra. The latter were stacked, and the spectrograph error model from equation~\ref{eq:spectro_error_model} was used to get a first estimate of the intensity uncertainties. The emission lines were fitted on the stacked spectrum using Gaussian profiles plus a polynomial background. Let's call $\lambda_g$ the line centroid fitted by this Gaussian profile. The fit is unweighted to avoid any dependence of $\lambda_g$ with the line flux, and we verified it was the case, but a statistical uncertainty $\sigma_\lambda^{\rm noise}$ is still estimated for $\lambda_g$ as 
-\begin{equation}\label{eq:sigma_lambda_stat}
-    \sigma_\lambda^{\rm noise}= \dfrac{1}{\sum_k F_k} \sqrt{\sum_p \left(\lambda_p - \lambda_g\right)^2 \sigma_p^2}
-\end{equation}
-with $F_k$ the flux in pixel $k$ after master bias subtraction. The sums are performed over a window of size $\pm 3 \sigma_g$ around $\lambda_g$ where $\sigma_g$ is the fitted line Gaussian profile RMS. Equation~\ref{eq:sigma_lambda_stat} corresponds to the propagation uncertainty formula for the average wavelength weighted by flux $F_p$ in a $\pm 3 \sigma_g$  window around $\lambda_g$. This allows to consider the shot noise without biasing the $\lambda_g$ fit.
 
 To transform raw sensor wavelengths $\lambda_p$ into calibrated wavelengths $\lambda_c$, we fitted a third-order polynomial function as suggested by the manufacturer to minimise the distance to Hg-Ar tabulated values $\lambda_t$. This was done by minimizing the following function: 
 \begin{equation}
-    \chi_\lambda^2(a_3, a_2, a_1, a_0) = \sum_{\text{lines}} \left(\lambda_t-a_3 \lambda_g^3 - a_2 \lambda_g^2-a_1 \lambda_g -a_0\right)^2
+    \chi_\lambda^2(a_3, a_2, a_1, a_0) = \sum_{\text{lines}} \frac{\left(\lambda_t-a_3 \lambda_g^3 - a_2 \lambda_g^2-a_1 \lambda_g -a_0\right)^2}{(\sigma_\lambda^{\rm noise})^2}
 \end{equation}
-over the four polynomial coefficients $a_3, a_2, a_1$ and $a_0$. The sum is performed over lines with high significance (signal-to-noise ratio above 20), and known doublet lines were excluded. The minimisation yields  the four best-fit parameters $\hat a_i$ associated with their covariance matrix. 
-As the initial Gaussian fit was unweighted, the covariance matrix $\mathbf{C}_\lambda$ is then re-scaled with a global factor to get a final reduced $\chi_\lambda^2$ of one. 
+over the four polynomial coefficients $a_3, a_2, a_1$ and $a_0$. The sum is performed over lines with high significance (signal-to-noise ratio above 20), and known doublet lines were excluded. Lines are weighted according to their signal to noise. The minimisation yields the four best-fit parameters $\hat a_i$ associated with their covariance matrix $\mathbf{C}_a$. 
+As the initial Gaussian fit was unweighted, the covariance matrix $\mathbf{C}_a$ is then re-scaled with a global factor $r$ such as we get a final reduced $\chi_\lambda^2$ of one. 
 Finally, detected line centroids $\lambda_g$ are transformed into calibrated wavelengths $\lambda_c$ using the third order polynomial function $c(\lambda_g)$ with the four best fit parameters:  
 \begin{equation}
     \lambda_c \equiv c(\lambda_g) \equiv \hat a_3 \lambda_g^3 + \hat a_2 \lambda_g^2+\hat a_1 \lambda_g +\hat a_0
 \end{equation}
 and the $\sigma_\lambda^{\rm cal}$ calibration uncertainties are
 \begin{equation}
-    \sigma_\lambda^{\rm cal} = \left(\vec J_c^T \mathbf{C}_\lambda \vec J_c\right)^{1/2},\quad \vec J_c = \left(\lambda_g^3, \lambda_g^2, \lambda_g, 1\right).
+    \sigma_\lambda^{\rm cal} = \left(r\vec J_a^T \mathbf{C}_a \vec J_a\right)^{1/2},\quad \vec J_a = \left(\lambda_g^3, \lambda_g^2, \lambda_g, 1\right).
 \end{equation}
 
-In Figure~\ref{fig:spectro_calib_syst}, we plot the residuals of the fit $c(\lambda_g)-\lambda_t$ in the upper panel, showing the agreement between the re-scaled data uncertainties and the uncertainties propagated to the third order polynomial function $c(\lambda_g)$ using $\mathbf{C}_\lambda$. In the lower panel, the spectrograph calibration systematic uncertainties $\sigma_\lambda^{\rm cal}$ are emphasised: they are lower than $\SI{0.1}{\nm}$ in the entire wavelength range, even lower than \SI{0.025}{\nm} in the visible spectrum.
+In Figure~\ref{fig:spectro_calib_syst}, we plot the residuals of the fit $c(\lambda_g)-\lambda_t$ in the upper panel, showing the agreement between the re-scaled data uncertainties and the uncertainties propagated to the third order polynomial function $c(\lambda_g)$ using $\mathbf{C}_a$. In the lower panel, the spectrograph calibration systematic uncertainties $\sigma_\lambda^{\rm cal}$ are emphasised: they are lower than $\SI{0.1}{\nm}$ in the entire wavelength range, even lower than \SI{0.025}{\nm} in the visible spectrum.
 
 % During the data acquisition campaign, we did not unplug and plug again the optical fibre going from the integrating sphere to the spectrograph. Such an action on the spectrograph side could have changed the wavelength calibration in principle, even if beforehand, we checked the fibre placement in the spectrograph was very reproducible and did not change the wavelength scale. 
 
@@ -169,7 +142,13 @@ In Figure~\ref{fig:spectro_calib_syst}, we plot the residuals of the fit $c(\lam
 \caption{Spectrograph calibration plot. Top: difference between the tabulated Hg-Ar emission line wavelengths $\lambda_t$ and the wavelengths computed using the spectrograph calibration function $c(\lambda_g)$. Data taken before and after the data acquisition campaign are superimposed. Their uncertainties were re-scaled with a common factor to get a final reduced $\chi^2$ of one. The red band represents the systematic uncertainty band from the $c(\lambda_g)$ fit on data with the uncertainty rescaling. Bottom: emphasis on the systematic uncertainties of the spectrograph calibration procedure.}\label{fig:spectro_calib_syst}
 \end{figure}
 
-We applied the third order polynomial to calibrate $\lambda_g$ into $\lambda_c$. We used the \SI{532}{\nm} line to check the quoted statistical errors $\sigma_\lambda^{\rm noise}$ on wavelength. For all data sets, we plotted the fitted line position versus time. The RMS is compatible with the quoted error bars on wavelength for lower signal-to-noise ratio data sets. But for the high signal-to-noise ratio data sets, some dispersion is unaccounted for, explained by the fact that the Gaussian profile is an incomplete model of high signal-to-noise lines. Therefore, we added a $\sigma_\lambda^{\rm PSF}=\SI{0.012}{\nm}$ statistical uncertainty due to PSF modelling on wavelength uncertainty to get a normal distribution for the residuals normalised by the full statistical uncertainties (see Figure~\ref{fig:wavelength_error_model_consistency}), the latter being
+
+\subsubsection{Laser wavelength calibration}
+
+
+To calibrate laser wavelengths, we reduce all spectrograph data sets following recipe in Section~\ref{sec:spectro_reduction}.
+
+We applied the third order polynomial $c(\lambda_g)$ to transform $\lambda_g$ sensor wavelengths into calibrated wavelengths $\lambda_c$. We used the \SI{532}{\nm} line to check the quoted statistical errors $\sigma_\lambda^{\rm noise}$ on wavelength. For all data sets, we plotted the fitted \SI{532}{\nm} line position versus time. The RMS is compatible with the quoted error bars on wavelength for lower signal-to-noise ratio data sets. But for the high signal-to-noise ratio data sets, some dispersion was unaccounted for, explained by the fact that the Gaussian profile is an incomplete model for high signal-to-noise lines. Therefore, we added a $\sigma_\lambda^{\rm PSF}=\SI{0.012}{\nm}$ statistical uncertainty attributed to PSF modelling on wavelength uncertainty $\sigma_{\lambda}^{\rm noise}$ to get a normal distribution for the residuals normalised by the full statistical uncertainties (see Figure~\ref{fig:wavelength_error_model_consistency}), the latter being
 \begin{equation}
     \left(\sigma_{\lambda}^{\rm stat}\right)^2 =  \left(\sigma_{\lambda}^{\rm noise}\right)^2 +  \left(\sigma_{\lambda}^{\rm PSF}\right)^2.
 \end{equation}
@@ -181,7 +160,7 @@ We applied the third order polynomial to calibrate $\lambda_g$ into $\lambda_c$.
 \caption{Top: all measured \SI{532}{\nm} pump line calibrated wavelengths with respect to exposure index ($\approx\num{250000}$ data points) for the four solar cell runs. Bottom: distributions of residuals to the mean wavelength normalized by $\sigma_{\lambda}^{\rm stat}$ (colored bars) with RMS quoted in legend. A normal distribution of RMS 1 is overplotted for comparison.}\label{fig:wavelength_error_model_consistency}
 \end{figure}
 
-\noindent Finally, the wavelength uncertainty on $\lambda_c$ is
+Finally, the wavelength uncertainty on $\lambda_c$ is
 \begin{equation}
   \left(\sigma_{\lambda}\right)^2 =  \left(\sigma_{\lambda}^{\rm stat}\right)^2 +  \left(\sigma_{\lambda}^{\rm cal}\right)^2.   
 \end{equation}
@@ -197,6 +176,39 @@ The composition of the final wavelength error budget is detailed in Section~\ref
 
 
 The realised laser wavelength is never the one a priori asked for, as shown in Figures~\ref{fig:sc_dataset_examples} and~\ref{fig:wavelength_stability}. However, we observed remarkable repeatability of the correspondence between the set wavelength $\lambda_L$ and the realised wavelength $\lambda_c$ in Figure~\ref{fig:wavelength_stability}. This figure represents every $\approx\num{350000}$ laser bursts shot and analysed during the CBP measurement campaign. The superimposition of all measurements at each laser wavelength $\lambda_L$ exhibits good stability of the laser with time and of the $\lambda_c$ wavelength fit with line intensity. The RMS is better than \SI{0.02}{\nm} at most wavelengths, except where line determination is ambiguous: close to the contamination lines at $\SI{532}{nm}$ and $\SI{1064}{nm}$, and close to the sensor edges. Given this remarkable stability, to improve the line detection in weak laser regime (like below \SI{400}{\nm}) we averaged the obtained $\lambda_c$ for each $\lambda_L$ and decided to use this average as our final calibrated wavelength (black curve in Figure~\ref{fig:wavelength_stability}). As the bijection between $\lambda_L$ laser wavelengths and realised wavelengths $\lambda_c$ is unambiguous, in some figures of this paper, we use the set laser wavelength $\lambda_L$ for clarity. 
+
+
+
+
+\subsubsection{Light contamination measurements}
+
+
+First, to use the spectrograph fluxes to measure the level of contamination from photons not belonging to the main laser line, we needed to build an error model of the measured spectrograph fluxes. To estimate it, we used the dark exposures acquired with different exposure times.
+
+The master bias was subtracted from all dark exposures. From those data, we measured the readout noise and sensor gain doing the following procedure. Let's call $D(\lambda_p)$ the dark exposure minus the master bias value for pixel $p$. For each exposure time, the variance $\sigma_p^2$ and average $\bar{D}(\lambda_p)$ of each $D(\lambda_p)$ pixel were computed. The variance evolution with the average is well described by a second-order polynomial function, parameterized as follows:
+\begin{equation}\label{eq:spectro_error_model}
+\sigma^2_p =\sigma_{ro}^2 +  \bar{D}(\lambda_p)/G + \sigma_G^2 \bar{D}^2(\lambda_p)
+\end{equation}
+with $\sigma_{ro}$ the readout noise, $G$ the sensor gain and $\sigma_G$ a statistical noise on the gain itself. The fit of this model to data led to the following values (Figure~\ref{fig:spectro_ptc}):
+\begin{align}
+    & \sigma_{ro} = 1.26\ \mathrm{ADU}, \\
+    & G = 25.8\ e^-/\mathrm{ADU} ,\\
+    & \sigma_G = 0.7\%.
+\end{align}
+The first two values are compatible with the sensor specifications given by the spectrograph vendor. 
+With this error model, error bars compatible with the observed dispersion in the dark parts of the spectra. 
+
+%spectrograph_dark_and_bias.py
+\begin{figure}[!h]
+\centering
+\includegraphics[width=\columnwidth]{spectro_ptc}
+\caption{Spectrograph photon transfer curve to estimate gain and read-out noise. Pixel variance from dark spectra is represented versus their averages for four different exposure times $\tau_{\mathrm{exp}}$.}\label{fig:spectro_ptc}
+\end{figure}
+
+
+
+
+The laser line flux $\Qspectromain$, the \SI{532}{\nm} line flux $\Qspectro^{532}$ and the $\lambda_{\rm comp}$ line flux $\Qspectro^{\rm comp}$ flux are computed summing the pixels in a window of $\pm 3 \sigma_g$, after dark and bias subtraction. Associated statistical uncertainties are computed from the standard error propagation of the $\sigma_{i,p}$ values. These fluxes are used to correct solar cell and photodiode charges as well as the \SD photometry from the $\SI{532}{\nm}$ line contamination (see Section~\ref{sec:532_cont}).  %As the \SI{532}{\nm} line flux is always at most 1\% of the laser line flux,
 
 
 
