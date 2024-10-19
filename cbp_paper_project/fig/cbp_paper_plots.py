@@ -6,7 +6,7 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.15.2
+#       jupytext_version: 1.16.1
 #   kernelspec:
 #     display_name: Python 3 (ipykernel)
 #     language: python
@@ -918,11 +918,11 @@ SD_tr_532_norm_err = np.abs(SD_tr_532_norm) * np.sqrt((np.interp(sd_wl,sd_wl_532
 aa_plot(twocols=False, height=2)
 
 fig, ax = plt.subplots(1,1) #,figsize=(7,4))
-ax.errorbar(sd_wl, SD_tr_532_norm, SD_tr_532_norm_err, marker = '', linestyle='--', label=f"no corrections", color=filter_colors[filt.encode("utf-8")])
+ax.errorbar(sd_wl, SD_tr_532_norm, SD_tr_532_norm_err, marker = '', linestyle='--', label=f"no corrections", color="gray")
 ax.errorbar(sd_wl, SD_tr_norm, SD_tr_norm_err, marker = '', linestyle='-', label=f"with $532\,$nm\nand fluo corrections", color=filter_colors[filt.encode("utf-8")])
 ax.legend(ncol=1)
 ax.set_xlabel('$\lambda_L$ [nm]') #, fontsize = 13)
-ax.set_ylabel(f'{filt} filter transmission [%]') #, fontsize = 13)
+ax.set_ylabel(f'{filt} filter transmission [\%]') #, fontsize = 13)
 ax.axhline(0)
 ax.set_ylim(-10, 140)
 #ax.set_xlim(340,420)
@@ -930,7 +930,7 @@ ax.set_ylim(-10, 140)
 
 # inset axes....
 axins = ax.inset_axes([0.45, 0.2, 0.47, 0.2])
-axins.errorbar(sd_wl, SD_tr_532_norm, SD_tr_532_norm_err, marker = '', linestyle='--', label=f"{filt} with no corrections", color=filter_colors[filt.encode("utf-8")])
+axins.errorbar(sd_wl, SD_tr_532_norm, SD_tr_532_norm_err, marker = '', linestyle='--', label=f"{filt} with no corrections", color="gray")
 axins.errorbar(sd_wl, SD_tr_norm, SD_tr_norm_err, marker = '', linestyle='-', label=f"{filt} with $532\,$nm\nand fluo corrections", color=filter_colors[filt.encode("utf-8")])
 # subregion of the original image
 x1, x2, y1, y2 = 535, 655, -3e-1, 3
@@ -943,7 +943,7 @@ ax.indicate_inset_zoom(axins, edgecolor="black")
 
 # inset axes....
 axins2 = ax.inset_axes([0.45, 0.55, 0.47, 0.2])
-axins2.errorbar(sd_wl, SD_tr_532_norm, SD_tr_532_norm_err, marker = '', linestyle='--', label=f"{filt} with no corrections", color=filter_colors[filt.encode("utf-8")])
+axins2.errorbar(sd_wl, SD_tr_532_norm, SD_tr_532_norm_err, marker = '', linestyle='--', label=f"{filt} with no corrections", color="gray")
 axins2.errorbar(sd_wl, SD_tr_norm, SD_tr_norm_err, marker = '', linestyle='-', label=f"{filt} with $532\,$nm\nand fluo corrections", color=filter_colors[filt.encode("utf-8")])
 # subregion of the original image
 x1, x2, y1, y2 = 350, 410, -3e-1, 3
