@@ -13,19 +13,28 @@ secondary mirror.
 To adjust the focuser distance, we re-imaged the CBP pinhole in the
 StarDICE camera using the StarDICE telescope set up for infinity
 focus. We then adjusted the CBP focus to minimize the size of the
-image in the camera and tightened the locking screws. However, since
-this procedure was conducted before the first stellar light of the
-StarDICE telescope, we had to use a theoretical value for its focal
-plane position. As a result, we estimate that the collimation of the
-CBP beam may be off by up to $\delta f / f = 0.002$. We did check that
-the focus was reasonably stable to manual changes of the pinhole
-slots.
+image in the camera and tightened the locking screws. We did check
+that the focus was reasonably stable to manual changes of the pinhole
+slots.\footnote{While this procedure ensure that the two instruments
+  are perfectly conjugated, an error in the focus of one is
+  compensated by an error in the focus of the other. As this procedure
+  was conducted before the first stellar light of the StarDICE
+  telescope, we had to use a theoretical value for its focal plane
+  position, which proved being about 2 mm behind its actual focal
+  point. As a result, we estimate that the collimated beam was
+  diverging by about 2 mrad. While inconsequential on the transmission
+  measurement itself, the uncertainty on the exact optical arrangement
+  as a practical side effect on the data taking because it affects the
+  ghosting pattern which we intended to use to determine the CBP spot
+  position on the StarDICE mirror see the discussion in Sect.~\ref{sec:model}}
 
-To adjust the size of the iris diaphragm, we gradually closed it while
-monitoring the flux output of the CBP until the flux started to
-decrease. We then locked the diaphragm at the position immediately
-preceding the flux drop. This ensured that no light was missed by the
-CBP secondary mirror.
+To adjust the size of the iris diaphragm, we incrementally closed it
+while monitoring the flux output of the CBP. A decrease in flux
+signaled that the diaphragm was beginning to block collimated
+light. Continuing to close the diaphragm would only reduce the
+transmission of the CBP without additional advantages in minimizing
+scattered light. Therefore, we set the diaphragm at this optimal point
+and secured it to maintain stable CBP transmission.
 
 \subsubsection{Alignment of the CBP}
 
@@ -34,7 +43,14 @@ To measure the CBP response, we must ensure that we aim toward the solar cell. F
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{fig/cross_solarcell.pdf}
-    \caption{Evolution of the solar cell charge $\Qsolarmes$ with respect to the CBP mount coordinates. Left: evolution with respect to the altitude coordinate. Right: evolution with respect to the azimuth coordinate.}
+    \caption{Alignment scan showing the evolution of the beam
+      intensity in the solar cell ($\Qsolarmes$) as a function of the
+      two coordinates of the CBP mount: altitude (top pannel) and
+      azimuth (bottom pannel). A flux plateau indicates the region
+      where the entire beam is contained within the cell
+      footprint. The wider plateau in azimuth is due to the smaller
+      extent of the beam in the horizontal direction due to the shape
+      and orientation of the masked output pupil.  }
     \label{fig:cross_sc}
     %/stardice/analysis/cbp_paper/golden_sample_analysis/dr2/cross_solarcell.ipynb
 \end{figure}
@@ -53,7 +69,7 @@ To measure the CBP response, we must ensure that we aim toward the solar cell. F
 
 A typical dataset to measure the CBP response is the emission of laser bursts in the solar cell at a given wavelength. Charges in the photodiode and solar cell are recorded jointly, along with the flux in the spectrograph and the time stamps in the digital analyser (see examples in Figure~\ref{fig:sc_dataset_examples}).
 
-The laser emits pulses at a fixed rate of \SI{1}{\kilo\hertz}, with a power that highly depends on the wavelength. To ensure that all instruments work in their linear regime without saturation and limit the impact of dark current fluctuations, we decided to shoot light in the solar cell in bursts of pulses separated by dark times at least as long as the burst length. The photodiode being the common instrument for all our measurements, the number of pulses per burst at each wavelength was adjusted to minimize the change in total flux per burst collected in the photodiode over the full wavelength range (Figure~\ref{fig:npulses}). With the \SI{5}{\mm} pinhole and the largest laser power mode, the solar cell accumulates around \SI{4}{\nano\coulomb} in a burst. In order to keep the $1/f$ noise of the solar cell instrumental chain under reasonable bounds, we limited the maximum length of a burst to \SI{200}{\ms}. The CBP system's linearity is checked by varying the laser power as discussed in Section~\ref{sec:sc_linearity}.  The required total flux in the photodiode was then adjusted by accumulating several bursts measured independently by the solar cell.
+The laser emits pulses at a fixed rate of \SI{1}{\kilo\hertz}, with a power that highly depends on the wavelength. To ensure that all instruments work in their linear regime without saturation and to limit the impact of dark current fluctuations, we decided to shoot light in the solar cell in bursts of pulses separated by dark times at least as long as the burst length. The photodiode being the common instrument for all our measurements, the number of pulses per burst at each wavelength was adjusted to minimize the change in total flux per burst collected in the photodiode over the full wavelength range (Figure~\ref{fig:npulses}). With the \SI{5}{\mm} pinhole and the largest laser power mode, the solar cell accumulates around \SI{4}{\nano\coulomb} in a burst. In order to keep the $1/f$ noise of the solar cell instrumental chain under reasonable bounds, we limited the maximum length of a burst to \SI{200}{\ms}. The CBP system's linearity is checked by varying the laser power as discussed in Section~\ref{sec:sc_linearity}.  The required total flux in the photodiode was then adjusted by accumulating several bursts measured independently by the solar cell.
 
 During a solar cell measurement run, the laser wavelengths range between \SI{350}{\nano\meter} and \SI{1100}{\nano\meter} included with steps of \SI{1}{\nm}, but are randomly chosen to avoid that long-range $ 1/f$ mode in the solar cell dark current correlates neighboured data points of the CBP response. Several runs were accumulated to enhance the signal-to-noise ratio. In particular, five runs (dataset No.~4 from Table~\ref{tab:schedule}) were recorded just before the \SD telescope measurement (dataset No.~5), and five new runs (dataset No.~6) were launched just after.
 

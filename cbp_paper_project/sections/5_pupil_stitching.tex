@@ -161,11 +161,11 @@ in the StarDICE response model.
 The full pupil transmission is synthesized by numerically averaging
 the above model assuming that the pupil is a perfect annulus with an
 inner radius of \SI{55}{mm} and an outer radius of \SI{203}{mm},
-corresponding to an effective mirror area of \SI{1202}{cm^2}. A
-rectangular quadrature with 100 evenly sampled points in radius has
-been used for the averaging. The curves have been normalized using the
-CBP response from Sect.\ref{sec:cbp}. The resulting transmission
-curves are shown in Fig.~\ref{fig:fullpupiltrans}.
+corresponding to an effective mirror area of \SI{1202}{cm^2}. The
+rectangle rule with 100 evenly sampled points in radius has been used
+for the averaging. The curves have been normalized using the CBP
+response from Sect.\ref{sec:cbp}. The resulting transmission curves
+are shown in Fig.~\ref{fig:fullpupiltrans}.
 \begin{figure}
   \centering
   \includegraphics[width=1\linewidth]{fig/fullpupill.pdf}
@@ -334,24 +334,24 @@ assuming no specific correction.
   \centering
   \caption{Uncertainties in the flux of G191B2B after recalibration by observation of narrow-spectrum LEDs centered on the filter passband.}
   \label{tab:led}
-  \begin{tabular}{@{}l@{}rrrrrr@{}}
+  \begin{tabular}{@{}l@{}r@{}r@{}r@{}r@{}r@{}r@{}}
     \toprule
     Source & u & g & r & i & z & y \\
            & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$ & $[\text{\textperthousand}]$\\
     \midrule
     StarDICE & 0.2 & 0.3 & 0.2 & 0.2 & 0.5 & 1.8 \\
-    $\Esolar$ & 0.4 & 0.1 & 0.1 & 0.1 & 0.0 & 0.1 \\
-    CBP & 0.5 & 0.5 & 1.1 & 0.0 & 0.0 & 0.0 \\
+    $\Esolar$ & 0.4 & 0.1 & 0.1 & 0.1 & $<0.1$ & 0.1 \\
+    CBP & 0.5 & 0.5 & 1.1 & $<0.1$ & $<0.1$ & $<0.1$ \\
     \midrule
     Stat (total) & 0.7 & 0.6 & 1.1 & 0.2 & 0.5 & 1.8 \\
     \midrule
-    Scattered light & 0.0 & 0.1 & 0.0 & 0.0 & 0.0 & 0.0 \\
-    Repeatability & 0.0 & 0.0 & 0.1 & 0.0 & 0.0 & 0.0 \\
-    Linearity & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
-    Contamination & 0.1 & 0.1 & 0.0 & 0.0 & 0.0 & 0.0 \\
-    Mirror sampling noise & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
-    NIST photodiode & 0.1 & 0.1 & 0.0 & 0.0 & 0.0 & 0.1 \\
-    Solar cell temperature & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.6 \\
+    Scattered light & $<0.1$ & 0.1 & $<0.1$ & $<0.1$ & $<0.1$ & $<0.1$ \\
+    Repeatability & $<0.1$ & $<0.1$ & 0.1 & $<0.1$ & $<0.1$ & $<0.1$ \\
+    Linearity & $<0.1$ & $<0.1$ & $<0.1$ & $<0.1$ & $<0.1$ & $<0.1$ \\
+    Contamination & 0.1 & 0.1 & $<0.1$ & $<0.1$ & $<0.1$ & $<0.1$ \\
+    Mirror sampling noise & $<0.1$ & $<0.1$ & $<0.1$ & $<0.1$ & $<0.1$ & $<0.1$ \\
+    NIST photodiode & 0.1 & 0.1 & $<0.1$ & $<0.1$ & $<0.1$ & 0.1 \\
+    Solar cell temperature & $<0.1$ & $<0.1$ & $<0.1$ & $<0.1$ & $<0.1$ & 0.6 \\
     Wavelength calibration$^\dag$ & 0.3 & 0.5 & 0.6 & 1.1 & 0.9 & 1.4 \\
     \midrule
     Syst (total) & 0.3 & 0.5 & 0.6 & 1.1 & 0.9 & 1.5 \\
