@@ -240,7 +240,9 @@ In one data set, we accumulated several laser bursts, and a per-burst analysis w
 
 Photodiode data are charge time series with stair-case shape. Each step is a laser burst, and the step height roughly gives the charge $\Qphotmes$ accumulated during a laser burst (see Figures~\ref{fig:sc_dataset_examples} and~\ref{fig:pd_reduc}). The length of the charge rise is the laser burst duration $\tau_b$ while flat sequences are dark times. For the photodiode, the time stamps come directly from the digital analyzer clock, with a sampling at \SI{50}{\hertz}. The digital analyzer clock also provides the time stamps of the laser pulses. 
 
-For each burst, we fit straight lines in the charge sequence during the dark times before and after a laser burst, removing the closest points to the burst. We call $t_1$ and $t_2$ the time stamps of the beginning and end of the laser burst, respectively, given by the laser trigger output itself. 
+For each burst, we fit straight (almost horizontal) lines in the charge sequence during the dark times before and after a laser burst, removing the closest points to the burst. During those intervals, the charge evolution measures the charge leak corresponding to the dark current we need to account for.
+
+We call $t_1$ and $t_2$ the time stamps of the beginning and end of the laser burst, respectively, given by the laser trigger output itself. 
 %\footnote{Technically, the laser time stamps provide the beginning of the pulse, so we add \SI{1}{\ms} to the last trigger time stamps from the laser to account for the pulse duration.}. 
 The accumulated charge $\Qphotmes$ during a burst is then
 \begin{equation}
@@ -284,7 +286,7 @@ Solar cell charge time series are very similar to photodiode time series (see Fi
 \caption{Solar cell charge sequence reduction process at wavelength $\lambda_L=\SI{469}{\nm}$. Pairs of vertical black at the left and right of a burst encompass the fitted dark sequences. Colored curves are the dark model fitted within these dark times. The top panel shows the raw charges acquired with the solar cell, while the bottom panel shows the residuals to the dark model fit during dark times only.}\label{fig:sc_reduc}
 \end{figure}
 
-As for the photodiode, we modeled the dark sequence before and after each burst. The solar cell dark model is the sum of a linear function plus two sinusoidal functions at fixed frequency \SI{50}{\hertz} and \SI{100}{\hertz}:
+As for the photodiode, we modeled the dark current by estimating the charge decrease over the regions before and after each laser burst by fitting the slope of their departure from horizontal. The solar cell dark model is the sum of a linear function plus two sinusoidal functions at fixed frequency \SI{50}{\hertz} and \SI{100}{\hertz}:
 \begin{align}
     q_{\rm solar}^{\rm dark}(t) = a_{\rm solar}t + b_{\rm solar} & + A_{50} \sin \left( 100 \pi t + \phi_{50}\right)  \notag \\  & +  A_{100} \sin \left( 200 \pi t + \phi_{100}\right)
 \end{align}
