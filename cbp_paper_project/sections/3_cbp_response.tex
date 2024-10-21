@@ -85,7 +85,7 @@ Runs with different settings have been conducted to estimate systematic uncertai
 \subsection{Spectrograph data analysis}
 
 
-In our analysis, the spectrograph is used to monitor the laser wavelength, and the contamination extra emission lines in addition to the main laser line. The main components of the contamination are a \SI{532}{\nm} half harmonic and a \SI{1064}{\nm} line from the Yagg laser pump. Here, we detail the wavelength and flux calibration procedures for this instrument.
+In our analysis, the spectrograph is used to monitor the laser wavelength, but also the contamination extra emission lines in addition to the main laser line. The main components of the contamination are a \SI{532}{\nm} half harmonic and a \SI{1064}{\nm} line from the Yagg laser pump. In the following subsectino, we detail the wavelength and flux calibration procedures for this instrument, and leave the discussion of the light contamination to section \ref{lightcontamination}
 
 
 
@@ -97,16 +97,10 @@ The spectrograph was characterised by taking a series of dark exposures with fou
 For each exposure time, a master dark is constructed, averaging all the spectra. Then, for each spectrograph pixel, we fitted a line through the master dark values as a function of the exposure times. The intercept gave the sensor bias value for each pixel, and a master bias $B(\lambda_p)$ is assembled from the intercept values (corresponding to null exposure time), with $\lambda_p$ the raw spectrograph wavelength value before any calibration associated with each sensor pixel $p$. 
 
 
-The spectrograph could not be synchronised with the laser bursts. Therefore for a given laser burst we get spectra with different amplitudes (see bottom row Figure~\ref{fig:sc_dataset_examples}.
+The spectrograph could not be synchronised with the laser bursts. Therefore for a given laser burst we get spectra with different amplitudes depending on the number of pulses read by the spectrograph (see bottom row Figure~\ref{fig:sc_dataset_examples}.
 All spectra are stacked into a curve $S(\lambda_p)$ to get the maximum signal to noise.
 
-
-
-Then, to detect emission lines in $S(\lambda_p)$, we fit locally Gaussian profiles on top of a linear background. Let's call $\lambda_g$ the line centroid fitted by this Gaussian profile. The fit is unweighted to avoid any dependence of $\lambda_g$ with the line flux, and we verified it was the case. We searched for the laser line and lines at \SI{532}{\nm} and from two-photon conversions. Indeed, we noticed the presence of a \SI{532}{\nm} line in the regime 532 to \SI{669}{\nm} and of a weak line when the laser is set to wavelength above \SI{1064}{\nm}. For the latter, if we call $\lambda_L$ the wavelength at which the laser was set, we observed the production of photons at wavelength $\lambda_{\text{comp}}$, which seems given by
-\begin{equation}
- \frac{2}{\SI{1064}{\nm}} \approx \frac{1}{\lambda_L} + \frac{1}{\lambda_{\text{comp}}}
- \end{equation} 
-due to the conversion of two \SI{1064}{\nm} photons into a laser photon at $\lambda_L$ and a complementary photon at $\lambda_{\text{comp}}$ that ended in the laser beam. In practice, we observed a small emission line in the spectrograph when $\lambda_L > \SI{1064}{\nm}$, nearly symmetrical of the laser line with respect to \SI{1064}{\nm}. 
+To detect emission lines in $S(\lambda_p)$, we fit locally Gaussian profiles on top of a linear background. Let's call $\lambda_g$ the line centroid fitted by this Gaussian profile. The fit is unweighted to avoid any dependence of $\lambda_g$ with the line flux, and we verified it was the case. 
 
 The Gaussian profile fit is unweighted, but a statistical uncertainty $\sigma_\lambda^{\rm noise}$ is still estimated for $\lambda_g$ as 
 \begin{equation}\label{eq:sigma_lambda_stat}
@@ -197,9 +191,20 @@ The realised laser wavelength is never the one a priori asked for, as shown in F
 
 
 \subsubsection{Light contamination measurements}
+\label{lightcontamination}
+In addition to using the spectrograph as a way to monitor the wavelength of the laser lines, we also used it in a spectro-photometric mode in order to estimate light contamination.
 
 
-First, to use the spectrograph fluxes to measure the level of contamination from photons not belonging to the main laser line, we needed to build an error model of the measured spectrograph fluxes. To estimate it, we used the dark exposures acquired with different exposure times.
+The secondary laser lines at \SI{532}{\nm} and from two-photon conversions were our principal suspects of internal laser light contamination. Indeed, we noticed the presence of a \SI{532}{\nm} line in the regime 532 to \SI{669}{\nm} and of a weak line when the laser is set to wavelength above \SI{1064}{\nm}. For the latter, if we call $\lambda_L$ the wavelength at which the laser was set, we observed the production of photons at wavelength $\lambda_{\text{comp}}$, which seems given by
+\begin{equation}
+ \frac{2}{\SI{1064}{\nm}} \approx \frac{1}{\lambda_L} + \frac{1}{\lambda_{\text{comp}}}
+ \end{equation} 
+ due to the conversion of two \SI{1064}{\nm} photons into a laser photon at $\lambda_L$ and a complementary photon at $\lambda_{\text{comp}}$ that ended in the laser beam. In practice, we observed a small emission line in the spectrograph when $\lambda_L > \SI{1064}{\nm}$, nearly symmetrical of the laser line with respect to \SI{1064}{\nm}.
+
+The laser line flux $\Qspectromain$, the \SI{532}{\nm} line flux $\Qspectro^{532}$ and the $\lambda_{\rm comp}$ line flux $\Qspectro^{\rm comp}$ flux are computed summing the pixels in a window of $\pm 3 \sigma_g$, after dark and bias subtraction. Associated statistical uncertainties are computed from the standard error propagation of the $\sigma_{i,p}$ values. These fluxes are used to correct solar cell and photodiode charges as well as the \SD photometry from the $\SI{532}{\nm}$ line contamination (see Section~\ref{sec:532_cont}).  %As the \SI{532}{\nm} line flux is always at most 1\% of the laser line flux,
+
+ 
+Finally, to use the spectrograph fluxes to measure the level of contamination from photons not belonging to the main laser line, we needed to build an error model of the measured spectrograph fluxes. To estimate it, we used the dark exposures acquired with different exposure times.
 
 The master bias was subtracted from all dark exposures. From those data, we measured the readout noise and sensor gain doing the following procedure. Let's call $D(\lambda_p)$ the dark exposure minus the master bias value for pixel $p$. For each exposure time, the variance $\sigma_p^2$ and average $\bar{D}(\lambda_p)$ of each $D(\lambda_p)$ pixel were computed. The variance evolution with the average is well described by a second-order polynomial function, parameterized as follows:
 \begin{equation}\label{eq:spectro_error_model}
@@ -222,9 +227,6 @@ With this error model, error bars compatible with the observed dispersion in the
 \end{figure}
 
 
-
-
-The laser line flux $\Qspectromain$, the \SI{532}{\nm} line flux $\Qspectro^{532}$ and the $\lambda_{\rm comp}$ line flux $\Qspectro^{\rm comp}$ flux are computed summing the pixels in a window of $\pm 3 \sigma_g$, after dark and bias subtraction. Associated statistical uncertainties are computed from the standard error propagation of the $\sigma_{i,p}$ values. These fluxes are used to correct solar cell and photodiode charges as well as the \SD photometry from the $\SI{532}{\nm}$ line contamination (see Section~\ref{sec:532_cont}).  %As the \SI{532}{\nm} line flux is always at most 1\% of the laser line flux,
 
 
 
