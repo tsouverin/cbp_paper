@@ -85,7 +85,7 @@ Runs with different settings have been conducted to estimate systematic uncertai
 \subsection{Spectrograph data analysis}
 
 
-In our analysis, the spectrograph is used to monitor the laser wavelength, but also the contamination extra emission lines in addition to the main laser line. The main components of the contamination are a \SI{532}{\nm} half harmonic and a \SI{1064}{\nm} line from the Yagg laser pump. In the following subsectino, we detail the wavelength and flux calibration procedures for this instrument, and leave the discussion of the light contamination to section \ref{lightcontamination}
+In our analysis, the spectrograph is used to monitor the laser wavelength, but also the contamination extra emission lines in addition to the main laser line. The main components of the contamination are a \SI{532}{\nm} half harmonic and a \SI{1064}{\nm} line from the Yagg laser pump. In the following subsection, we detail the wavelength and flux calibration procedures for this instrument, and leave the discussion of the light contamination to section \ref{lightcontamination}.
 
 
 
@@ -104,7 +104,7 @@ To detect emission lines in $S(\lambda_p)$, we fit locally Gaussian profiles on 
 
 The Gaussian profile fit is unweighted, but a statistical uncertainty $\sigma_\lambda^{\rm noise}$ is still estimated for $\lambda_g$ as 
 \begin{equation}\label{eq:sigma_lambda_stat}
-    \sigma_\lambda^{\rm noise}= \dfrac{1}{\sum_p F_p} \sqrt{\sum_p \left(\lambda_p - \lambda_g\right)^2 \sigma_p^2}
+    \sigma_\lambda^{\rm noise}= \dfrac{1}{\sum_p F_p} \sqrt{\sum_p \left(\lambda_p - \lambda_g\right)^2 F_p}
 \end{equation}
 with $F_p$ the flux in pixel $p$ after master bias subtraction. The sums are performed over a window of size $\pm 3 \sigma_g$ around $\lambda_g$ where $\sigma_g$ is the fitted line Gaussian profile RMS. Equation~\ref{eq:sigma_lambda_stat} corresponds to the propagation uncertainty formula for the average wavelength weighted by flux $F_p$ in a $\pm 3 \sigma_g$  window around $\lambda_g$. This allows to consider the shot noise without biasing the $\lambda_g$ fit.
 
@@ -216,8 +216,8 @@ with $\sigma_{ro}$ the readout noise, $G$ the sensor gain and $\sigma_G$ a stati
     & G = 25.8\ e^-/\mathrm{ADU} ,\\
     & \sigma_G = 0.7\%.
 \end{align}
-The first two values are compatible with the sensor specifications given by the spectrograph vendor. 
-With this error model, error bars compatible with the observed dispersion in the dark parts of the spectra. 
+The first two values are compatible with the sensor specifications given by the spectrograph vendor\footnote{For the QE65000 fiber spectrograph, the vendor specifies a read-out noise of 1.5 ADU (or 40 electrons) and thus a gain of $26\ e^-/\mathrm{ADU}$.}. 
+With this error model, error bars are compatible with the observed dispersion in the dark parts of the spectra. 
 
 %spectrograph_dark_and_bias.py
 \begin{figure}[!h]
