@@ -208,13 +208,13 @@ Finally, to use the spectrograph fluxes to measure the level of contamination fr
 
 The master bias was subtracted from all dark exposures. From those data, we measured the readout noise and sensor gain by doing the following procedure. Let's call $D(\lambda_p)$ the dark exposure minus the master bias value for pixel $p$. For each exposure time, the variance $\sigma_p^2$ and average $\bar{D}(\lambda_p)$ of each $D(\lambda_p)$ pixel were computed. The variance evolution with the average is well described by a second-order polynomial function, parameterized as follows:
 \begin{equation}\label{eq:spectro_error_model}
-\sigma^2_p =\sigma_{ro}^2 +  \bar{D}(\lambda_p)/G + \sigma_G^2 \bar{D}^2(\lambda_p)
+\sigma^2_p =\sigma_{ro}^2 +  \bar{D}(\lambda_p)/G + \sigma_G^2 \bar{D}^2(\lambda_p)/G^2
 \end{equation}
 with $\sigma_{ro}$ the readout noise, $G$ the sensor gain and $\sigma_G$ a statistical noise on the gain itself. The fit of this model to data led to the following values (Figure~\ref{fig:spectro_ptc}):
 \begin{align}
     & \sigma_{ro} = 1.26\ \mathrm{ADU}, \\
     & G = 25.8\ e^-/\mathrm{ADU} ,\\
-    & \sigma_G = 0.7\%.
+    & \sigma_G/G = 0.7\%.
 \end{align}
 The first two values are compatible with the sensor specifications given by the spectrograph vendor\footnote{For the QE65000 fiber spectrograph, the vendor specifies a read-out noise of 1.5 ADU (or 40 electrons) and thus a gain of $26\ e^-/\mathrm{ADU}$.}. 
 With this error model, error bars are compatible with the observed dispersion in the dark parts of the spectra. 
