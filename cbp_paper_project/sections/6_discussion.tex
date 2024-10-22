@@ -12,9 +12,8 @@ mirror. Lastly, we interpolated between the sample points to
 synthesize the equivalent response of the telescope to the illumination
 of its full pupil.
 
-A key aspect in the process of calibrating the CBP beam is that the
-sensitive area of the photodiode is large enough to cover entirely the
-beam. While the measurement is simple in its principle, special
+A key aspect of calibrating the CBP beam is that the
+sensitive area of the photodiode is large enough to cover the beam entirely. While the measurement is simple in its principle, special
 care must be given to several aspects of the setup and analysis to
 reach the required level of accuracy. Most notably: (1) the laser beam must be filtered to improve the purity of its wavelength
 composition, even with the mitigation measures we adopted, unavoidable
@@ -31,15 +30,15 @@ by selecting a larger pinhole, inducing a small but measurable change in the
 chromatic throughput of the CBP, which must be accounted for.
 We did not find significant non-linearities in our measurement
 chain. Repeating the measurements allowed us to identify a slight
-evolution in the throughput which was easily corrected.
+evolution in the throughput, which was easily corrected.
 
 Most of the measurement time is spent in mapping the telescope
 response which scales linearly with the number of filters,
 resolution in wavelength, and number of mirror samples taken. Our main
-4-positions analysis which yields subpercent precision on the
+4-positions analysis, which yields subpercent precision on the
 synthesized passbands involved about \num{30000} images. The complete
 dataset, including runs for the characterization of systematics,
-pinhole intercalibration, and focal plane measurements, close \num{200000}
+pinhole inter-calibration, and focal plane measurements, close \num{200000}
 images. With our fully automated setup, collecting this dataset required
 7 days of uninterrupted operation. 
 
@@ -47,10 +46,10 @@ Our analysis allowed us to determine filter fronts with a precision of
 about \SI{0.2}{\nano\meter}, to accurately measure out-of-band leaks at a relative
 level of \num{e-3} and revealed an unexpected and strong dependency of
 the mirror reflectivity with the incidence angle in the UV. As a
-result we were able to show through simulations that the uncertainties in our determination of the
+result, we were able to show through simulations that the uncertainties in our determination of the
 telescope passbands will not contribute more than 1\textperthousand\
 uncertainty in the measurement of broadband flux with StarDICE after
 calibration by observations of the artificial star. 
 
-The results presented in this paper also serve as a proof of concept for the Rubin CBP, specifically designed for measuring the LSST passbands at the Vera C. Rubin Observatory. Although scaling this setup from a 16'' to a \SI{8}{\meter} telescope will be challenging in many regards (more optical surfaces inducing ghosts, larger filters, more sensors), similar numbers are to be expected for the determination of LSST passbands if the necessary amount of calibration time is provided. This calibration will allow an accurate interpretation of the flux ratios between the established photometric standards and the SNe Ia observed to map the expansion history of the Universe. On the other hand, the development of a traveling version of the CBP is currently undergoing \citep{2024RASTI...3..125S}, in order to calibrate the filter transmissions of ongoing and future SNe Ia surveys.
+The results presented in this paper also serve as a proof of concept for the Rubin CBP, specifically designed for measuring the LSST passbands at the Vera C. Rubin Observatory. Although scaling this setup from a 16'' to a \SI{8}{\meter} telescope will be challenging in many regards (more optical surfaces inducing ghosts, larger filters, more sensors), similar numbers are to be expected for the determination of LSST passbands if the necessary amount of calibration time is provided. This calibration will allow an accurate interpretation of the flux ratios between the established photometric standards and the SNe Ia observed to map the Universe's expansion history. On the other hand, developing a traveling version of the CBP is currently undergoing \citep{2024RASTI...3..125S} to calibrate the filter transmissions of ongoing and future SNe Ia surveys.
 
