@@ -355,9 +355,8 @@ of https://arxiv.org/pdf/2211.04913 and the contribution for each band in Table
 
 - "The unexpected glitch at ~550 nm is masked by a linear interpolation."
   - unexpected is ok, but do you have an a posteriori explanation?
-
-  We don't have an explanation at this moment, but continue investigating to
-  answer this question.
+  Text added. It is due to the use of a 550 long pass filter to cut off the second order contamination light. 
+  
 
 
 - "To determine the effect of temperature on QE, the QE of the solar cell was measured as it was heated."
