@@ -15,6 +15,7 @@ spieman = r'''
 \author[a]{Laurent Le Guillou}
 \author[c]{Auguste Le Van Suu}
 \author[b]{Marc Moniez}
+\author[e]{Éric Nuss \textsuperscript{\textdagger}}
 \author[e]{Bertrand Plez}
 \author[a]{Nicolas Regnault}
 \author[a]{Eduardo Sepulveda}
