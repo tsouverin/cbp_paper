@@ -1,11 +1,9 @@
 ﻿Legend
 
 
-✅ Commentaire accepté et appliqué
-♐ Commentaire pour le reviewer
-🔄 Commentaire à discuter entre nous
-❌ Commentaire refusé
-SZF comment
+✅ Comment accepted and applied
+♐ Answer to the reviewer
+❌ Comment denied
 Johan Bregeon
 
 
@@ -13,7 +11,7 @@ Johan Bregeon
 - The paper is overall well written and quite clear, I do not have any strong remark to be made.
 - Most of my comments are to help to clarify a few points where the explanations are not straightforward enough.
 - The paper is a bit long, may be more could be put in appendix, e.g. some very illustrative figures.
- Thanks for the remark, we discussed it and prefer to leave the paper that way and defer this kind of changes for a discussion with the editor once the paper accepted..
+♐ Thanks for the remark, we discussed it and prefer to leave the paper that way and defer this kind of changes for a discussion with the editor once the paper accepted..
 
 
 - It may be worth considering having a table in appendix with the list of instruments used and their characteristics, in particular their intrinsic resolution for measurements. You could also add the solar cell and photodiode characteristics.
@@ -23,7 +21,7 @@ Spectrograph and photodiode characteristic fig. 24
 
 - Ocean Optics spectrometer calibration
   - the calibration procedure is quite complicated but it's not obvious why this level of complication was needed. Precise uncertainties are computed but then not used directly in the line fits but rather taken into account afterward, and then you state that the fit does not always work and you have to add additional errors... may be you could have a sentence to explain why you chose to fit or not fit, with or without weight, or why you chose to consider uncertainties outside the fit... etc.
-✅ Jérémy: I reshuffled all the sections corresponding to the spectrograph data analysis, with clearer logical links between the different analysis. First things first, the spectrograph data aims to calibrate in wavelength the laser bursts and for this we did not use an error model to measure peak positions. Then, the spectrograph is used also to measure laser contamination. As they are flux measurements, we estimated and used an error model for this analysis. I hope the sequence of sections is clearer now and reflects well these two independent goals.
+✅ I reshuffled all the sections corresponding to the spectrograph data analysis, with clearer logical links between the different analysis. First things first, the spectrograph data aims to calibrate in wavelength the laser bursts and for this we did not use an error model to measure peak positions. Then, the spectrograph is used also to measure laser contamination. As they are flux measurements, we estimated and used an error model for this analysis. I hope the sequence of sections is clearer now and reflects well these two independent goals.
 
 
 
@@ -36,12 +34,12 @@ Spectrograph and photodiode characteristic fig. 24
 - If you can have these easily, schematics or batoid simulations of the different configurations corresponding to Figure 2. would also help the reader to understand better where the light goes.
 
 
-We tried to come up with a good illustration but essentially failed. For exemple, we have the batoid simulations, however it is very difficult to get a picture that encompasses all the components while giving relevant explanation on what happens given the wide range of scale involved. Below is the sketch of a compressed CBP-STARDICE configuration figuring the optically active surfaces (bafling, mirrors, sensors, filters, windows). Hardly readable.
+We tried to come up with a good illustration but essentially failed. For example, we have the batoid simulations, however it is very difficult to get a picture that encompasses all the components while giving relevant explanation on what happens given the wide range of scale involved. Below is the sketch of a compressed CBP-STARDICE configuration figuring the optically active surfaces (baffling, mirrors, sensors, filters, windows). Hardly readable.
    
 
 
 - Beware that most figures with many colors are not friendly at all for color blind people, you may want to revisit the most important ones.
-Thanks for catching this. We are taking this into account and will make sure the figure pass the editorial requirements by the time the paper is accepted.
+♐ Thanks for catching this. We are taking this into account and will make sure the figure pass the editorial requirements by the time the paper is accepted.
 
 
 ## Title
@@ -260,17 +258,17 @@ We checked that the language was correct, and prefer our version in order to str
   - I am not sure I understand what this means... what is the statistical meaning of "empirical average"?
 
 
-✅ Jérémy : When the signal is low, flux noise is Poissonian and provides more positive fluctuations than negative fluctuations then strictly speaking we can not say that the acquired signal is close to its mean if we would have done many noise realisations. With high signals, flux noise is Gaussian and positive or negative fluctuations are equal. Then it’s more legal to identify the signal with its empirical mean.
+✅  When the signal is low, flux noise is Poissonian and provides more positive fluctuations than negative fluctuations then strictly speaking we can not say that the acquired signal is close to its mean if we would have done many noise realisations. With high signals, flux noise is Gaussian and positive or negative fluctuations are equal. Then it’s more legal to identify the signal with its empirical mean.
 - "The λg fit is unweighted as for the spectrograph calibration process."
   - that's quite cryptic at this point, and you give no explanation here... you carefully compute uncertainties but decide not to use these?
-✅ Jérémy : yes indeed, I hope the new version is clearer. Arc lamp signal is huge, and we are more dominated by PSF modelling than noise, plus we saw that the wavelength was biased at high signal is fit is weighted. In the new version, the error model is explained at the end just for the purpose of laser contamination flux measurements.
+✅  yes indeed, I hope the new version is clearer. Arc lamp signal is huge, and we are more dominated by PSF modelling than noise, plus we saw that the wavelength was biased at high signal is fit is weighted. In the new version, the error model is explained at the end just for the purpose of laser contamination flux measurements.
 - "Q flux are computed summing pixels"
   - I find it not very coherent to first run a Gaussian fit while you have only a few points in your line (weighted average could be enough), and then instead of computing the integral of your fitted Gaussian, you go back to summing signals from pixels, hence being subjected to quantization effect again.
-✅ Jérémy: the Gaussian profile is not a correct description of the line profile. It’s used to detect the line position and its width, so as to we get the window where to sum the pixels
+✅  the Gaussian profile is not a correct description of the line profile. It’s used to detect the line position and its width, so as to we get the window where to sum the pixels
 - "The fit is unweighted to avoid any dependence of λg with the line flux and checked it was the case, but a statistical uncertainty σnoise is still estimated for λg"
   - again, I do not understand the story behind this "unweighted fit" and the link with a possible dependence on the line flux.
   - the sentence is not grammatically correct ✅ done
-✅ Jérémy: we acquired different spectra with different exposure times and we observed a shift of the centroid wavelength with signal to noise ratio if fit is weighted. If the fit was unweighted, the shift disappeared.
+✅  we acquired different spectra with different exposure times and we observed a shift of the centroid wavelength with signal to noise ratio if fit is weighted. If the fit was unweighted, the shift disappeared.
 
 
  
@@ -287,21 +285,21 @@ very reproducible and did not change the wavelength scale."
 
 - "the Gaussian profile is an incomplete model of high signal-to-noise lines."
   - hence, I understand even less why you decide to fit a Gaussian in the first place…
-✅ Jérémy: the emission lines have assymetric pedestals so the average of the data points is biased. The symmetric Gaussian profile is better to find the peak position
+✅  the emission lines have assymetric pedestals so the average of the data points is biased. The symmetric Gaussian profile is better to find the peak position
 - "PSF modelling" -> PSF!?
 - we have values for Sigma_PSF and Sigma_cal, but no indication of the value of sigma_noise... would be nice to have a scale
-✅ Jérémy: it’s sigma_cal - ~0.012nm (in quadrature) so with Figure 22 we can read that it depends a lot on the wavelength range. It can be comparable to sigma_PSF or less.
+✅ it’s sigma_cal - ~0.012nm (in quadrature) so with Figure 22 we can read that it depends a lot on the wavelength range. It can be comparable to sigma_PSF or less.
 - "The realised laser wavelength is never the one a priori asked for"
   - cannot this be calibrated and calibration constants inserted into the monochromator firmware?
-✅ Jérémy: we could, but instead we estimated the bijection between asked wavelengths and realized wavelengths and used it only for the analysis (Figure 15)
+✅ we could, but instead we estimated the bijection between asked wavelengths and realized wavelengths and used it only for the analysis (Figure 15)
 - "we use the set laser wavelength λL for clarity."
   - well, I am not sure why it's more 'clear' to use a non calibrated wavelength when you have the calibrated one available easily... may be just remove "for clarity" or change as "for convenience"
-✅ Jérémy:  convenience is a better word, it reflects more its practicality for us 
+✅  convenience is a better word, it reflects more its practicality for us 
 
 
 ### 3.4 Electrometer data reduction
 - Equation (18) is not aligned with (17) ✅ done
-- Figure 18 in appendix? We decided against breaking the analysis description by deferring part of it to an appendix.
+- Figure 18 in appendix?  ♐ We decided against breaking the analysis description by deferring part of it to an appendix.
 - "The purpose of the term in brackets is to
 subtract an estimation of the dark current contribution during the 2 burst itself."
   - this could be mention already in sec 3.4.1✅ agreed, done
@@ -309,7 +307,7 @@ subtract an estimation of the dark current contribution during the 2 burst itsel
 
 ### 3.5 CBP ratio charges
 - "A first CBP response estimations (...) rCBP"
-  - "A first part of the CBP response estimation" ✅ Jérémy:  I reformulate as: The ratio of charges $r_{\rm CBP}^{\rm mes} = \Qsolarmes/\Qphotmes$ is computed to check the statistical uncertainties and then analyse systematic uncertainties.
+  - "A first part of the CBP response estimation" ✅  I reformulate as: The ratio of charges $r_{\rm CBP}^{\rm mes} = \Qsolarmes/\Qphotmes$ is computed to check the statistical uncertainties and then analyse systematic uncertainties.
 
 
 
@@ -328,7 +326,7 @@ subtract an estimation of the dark current contribution during the 2 burst itsel
   - σλ > 0.1 nm ? ✅ done
 - Fig. 25: Q532_spectro looks more like a 2nd order polynom... although it likely does not matter. ♐ Hard to tell, but choosing a 1st order model is safer to extrapolate below 560nm. 
 ✅ FIiure ylabel corrected done
-- Fig. 29.: I do not understand the meaning of the linear fit. ♐  Because we have only two different distances, we lack measurement to trust the precise behavior of this curve, so we used the linear fit to estimate at the 1st order the scattered light systematics, which is then used to estimate a systematic uncertainty due to this chromatic effect ✅  Jeremy OK I propose this precision in the text: There is a decrease of the total light of about 3\textperthousand\ with a chromatic effect of about 2.5\textperthousand\ difference between \SI{350}{\nano\meter} and \SI{1100}{\nano\meter}, quantified by the linear fit in Figure~\ref{fig:sc_distance}.
+- Fig. 29.: I do not understand the meaning of the linear fit. ♐  Because we have only two different distances, we lack measurement to trust the precise behavior of this curve, so we used the linear fit to estimate at the 1st order the scattered light systematics, which is then used to estimate a systematic uncertainty due to this chromatic effect ✅   OK I propose this precision in the text: There is a decrease of the total light of about 3\textperthousand\ with a chromatic effect of about 2.5\textperthousand\ difference between \SI{350}{\nano\meter} and \SI{1100}{\nano\meter}, quantified by the linear fit in Figure~\ref{fig:sc_distance}.
 
 
 
@@ -374,7 +372,7 @@ subtract an estimation of the dark current contribution during the 2 burst itsel
 
 
 ### 5.1. Radial model of the instrument transmission
-- do you have a reference for Equation 42? ❌ it can be demonstrated with basic wave optics (https://physics.stackexchange.com/questions/687464/how-to-derive-this-angular-shift-formula-lambda-theta-lambda-0-left1-frac), but there is not one reference for this formula
+- do you have a reference for Equation 42? ❌ it can be demonstrated with basic wave optics (https://physics.stackexchange.com/questions/687464/how-to-derive-this-angular-shift-formula-lambda-theta-lambda-0-left1-frac), but there is not particular reference for this formula
 - Fig.44 you should precise how the residuals are define here, in sigma or in fraction (seems so...) or just in "transmission" ✅ done in the caption
 - "a dust particle on the filter surface"
   - add a reference to Fig. 45 that is otherwise never referred to in the text, this Figure could also just be proposed in appendix. ✅ done but kept in the text
@@ -419,7 +417,7 @@ fluxes, anchoring them to the LEDs absolute calibration.” is it clearer ?
   - As a results, we were able to show through simulations that… ✅ done
 - "Providing the necessary amount of calibration time, similar num-
 bers are to be expected for the determination of LSST passbands"
-  - May be that part could be better explained, to say, that a specific CBP has been designed for the Rubin telescope, that scaling from a 16" to an 8 m telescope is challenging, etc…  MARC / done
+  - May be that part could be better explained, to say, that a specific CBP has been designed for the Rubin telescope, that scaling from a 16" to an 8 m telescope is challenging, etc…  
 ## Ghost photometry
 - It would be nice to give values for Rccd and Rwin, so that the reader can immediately be convinced that only the first order ghost matters. ✅ I added plot of these quantities
 ________________
@@ -710,13 +708,13 @@ Fig.19 → flèche (?) ❌ pas compris
 
 3.6.1
 “sigma_lambda^cal” ✅ done
-Fig.22 → je n’arrive pas à voir la moindre différence ✅   Jérémy: There is no noticeable differences despite the different experimental conditions. I add in the text For the three runs presented in Figure~\ref{fig:wavelength_error_budget}, there is no noticeable differences despite the different experimental conditions.
+Fig.22 → je n’arrive pas à voir la moindre différence ✅   There is no noticeable differences despite the different experimental conditions. I add in the text For the three runs presented in Figure~\ref{fig:wavelength_error_budget}, there is no noticeable differences despite the different experimental conditions.
 
 
 
 
 3.6.2
-“This correction is the main contribution to instrumental non-linearity we identified.” → Du coup c’est légitime de le mettre dans la section systématiques ? 🔄 On mesure et on corrige l’effet, c’est l’erreur sur la correction qui finit dans les systématiques.
+“This correction is the main contribution to instrumental non-linearity we identified.” → Du coup c’est légitime de le mettre dans la section systématiques ?  ♐ On mesure et on corrige l’effet, c’est l’erreur sur la correction qui finit dans les systématiques.
 
 
 3.6.3
@@ -734,9 +732,9 @@ Fig. 24 label → (je n’arrive pas à lire le commentaire) ❌ pas compris
 
 3.6.8
 “All uncertainties” → indentation ✅ done
-“In the far infrared” → not in the picture ✅ Jérémy: I replace by near infrared
-Fig.31 → pas très clair (total systematics) ✅ Jérémy: I added a sentence, indeed total syst are all the CBP cyst (so no stat, no solar cell)
-Fig.32 → à nouveau c’est pas clair d’où vient cette contrib dominante 🔄
+“In the far infrared” → not in the picture ✅ I replace by near infrared
+Fig.31 → pas très clair (total systematics) ✅ I added a sentence, indeed total syst are all the CBP cyst (so no stat, no solar cell)
+Fig.32 → à nouveau c’est pas clair d’où vient cette contrib dominante 
 
 
 4
