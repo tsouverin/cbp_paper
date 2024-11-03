@@ -7,7 +7,7 @@ spieman = r'''
 \author[g]{Elana Urbach}
 \author[g]{Sasha Brownsberger}
 \author[c]{Pierre Éric Blanc}
-\author[e,f]{Johann Cohen Tanugi}
+\author[e,f]{Johann Cohen-Tanugi}
 \author[b]{Sylvie Dagoret-Campagne}
 \author[d]{Fabrice Feinstein}
 \author[a]{Delphine Hardin}
@@ -20,6 +20,7 @@ spieman = r'''
 \author[a]{Nicolas Regnault}
 \author[a]{Eduardo Sepulveda}
 \author[e]{Kélian Sommer}
+\author[x]{the LSST Dark Energy Science Collaboration}
 
 \affil[a]{LPNHE, CNRS/IN2P3 \& Sorbonne Université, 4 place Jussieu, 75005 Paris, France}
 \affil[b]{Universit\'e Paris-Saclay, CNRS, IJCLab, 91405, Orsay, France}
@@ -47,7 +48,7 @@ def arxiv_format(author, institute):
     inst = [instlist.index(_i)+1 for _i in author[0].split(',') if _i in instlist]
     return author[1] + ' (' + ' and '.join([f'{_i}' for _i in inst]) + ')'
 #print(institutes)
-#print(authors)
+print(authors)
 if True:
     with open('authors.tex', 'w') as fid:
         print('\\author{', file=fid)
