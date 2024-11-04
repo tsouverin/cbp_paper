@@ -28,7 +28,7 @@ spieman = r'''
 \affil[c]{Université d’Aix-Marseille \& CNRS, Observatoire de Haute-Provence, 04870 Saint Michel l’Observatoire, France}
 \affil[d]{Aix Marseille Univ, CNRS/IN2P3, CPPM, Marseille, France}
 \affil[e]{LUPM, Université Montpellier \& CNRS, F-34095 Montpellier, France}
-\affil[f]{LPC, université Clermont Auvergne, CNRS, F-63000 Clermont-Ferrand, France}
+\affil[f]{LPC, Université Clermont Auvergne, CNRS, F-63000 Clermont-Ferrand, France}
 '''
 #\affil[g]{Sorbonne Universit\'e, CNRS, Universit\'e de Paris, LPNHE, 75252 Paris Cedex 05, France}
 import re
