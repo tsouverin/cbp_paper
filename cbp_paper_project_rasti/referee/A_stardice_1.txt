@@ -1,0 +1,510 @@
+﻿We thank everyone for their comments.
+
+Please find here a grouped answer for all the comments we gathered so far.
+
+
+------------
+Chris Stubbs
+
+
+- First of all, many thanks for all the time and effort and care that has gone into this excellent paper! It's been great to work in partnership on this with you all.
+
+We are also very glad of this fruitful and pleasant collaboration !
+
+
+
+1. Rather than Department of Astronomy, a better affiliation for the Harvard people is Department of Physics.
+done
+
+2. Can we please add our DOE award to the acknowledgments? CWS, EU, and SB are grateful to the US Department of Energy for support under Cosmic Frontier award DE- SC0007881
+done
+
+3. Abstract, context portion line 3: upcoming SN surveys require improved precision, not improved accuracy. (All SN cosmology distance modulus measurements are relative)
+done
+
+4. Abstract: ‘aims’ section final sentence- make it filters? (plural)
+done
+
+5. Abstract conclusions- spelling typo in characterizing, the h is missing. Also we should be consistent with either the British (with an s) or US spelling (with a z). Title has it one way, its the other way here.
+done
+
+6.  Second paragraph of the introduction- last phrase should say precision rather than accuracy. Those words are not interchangeable.
+done
+
+7. Regarding this part of the third paragraph of introduction:   
+I don't think it's enough to know the effective central wavelength. I contend we need to know  S(lamba), the full photon sensitivity function.
+We changed the sentence to be more precise:
+(ii) the survey filters transmissions as a function of wavelength, with a particular attention given to the bandpasses edges wavelength position.
+
+
+8.  Here on page 2:   
+Both Hassleblad and Richey-Chretien are not spelled correctly. There are other spelling errors that can be found by running a spell-checking program on the file. Let me know if I can help with that. I'm not going to flag spelling from here onward
+done
+
+
+9. Section 2.2 I think the basic pulsed laser runs at 1.06 um not 532 nm.
+done
+
+
+10. On page 3, here: 
+  
+In my view the main reason we use the integrating sphere is to scramble any wavelength-dependent phase space (i.e. angular emission) dependence.
+We changed the sentence: The integrating sphere dilutes the flux, breaks the laser light coherence, and eliminates  any spatial dependance to achieve a uniform surface brightness.
+
+
+
+11.  Section 3.1.1 should alt be -6? Telecope was pointing down
+When aiming the solar cell the telescope is approximately horizontal, We do not recall exactly if it was pointing down or up, but looking at the Figure 2-left, we would say that +6° seems correct. In the end the sign of the coordinate doesn't change the end results: the message we intended to convey is that we aligned the CBP+solar cell for collecting the maximal amount of light.    
+
+
+12. Doesn't Figure 9 imply some light spilled off the edge of the STARDICE primary? There is no flat spot in altitude..
+This is the alignment scan on the solar cell. We reworked the caption to make this clearer. We know from the geometry that the beam fit in the solar cell, but a better sampling would definitely be needed to show that convincingly.
+
+
+13. Equation 9 needs a period
+done
+
+14. Bottom on page 12, sinusoidal functions.
+done
+
+15. The text right after Figure 20 seems to be missing part of it?
+removed
+
+16. Section 3.6.1, let’s stick to nm rather than using Angstroms?
+done
+
+17.  Yikes! Sorry about integrating sphere fluorescence.
+Thanks for this comment, otherwise we would never have guessed it was a prank you pulled on us 
+
+
+18. Page 21: should this flux-calibration conclusion go in the abstract?
+done
+  
+19. Page 26: Table 4 looks rather weird with all those 0.0s and a few 0.1s.
+We think it is a french vs US notation issue. 0.0 quotes 1 significative number as a way to set the limit, <0.1 sets it otherwise. Both are equivalent to us. We changed to the later but fear that the table looks haven't impvoved much.
+
+------------
+Elana Urbach
+
+
+One small thing I might change is twice on page 3 you say you measure something at a 'rate of' and then quote a time in seconds. Rates should generally be in Hz, so you should with either convert the value from s to Hz, or change 'rate' to 'integration time' or something like that.
+done
+
+
+
+
+
+_____________
+Kélian Sommer
+
+
+Abstract:
+- sentence 1 : "Serves as a mean" seems weird. I will say "Measurements of Type Ia supernovae magnitudes provide...".
+done
+
+- aims aiming for sub-percent : forgot whitespace
+done
+
+
+Introduction:
+- "Type Ia supernovae (SNe Ia) are standard candles, a class of objects with predictable luminosity that are used as probes to characterize dark energy" : maybe add "in the recent Universe" ou "late Universe"
+done
+
+- "ones supplied by the NIST" : defined the NIST acronym here for the first appearance in the text
+done
+
+- "and finally port this calibration to on-sky sources": transfer instead of port
+done
+
+- "high wavelength resolution": high spectral resolution
+We prefer the term wavelength as we are talking about filter transmission.
+
+- StarDICE telescope throughput and "ugrizy": was in italic before, keep the same formatting
+done
+
+
+2.
+- " replaced the Hasselblade" : replacing to keep with the previous bullet points
+done
+
+
+2.1
+- "A 9-slots 28.5 mm filter-wheel in front of the camera fea- tures 6 interference filters in the ugrizy photometric system, a Star Analyser 200 diffraction grating, and a 0.2 mm pinhole." : verb is lacking, "placed or positioned in front of the camera"
+done
+
+- "non-coated fused-silica window": i think we say "uncoated"
+After checking both are acceptable, we kept our version.
+
+- "70°C, delivering a median dark-current of 0.15 e− /sec for the 1s exposures" : I'm surprised by this high-level of dark-current with this kind of expensive high-quality CCD sensor and at this temperature. When I look at the manufacturer specifications (given in attached file), I see more reassuring levels of dark current noise (0.0003 e/px/sec @ -80°C up to 0.01700 e/px/sector the deep depletion version). Are you sure about what you give here ? If so, what a lie from ANDOR.
+The number given here are all perfectly in line with the camera booklet 0.15e-/s/pixel @-70°C 0.018@-80 down to 0.0007@-98°C. We opted for operation @-70°C at which the dark current can be neglected for our purpose. 
+
+
+2.2
+- "The Collimated Beam Projector (CBP) general setup needs the following:" I will say something like "general(minimal? you mean?) setup requires the following components"
+done
+
+- "This laser is composed of three stages to operate". I will say "This laser operates in three stages (from 335 to 669 nm, from 670 to 1064 nm, and above 1064 nm), resulting in three different regimes of power and light contamination in the CBP."
+already modified according to Johan B. comment
+
+- "This laser was chosen for the offered wide wavelength range and the high pulse energy, as source power is an important criteria for the CBP calibration with the solar cell." I will say "This laser was chosen for its wide wavelength range and high pulse energy, as source power is a crucial criterion for CBP calibration with the solar cell."
+done
+
+
+2.3.1
+- "The uncertainty cited is from the RMS of the current measurements." I will say "The cited uncertainty arises from the RMS of the current measurements."
+done
+
+- "5e-4 per degree" write with 10 power as others
+done
+
+- "The solar cell was aligned perpendicalular to the CBP output". I will say "The solar cell was aligned perpendicular to the CBP output beam with a precision better than 1° and remained stationary throughout the entire measurement campaign."
+done
+
+
+2.3.2
+"Due to the low resistance of the solar cell, we observed a quite strong current even in dark condition". I will say "Due to the low resistance of the solar cell, we observed a relatively high current of approximately 20 nA even in dark conditions."
+done
+
+- "After cancelling the dark current drift, the analysis of the ..." : precise that you analyze it in Fourier space or that you compute the power spectrum at the first sentence of the paragraph
+done
+
+- "with the highest shunt resistance we had" : at our disposal
+done
+
+2.5
+- "Table 1 sum up the three quantities". I will say summarize
+done
+
+
+2.6
+Naive question maybe. You say "To check the uniformity of the StarDICE focal plane, a measurement of Rtel (λ) at 16 different positions on the focal plane has been performed.". If for any reason, the rotation angle of the camera changed, would it be possible to recover the throughput information without redoing the experiment ?
+
+The conclusion of the focal plane scan is that the camera is fairly uniform, so at first it does not matter. In practice the focal plane uniformity will be remeasured on stars.
+
+
+3.2
+"During a solar cell measurement run, the laser wavelengths
+range between 350 nm and 1100 nm included with steps of 1 nm,
+but are randomly chosen to avoid that long-range 1/ f mode in
+the solar cell dark current correlates neighboured data points of
+the CBP response."
+Très habile. C'est du dithering, mais spectral ;) 
+
+
+3.3.1
+eq (6) : c'est sigma_{G}/G = 0.7%
+je pinaille sûrement mais "compatible" sans donner d'ordre de grandeur reste peu précis. Mettre les valeurs dans la phrase ou bien dans un tableau avec une colonne pour vos valeurs et une colonne pour celle du fabricant ou bien une footnote avec l'url de la spec du fabricant. 
+
+https://yiqi-oss.oss-cn-hangzhou.aliyuncs.com/aliyun/900101234/technical_file/file_97805.pdf je trouve la spec pour le readout ici mais pas pour le gain
+
+
+3.4.1:
+dernière phrase : manque une ponctuation ou autre
+removed
+
+
+3.5:
+"interpolatino" : tu parli italiano amico mio
+Mi sto formando per il mio post-doc 
+
+
+3.6.2
+"in particular the laser light leaks during operation": i will say "specifically"
+done
+
+
+4.1
+"integrated in an aperture of radius r, writes:" i will say "is written"
+done
+
+
+4.5
+"shooting at a fix mirror and focal plane position": "fixed"
+done
+
+
+Table 4: the notation for the SC quantum efficiency from the one given in Equation (1)
+done
+
+
+Fig. 10: bottom rows : maybe set y-axis in log to see the level of master dark and bias compared to the flux peak ?
+Log scale degrades a lot the readability of the plot. Master dark and bias are indeed very low compared to signal level
+
+
+________________
+Johann Cohen-Tanugi
+
+
+Abstract
+
+
+- forsub-percent
+done
+
+
+- Du coup le point central de larticle c’est StarDICE ou le CBP ?
+La mesure de StarDICE par le CBP
+
+
+1. Introduction
+- SN Ia plus haut
+done
+
+
+- such as the AuxTel such as Rubin’s Auxiliary Telescope
+done
+
+
+- consists of consists in
+done
+
+
+- remove see in article references
+done
+
+
+- remove comma Several steps are needed, to calibrate
+done
+
+
+- and some prototypes have been and prototypes have been
+done
+
+
+- This study has two major intents: (i) to provide a first measurement of the StarDICE filter
+transmission to contribute to the metrology chain of the experiment, and (ii) to play the role of pathfinder for the future measurement of the LSST telescope with its own CBP version. à remonter dans l’abstract 
+Je préfère dans l'intro
+
+
+-The following sections of this paper The following sections of the paper
+done
+
+
+- replaced replacing
+done
+
+
+2.1
+- build built
+done
+- note note.
+done
+- cooled-down cooled down”
+done
+-altazimutal altazimuth
+done
+
+
+2.2
+- The second one send packets sends
+done
+
+- between 1ms to 1s 1ms and 1s
+done
+- 75µm, 2mm 5mm 75µm, 2mm, and 5mm
+done
+
+
+2.3.1
+It's present in the 5 runs ? c'est vraiment un glitch ?
+Due to a low pass filter to cut out secondary light contamination. Added text to explain the glitch.
+
+- change 5e-4 in 5x10-4 or 0.0005
+done
+- “perpendicular perpendicularly ?
+done
+
+-Fig. 5  remove the high uncertainty dot ?
+It is a real data point, we don't see the need to remove it.
+
+
+2.4
+-can be is
+done
+
+- Table 1  ajouter unité dans le nom et enlever de la description
+done
+
+
+2.5
+- Solar cell QE How about fig.3?
+it was a mistake, corrected
+
+
+2.6
+- Table2 space
+done
+
+
+3.1.1
+- is taken at is taken
+done
+
+
+3.2
+- without saturations without saturation
+done
+
+- and limit the impact of dark current fluctuations : pas le bon sujet dans la phrase
+done
+
+- which is the common instrument : je ne comprends pas la phrase ?
+rephrased
+
+
+Fig.9  Bimodal ? dire qqch sur le fait que changer le setting sur le plateau n'a pas d'incidence
+Reworked the caption
+
+
+- hole with the largest laser power mode hole and the largest laser power mode
+done
+
+-is checked by varying the laser power as discussed in Section 3.6.5
+done
+
+
+3.3.2
+- An example of a stacked spectra stacked spectrum
+done
+
+
+
+
+3.3.3
+- the line flux and checked → the line flux and we checked
+done
+
+- even if beforehand, we checked the fibre placement in the spectrograph was very reproducible and did not change the wavelength scale pb de phrase
+removed
+
+
+- Finally, the wavelength uncertainty on lambda_c  remove indentation
+done
+
+- lambda_cs s à enlever
+done
+
+
+3.4.2
+- interpolatino
+done
+
+-If we compute a mean CBP response phrase non finie
+removed
+
+
+3.6.1
+- sigma_lambda^cal done
+
+Fig.22 je n’arrive pas à voir la moindre différence
+There is no noticeable differences despite the different experimental conditions. I add in the text For the three runs presented in Figure~\ref{fig:wavelength_error_budget}, there is no noticeable differences despite the different experimental conditions.
+
+
+3.6.2
+-This correction is the main contribution to instrumental non-linearity we identified. Du coup c’est légitime de le mettre dans la section systématiques ?
+On mesure et on corrige l'effet, c'est l'erreur sur la correction qui finit dans les systématiques.
+
+
+3.6.3
+- Both corrections impact is are
+done
+
+
+3.6.4
+- This corrections impact indentation
+done
+
+
+3.6.5
+- namely, QSW namely QSW
+done
+
+
+3.6.8
+-All uncertainties  indentation
+done
+
+-In the far infrared not in the picture
+Replaced by near infrared
+
+- Fig.31  pas très clair (total systematics)
+added a sentence. Total syst are all the CBP cyst (so no stat, no solar cell)
+
+- Fig.32  à nouveau c'est pas clair d'où vient cette contrib dominante 
+Text has evolved and should clarify
+
+4
+- while the first forms former
+done
+
+4.1
+- around a mechanical iris  around the mechanical iris
+done
+
+4.2
+- ylabel + put 2 colors ?
+done
+
+
+4.5.2
+- The most striking feature et la courbe jaune nettement au-dessus ?
+j'ai rajouté une phrase à ce sujet
+
+- could not be determined with sufficient precision. conséquences ?
+I added reference to the uncertainty section
+
+
+5.1
+- homogénéiser T entre Eq.42 et le texte
+done
+
+- transmission of the r filters for the sample r filter
+done
+
+- This represents an improvement by an order of magnitude Important sauf que là je ne sais plus à quoi on fait référence
+Rephrased
+
+
+5.2
+- 1er paragraphe  sauf qu'on a donc un pb avec les 4 quadrants (fig.42)
+oui, et cet impact est reporté dans la partie incertitudes
+
+
+5.3.1
+- payed paid
+done
+
+- Fig.47  où est discutée la légère perte de transmissions ? fig.41 semble dire mieux, non ?
+A priori non, tu regardes une courbe en particulier ?
+
+- max of 7% in wavelength maximum
+done
+
+
+6
+- Most notably, (1) the laser beam must be filtered to improve the purity of its wavelength composition. Even with the mitigation measures we adopted, unavoidable contamination had to be subtracted in the analysis  is it worth mentioning the use of a lamp rather than a laser as in the tCBP
+Added a reference to the tCBP in the last paragraph        
+
+
+- to fight hight level of pink noise. high level, 1/f ?
+done
+
+
+- is closer to close
+done
+
+- This survey This dataset
+done
+
+- by the Rubin CBP, allowing accurate removing comma
+done
+
+
+References
+- Betoule, M 2022  github ?
+done
+
+
+Appendix
+- Fig.A.2  ylabel
+done

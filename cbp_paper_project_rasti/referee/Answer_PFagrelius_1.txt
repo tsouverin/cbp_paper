@@ -1,0 +1,12 @@
+We thank the referee for her enthusiastm and useful remarks.
+
+The time correlation
+between the laser pulses and the electrometer is described in section 2.4. We
+also made sure that the digital analyser used is mentioned both in the section
+concerning the photodiode and the section concerning the solar cell.
+
+We included text in section 3.4.1 and 3.4.2 to clarify the dark current
+measurement procedure.
+
+
+

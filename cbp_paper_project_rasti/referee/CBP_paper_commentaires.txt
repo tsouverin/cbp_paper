@@ -1,0 +1,789 @@
+﻿Legend
+
+
+✅ Comment accepted and applied
+♐ Answer to the reviewer
+❌ Comment denied
+Johan Bregeon
+
+
+# Comments on `cbp_stradic_v1.pdf` from J. Bregeon
+- The paper is overall well written and quite clear, I do not have any strong remark to be made.
+- Most of my comments are to help to clarify a few points where the explanations are not straightforward enough.
+- The paper is a bit long, may be more could be put in appendix, e.g. some very illustrative figures.
+♐ Thanks for the remark, we discussed it and prefer to leave the paper that way and defer this kind of changes for a discussion with the editor once the paper accepted..
+
+
+- It may be worth considering having a table in appendix with the list of instruments used and their characteristics, in particular their intrinsic resolution for measurements. You could also add the solar cell and photodiode characteristics.
+✅ Solar cell characteristic: fig 3
+Spectrograph and photodiode characteristic fig. 24
+
+
+- Ocean Optics spectrometer calibration
+  - the calibration procedure is quite complicated but it's not obvious why this level of complication was needed. Precise uncertainties are computed but then not used directly in the line fits but rather taken into account afterward, and then you state that the fit does not always work and you have to add additional errors... may be you could have a sentence to explain why you chose to fit or not fit, with or without weight, or why you chose to consider uncertainties outside the fit... etc.
+✅ I reshuffled all the sections corresponding to the spectrograph data analysis, with clearer logical links between the different analysis. First things first, the spectrograph data aims to calibrate in wavelength the laser bursts and for this we did not use an error model to measure peak positions. Then, the spectrograph is used also to measure laser contamination. As they are flux measurements, we estimated and used an error model for this analysis. I hope the sequence of sections is clearer now and reflects well these two independent goals.
+
+
+
+
+  - this is especially true since as you state in sec 3.6.1, the sigma_lambda that you achieved appears mostly overkill... and you do not even show it on Fig. 31
+- I think it would help the reader to better understand the setup and beam out of the laser, by referring to Fig.33  much earlier in the text, e.g. in Sec. 2.
+- It also might be of interest to present a simple schema of the calibration chain: NIST diode -> solar cell -> CBP -> StarDICE (+ LEDs)
+
+
+- If you can have these easily, schematics or batoid simulations of the different configurations corresponding to Figure 2. would also help the reader to understand better where the light goes.
+
+
+We tried to come up with a good illustration but essentially failed. For example, we have the batoid simulations, however it is very difficult to get a picture that encompasses all the components while giving relevant explanation on what happens given the wide range of scale involved. Below is the sketch of a compressed CBP-STARDICE configuration figuring the optically active surfaces (baffling, mirrors, sensors, filters, windows). Hardly readable.
+   
+
+
+- Beware that most figures with many colors are not friendly at all for color blind people, you may want to revisit the most important ones.
+♐ Thanks for catching this. We are taking this into account and will make sure the figure pass the editorial requirements by the time the paper is accepted.
+
+
+## Title
+- "photometric instrument" -> why not just "astronomical telescope"? 
+♐ We have so far 3 telescopes on the StarDICE mount, the guide telescope, the IR telescope and the main telescope dedicated to photometry and spectrophotometry. Also, we would like to emphasize that the throughput of the entire instrument is measured, including the filters and camera in addition to the optics.
+
+
+## abstract
+- "including ZTF, DES, HSC and LSST" 
+  - is it worth to have this list of acronyms in the second sentence of the paper?  ✅ agree, I removed it
+- "forsub-percent" -> typo  ✅ done
+- "calibrating the throughput of an instrument and of its filter."
+  - "instrument" here is a bit generic, may be use "astronomical telescope"  ✅ done
+- "its filter" -> filters ✅ done
+- "We built a CBP with a tunable laser source"
+  - The CBP is built from a tunable laser source and…  ✅ done
+- "The emitted flux" -> The light flux  ✅ done
+- "We then measure the StarDICE telescope’s throughput and its filter transmissions."
+  - You could be more explicit and say that the StarDICE telescope throughput is derived from the CBP measurements to absolute values through the NIST calibrated photodiode... or something like that. 
+✅  “We then derive the StarDICE telescope throughput and filter transmissions from the CBP measurements, anchoring it to the absolute calibration provided by the NIST.”
+
+
+
+
+- "leakages at the 10−4 relative level" 
+  - leakages down to a 10^-4 relative value. ✅ done
+- "These results validate..."
+  - We have demonstrated our ability to charaterize a full telescope througput down to the millimagnitude, and paved the way… ✅ done
+- "caracterizing" -> typo ✅ not relevant with the previous modification
+
+
+## 1. Introduction 
+- "This distance is obtained" -> The luminosity distance is obtained ✅ done
+- "within different observer frame telescope bands" 
+  - within different optical bands ✅ done
+- "on systematic errors in the
+Hubble diagram, and then dark energy parameters constraints."
+  - on systematic errors in the Hubble diagram that then propagate to dark energy parameters constraints. ✅ done with small variations in the proposition
+
+
+- I understand that the paper is focused from work in the context of LSST, however I would have expected a reference to the recent set of papers by ZTF, that already have to deal with thousands of SNe. ✅ agreed, I propose a new paragraph 
+  
+- "To benefit from these incoming statistics"
+  - to be coherent with the first sentence of the paragraph, you should explicit that these incoming statistics come either from combining multiple surveys or new large surveys. (if that's what you mean...)  ✅ I think this is not relevant anymore with the new proposition        
+- "SN Ia" -> SNe Ia ✅ done
+- "to illuminate a telescope throughput and its filter transmissions."
+  - not well written, you do not illuminate the telescope **throughput** ✅ I think you’re right, done
+- "The calibrated light source will emit LED light that will monitor the ugrizy filters"
+  - not well written, the light itself will not **monitor** anything ✅ I think you’re right again, I rephrased it
+- "and the filter transmissions."
+  - the filters transmission ✅ done
+- "The present paper details the enhanced version of this CBP using a tunable laser as a monochromatic source, injecting light at the focal point of a Ritchey-Chrétien telescope mounted backwards."
+  - This paper details the enhanced version of the StarDICE CBP now equipped with a tunable laser (..) that injects light at the focal point (...) ✅ done
+- "we aimed at measuring" -> we aim at measuring (use the present to be coherent with the rest of the paragraph) ✅ done
+- "results are presented
+in Section 5. These results are finally discussed in Section 6."
+  - (...) presented in Section 5 and discussed in Section 6. ✅ done
+
+
+## 2. Laboratory setup
+- (4) replaced the Hasselblade camera -> replacing ✅ done
+
+
+### 2.1 StarDICE
+- "The StarDICE photometric instrument consists in a Newton telescope"
+  - The StarDICE photometric instrument is based on a Newton telescope… 
+We checked that the language was correct, and prefer our version in order to stress the multi-component nature of the setup 
+- "filter-wheel" -> filter wheel  ✅ done
+- "camera-filterwheel" -> camera filter wheel  ✅ done
+- "The z-position of camera-filterwheel assembly is adjustable over 9 cm allowing to focus from distances as close as 35 m up to infinity." 
+  - I am sorry I do not understand why the filter position impacts the focus distance? ♐ I think there is a misunderstanding, the filter wheel is attached to the camera, so it’s the assembly “camera-filter wheel” as a whole which can be moved away from the primary vertex to adjust the focus.
+
+
+- "The 11cm diagonal flat is oversized to ensure the fully-illuminated plane extends over the sensor with a comfortable margin in all optical configurations." 
+- Again, I do not understand what you're talking about... what is a "11cm diagonal flat"? 
+✅ done The secondary mirror
+
+
+- It may be worth having the batoid drawing of the StarDICE telescope to better explain how it's done. 
+♐ The arrangement of the StarDICE telescope is a very standard Newtonian telescope without field corrector. Also, the 1.6m focal of the primary compared to the compact arrangement of the other surfaces (~5cm for sensor to filters) makes it very hard to read anything on the batoid drawings. We clarified a bit the description but did not include the drawings.
+
+
+- "altazimutal mount" -> altazimuth mount ✅ done
+
+
+### 2.2 Collimated beam projector
+- "one tunable monochromatic light source" 
+  - a tunable monochromatic light source ✅ done
+- "lies between 1 to 4 ns" -> 1 and 4 ns ✅ done
+- "infra-red" -> infrared ✅ done
+- "The pulses are shot" -> Pulses are shot ✅ done
+- "with a 1000Hz frequency." -> at 1 kHz. ✅ done
+- "This laser is composed of three stages to operate (from 335 to 669 nm, from 670 to 1064 nm and above 1064 nm)"
+  - remove parenthesis, and it's not clear what you call "stages", are these laser configurations or levels of gradings ? ✅ done, the stages are operational laser configurations
+- "important criteria for the CBP calibration with the solar cell."
+  - it's the first time you mention the solar cell here, you should specify: "with the solar cell used as our reference calibration photodiode, see section 2.3" ✅ done
+- "The laser output is purified"
+  - is "purified" the correct technical term?  ✅ I propose a new version of the paragraph
+- "pass-red filter" -> red pass filter ✅ done
+- "to filter the 532 nm pump" -> to filter out, or to remove ✅ done with “filter out”
+- "pass-infrared filter"- > infrared pass filter ✅ done
+- "pass-blue filter" -> blue pass filter ✅ done
+- "to remove a contamination not detected in the spectrometer and which we were not able to identify."
+  - if it's not detected in the spectro, and you were not able to identify it, how do you know it's there? 
+♐ Operating without this filter results in a notable step in the measured photodiode/Telescope response ratio which disappears when the filter is in place to clean the laser beam. It is thus natural to assume some kind of contamination at a wavelength still visible for the photodiode and cut in the camera. It may be IR contamination from the pump laser, but we couldn’t demonstrate this since its wavelength is outside the working range of our spectrograph.
+- "The light is then injected" -> After the filter, the light is injected… ✅ done with “Being filtered, the light is injected…”
+
+
+- "with a wide core diameter of 910 µm"
+  - what is the laser diameter after the filter? is it focused before the fiber?
+♐ The fiber injector features an off-axis parabolic mirror which focus the laser beam in the fiber core. We did not performed measurement of the beam prior to the injection, and the shape was not a clean Gaussian and was elongated, so it is difficult to give a precise answer to this specific question. To give an order of magnitude, the largest dimension of the visible spot was about 5-10mm.
+
+
+- "The integrating sphere dilutes the laser flux"
+  - laser dilution seems to be a thing of its own, but not the phenomenon what to refer to here ✅ modified
+- "at a rate of 0.02 s" -> of 50 Hz. ✅ done
+- "We also plug an OceanOptic" -> Second, an Ocean Optics (...) spectrometer is plugged ✅ modified
+- "spectrograph" -> please choose either spectrometer or spectrograph and be coherent ✅ done
+- "mounted on the last output port." -> port that is connected to the CBP. ✅ done
+- "5 mm" -> and 5 mm ✅ done
+- "field of view and gives" -> view, and gives ✅ done
+- "The pinhole slider is attached to the ocular of a 154/1370 Ritchey-Chrétien Omegon telescope in order to position the pinhole at the focal point of the optics." 
+  - I think you should explicitly write here that this is where you apply your concept of defining the CBP as a reversed telescope. ✅ done, “The light injected in the telescope mounted backward will project a parallel and collimated beam.”
+- "altazimutal mount" -> altazimuth mount ✅ done
+
+
+### 2.3 Solar cell description
+- "at a rate of 0.002 s" -> 500 Hz or each 2 ms ✅ done
+- "relative to a NIST-calibrated photodiode"
+  - please precise what the level of the NIST diode absolute calibration is 
+♐ It actually depends on the wavelength. You can find the complete curve in fig 6 of https://arxiv.org/pdf/2211.04913 and the contribution for each band in Table 6 of this paper.
+- "The unexpected glitch at ~550 nm is masked by a linear interpolation."
+  - unexpected is ok, but do you have an a posteriori explanation? CF Sasha papier
+- "To determine the effect of temperature on QE, the QE of the solar cell was measured as it was heated."
+  - The QE of the solar cell was measured within a temperature range from 32° to 39 °C ✅ done
+  - but was that the room temperature or the diode temperature? how was it controlled? have you monitored temperature of other parts of the system? ♐ Newer version of the solar cell include a temperature sensor in the casing. Our version did not have it so we periodically controlled the external temperature of the aluminum solar cell casing with a contact temperature sensor. As a result of this imperfect procedure Table 6 encompass the effect of a 1.6°C systematic uncertainty on the operating temperature of the solar cell, which is sensible in y band.
+
+
+- "Meanwhile, room temperature was monitored and has not varied more than 2 ◦ C."
+  - but have you monitored directly the solar cell temperature? 
+♐ See above
+
+
+- I am missing a piece of information: what is the size of the light spot when calibrating the solar cell against the NIST diode. The solar cell is large, the NIST diode is small. Have you checked that the solar cell QE is uniform over its surface or at least over the surface that is used with the CBP?  ♐ This question is largely covered in sect. 4 of https://arxiv.org/pdf/2211.04913. To give a quick summary the Gen 3 solar cells have ~1% QE dips reflecting the regular 1mm structure of the electrode implants. The structure is washed out when using beam with typical size significantly larger. Both the calibration beam and the CBP beam cover a significant fraction (about 50%) of the cell area.
+- "We therefore chose the calibrated solar cell with the highest shunt resistance we had (Rshunt = 1.8 kOhm)"
+  - what does this mean exactly? you had bought several and tested them? or bought a special one? ✅ modified, we had several of them, selected among hundreds of cells tested by the Harvard team.
+- "limited the burst durations to at most 200 pulses (200 ms)."
+  - however Table 2. says 298? ♐ misunderstanding here, 298 refers to the Q-switch setting, a quantity allowing a crude modification of the energy of the individual laser pulses.
+
+
+### 2.4 Time Synchronization
+- "This custom synchronization device"
+  - please mention here that it is arduino based, just because I like arduino :) ✅ done, with great pleasure!
+
+
+### 2.5 Measurement principle
+- "we know the quantum efficiency of the solar cell from Brownsberger et al. (2022)"
+  - so you do not use your measurement on Figure 3? why? ✅ modified, we effectively use the one from fig. 3
+
+
+### 2.6 Measurement overview
+- "Table2" -> missing white space ✅ done
+  - I would propose to rename the first column of Table 2 from "N°" to "Configuration" or "Setup Configuration", and use "Configuration" in the text instead of "Line No. n" ❌ I prefer the original version, since it refers to different runs which can share similar configuration
+- "When shooting into the solar cell, the 5 mm pinhole is necessary to achieve good signal-to-noise ratio."
+  - what spot size does this give on the solar cell? ♐ The pinhole being at the focal point of the CBP, the footprint in the solar cell corresponds very closely to the shape of the exit pupil of CBP.  The full 154mm diameter pupil is stop down to a quarter by a pie-shape mask so that it fits inside the solar cell. The alignment scans presented in Fig 9. show that, vertically it fills almost all the solar cell, horizontally it fills approximately half of the cell.
+- "The positions are shown in Figure 8."
+  - Figure 8 does not hold much information, it should be enough to write in the text that you sample the focal plane with a uniform grid of 16 positions. Or may be you could merge Figure 8 with Figure 7... or even actually move Figure 7 and 8 to the appendix. ✅ removed Fig.8  ♐ From experience of presenting these results, the mirror positions were not always clear to everybody, so I would rather keep Fig. 7 here
+
+
+## 3. CBP response calibration with a solar cell
+
+
+### 3.1 Optics setup
+- "we had to use a theoretical value for its focal plane position"
+  - not easy to understand... you should explain earlier that you put the CBP at the telescope theoretical focal plane 
+✅ The CBP and the telescope are conjugated so that an error in the focal plane position of one is compensated by an error in the focal plane position of the other. As the StarDICE telescope focus could not be adjusted on stars it was focused 2mm behind its actual focal plane. This results in the Collimated Beam to diverge by 2 mrad. This was thought to be perfectly inconsequential until we realized that it also affected the ghosting pattern, so that it could no longer be used to reliably determine the relative positioning of the two instruments. 
+
+
+- "We then locked the diaphragm at the position immediately preceding the flux drop."
+  - not very precise without explaining how many positions you scanned  
+ ✅ This adjustment does not require precision. Closing further the iris would simply decrease the CBP transmission without further cleaning the collimated beam so it is not suitable. The important aspect is that this adjustment is done and fixed so that the transmission remains stable afterward.
+
+
+- Figure 9
+  - what is the size of the CBP spot on the solar cell again? ♐ See answer above
+  - why does the solar cell response appear to show slightly different dependence in Alt and Az (flatter)?
+ ✅ This is because the extent of the collimated beam is larger in the vertical direction. When scanning in the horizontal direction, the beam stays contained entirely within the solar cell for a wider range of angles while the flux drops almost immediately in the vertical direction as a part of the beam misses the cell footprint.
+  - does this graph show that the solar cell response is far from being uniform? ♐ No, this scan was performed for alignment purpose only. It does not have the sensitivity to test for uniformity of the solar cell response which is at the %level.
+
+
+
+
+### 3.2 Description of the CBP data set
+- "(see examples in Figure 10)"
+  - you should specify on Figure 10 to which setup configuration the data pertain ✅ done
+- "photodiode (...) which is the common instrument between the CBP and StarDICE"
+  - do you really mean "photodiode" and not solar cell?  
+  - the solar cell is the real "common instrument between CBP and StarDICE", while the photodiode is the link to get the absolute flux ✅ rephrased
+- although there are some numbers on Figure 10, you could explicitly mention the target charge in both the solar cell and photodiode so that you consider these work in their linear regime
+♐ The linearity of the measurement is tested by varying the laser intensity and presented in Sect. 3.6.5
+
+
+- "In particular, five runs were recorded just before the StarDICE telescope measurement, and five new runs were launched just after." 
+  - please refer to Table 2 configurations 4, 5 and 6. ✅ done
+- "Runs with different settings have been conducted to esti-mate systematic uncertainties"
+  - are these in Table 2. or preliminary or a posteriori tests? ✅ modified, it is in Table 2
+
+
+### 3.3 Spectrograph data reduction
+- Equation (5) is not aligned with 4 and 6 ✅ done
+- "we subtract the master bias B(λ p ) and compute a master dark spectrum D(λ p ), taking the median of all the dark spectra."
+  - I do not understand if you build a new master dark from "laser off" data or if you use data from section 3.3.1 ...  indeed you should refer to equation (7) that clarifies this point. ✅ done
+
+
+- "As the signal-to-noise in the stacked spectrum is very high, we assimilate the S (λ p ) value to its empirical average to get σi,p ."
+  - I am not sure I understand what this means... what is the statistical meaning of "empirical average"?
+
+
+✅  When the signal is low, flux noise is Poissonian and provides more positive fluctuations than negative fluctuations then strictly speaking we can not say that the acquired signal is close to its mean if we would have done many noise realisations. With high signals, flux noise is Gaussian and positive or negative fluctuations are equal. Then it’s more legal to identify the signal with its empirical mean.
+- "The λg fit is unweighted as for the spectrograph calibration process."
+  - that's quite cryptic at this point, and you give no explanation here... you carefully compute uncertainties but decide not to use these?
+✅  yes indeed, I hope the new version is clearer. Arc lamp signal is huge, and we are more dominated by PSF modelling than noise, plus we saw that the wavelength was biased at high signal is fit is weighted. In the new version, the error model is explained at the end just for the purpose of laser contamination flux measurements.
+- "Q flux are computed summing pixels"
+  - I find it not very coherent to first run a Gaussian fit while you have only a few points in your line (weighted average could be enough), and then instead of computing the integral of your fitted Gaussian, you go back to summing signals from pixels, hence being subjected to quantization effect again.
+✅  the Gaussian profile is not a correct description of the line profile. It’s used to detect the line position and its width, so as to we get the window where to sum the pixels
+- "The fit is unweighted to avoid any dependence of λg with the line flux and checked it was the case, but a statistical uncertainty σnoise is still estimated for λg"
+  - again, I do not understand the story behind this "unweighted fit" and the link with a possible dependence on the line flux.
+  - the sentence is not grammatically correct ✅ done
+✅  we acquired different spectra with different exposure times and we observed a shift of the centroid wavelength with signal to noise ratio if fit is weighted. If the fit was unweighted, the shift disappeared.
+
+
+ 
+
+
+- "the covariance matrix is then re-scaled with a global factor to get a final reduced χ2λ of one that we call Cλ ."
+  - not well written, it sounds like "C_lambda" is the global scaling factor, while it's actually the covariance matrix: please rephrase ✅ done
+very reproducible and did not change the wavelength scale."
+- "During the data acquisition campaign, we did not unplug and plug again the optical fibre (...) did not change the wavelength scale.
+  - useless paragraph, remove ✅ done
+- "Thanks to this procedure, we were able to apply the fitted third order polynomial correction to all detected wavelength λg to get calibrated wavelengths λc ." 
+  - rephrase as something like "We applied the third order polynomial to calibrate Lambda_g into Lambda_c". ✅ done
+
+
+- "the Gaussian profile is an incomplete model of high signal-to-noise lines."
+  - hence, I understand even less why you decide to fit a Gaussian in the first place…
+✅  the emission lines have assymetric pedestals so the average of the data points is biased. The symmetric Gaussian profile is better to find the peak position
+- "PSF modelling" -> PSF!?
+- we have values for Sigma_PSF and Sigma_cal, but no indication of the value of sigma_noise... would be nice to have a scale
+✅ it’s sigma_cal - ~0.012nm (in quadrature) so with Figure 22 we can read that it depends a lot on the wavelength range. It can be comparable to sigma_PSF or less.
+- "The realised laser wavelength is never the one a priori asked for"
+  - cannot this be calibrated and calibration constants inserted into the monochromator firmware?
+✅ we could, but instead we estimated the bijection between asked wavelengths and realized wavelengths and used it only for the analysis (Figure 15)
+- "we use the set laser wavelength λL for clarity."
+  - well, I am not sure why it's more 'clear' to use a non calibrated wavelength when you have the calibrated one available easily... may be just remove "for clarity" or change as "for convenience"
+✅  convenience is a better word, it reflects more its practicality for us 
+
+
+### 3.4 Electrometer data reduction
+- Equation (18) is not aligned with (17) ✅ done
+- Figure 18 in appendix?  ♐ We decided against breaking the analysis description by deferring part of it to an appendix.
+- "The purpose of the term in brackets is to
+subtract an estimation of the dark current contribution during the 2 burst itself."
+  - this could be mention already in sec 3.4.1✅ agreed, done
+
+
+### 3.5 CBP ratio charges
+- "A first CBP response estimations (...) rCBP"
+  - "A first part of the CBP response estimation" ✅  I reformulate as: The ratio of charges $r_{\rm CBP}^{\rm mes} = \Qsolarmes/\Qphotmes$ is computed to check the statistical uncertainties and then analyse systematic uncertainties.
+
+
+
+
+- "If wecompute a mean CBP response"
+  - this sentence is not finished? ✅ removed 
+
+
+
+
+### 3.6 Systematics
+- "the CBP response varies slowly in λ and the whole σλ is sub-Angstrom (see Figure 21)."
+  - the CBP response varies slowly in λ (Fig. 21) and the whole σλ is sub-Angstrom (Fig. 22). ✅ done 
+- Figure 23.: it would nice to have a comment on the fact that the dispersion on Qdark_sol/Qdark_phot is much higher for lambda<670 nm ✅ done with “The high dispersion below 670nm corresponds to the wavelength regime where the laser power is low, inducing a faint ambient light poorly measured.”
+- "We rejected data where σλ < 0.1 nm"
+  - σλ > 0.1 nm ? ✅ done
+- Fig. 25: Q532_spectro looks more like a 2nd order polynom... although it likely does not matter. ♐ Hard to tell, but choosing a 1st order model is safer to extrapolate below 560nm. 
+✅ FIiure ylabel corrected done
+- Fig. 29.: I do not understand the meaning of the linear fit. ♐  Because we have only two different distances, we lack measurement to trust the precise behavior of this curve, so we used the linear fit to estimate at the 1st order the scattered light systematics, which is then used to estimate a systematic uncertainty due to this chromatic effect ✅   OK I propose this precision in the text: There is a decrease of the total light of about 3\textperthousand\ with a chromatic effect of about 2.5\textperthousand\ difference between \SI{350}{\nano\meter} and \SI{1100}{\nano\meter}, quantified by the linear fit in Figure~\ref{fig:sc_distance}.
+
+
+
+
+- Fig. 32.: "obtained with the 5 mm and δλ = 1 nm"
+  - 5 mm **pinhole** ✅ done
+
+
+## 4. Measurement of the StarDICE telescope response
+- "StarDICE +CBP" -> missing white space ✅ done
+
+
+### 4.1 Modelisation of the StarDICE PSF on 75 µm pinhole data
+- "We then perform aperture photometry by summing pixels within a radius r = 20.9 pixels"
+  - how do you find the center of your circle ?  ✅ done
+
+
+### 4.2 Accounting for CBP light contamination
+- Fig. 37:  has an extra "[" on the y axis label  ✅ done
+
+
+
+
+### 4.3 Pinhole intercalibration
+- "400-900nm" -> missing white spaces ✅ done
+- Fig. 39: it would be nice to see the residuals, as shown on many other plots ✅ done
+### 4.4 Photometry applicable to on-sky data
+- "boxes of 129×132 pixels."
+  - please relate to a size on the sky ✅ done
+- "the sources in the image need to be detected and masked"
+  - may be specify which standard tool you use for that
+ ♐  The reduction code is purposely made and does not use external libraries, hence the extensive description of what is made.
+- "with the 75 µm." -> pinhole
+- Figure 40.: the caption mentions 3 curves, I see only 2 ✅ I removed it
+
+
+### 4.5. Results
+- Figure 41: I probably misunderstand the graph, but I cannot see the curves for the diffraction gratings mentioned in the caption. ✅ No it was on our side, the curves were missing ! 
+-
+
+
+## 5. Synthesis of the equivalent transmission for full pupil illumination
+
+
+### 5.1. Radial model of the instrument transmission
+- do you have a reference for Equation 42? ❌ it can be demonstrated with basic wave optics (https://physics.stackexchange.com/questions/687464/how-to-derive-this-angular-shift-formula-lambda-theta-lambda-0-left1-frac), but there is not particular reference for this formula
+- Fig.44 you should precise how the residuals are define here, in sigma or in fraction (seems so...) or just in "transmission" ✅ done in the caption
+- "a dust particle on the filter surface"
+  - add a reference to Fig. 45 that is otherwise never referred to in the text, this Figure could also just be proposed in appendix. ✅ done but kept in the text
+- "The standard deviation of model/measurement discrepancies is 10.2 mmag"
+  - it's a bit strange to switch to mmag all of a suden for lab measurements, it would make more sense to have Fig.46 in fraction, and if you really wish, then mention in the text that this is equivalent to 10 mmag.  
+♐  Those quantities are akin to the zero points of the instrument passbands which are usually reported in magnitudes. 
+- "Fig. 46 displays the difference between the measured central wavelength and the model-predicted value for all 4 radius positions."
+-  "neglects wavelength shift considerations"
+  - add "due to the light incidence angle on the filters" ✅ done
+
+
+### 5.2. Full pupil synthetic transmission curves
+- "A rectangular quadrature"
+  - why averaging on a disk using a rectangular sampling? ♐ There is a misunderstanding here, the rectangular quadrature is the method used to integrate the transmission f(r) as a function of the radius r, which refers to https://en.wikipedia.org/wiki/Riemann_sum ✅ None of the native speakers among the review panel appeared to be bothered by the formulation, still I was not quite sure what the correct naming was so I switch for “rectangle rule” in the text although 
+
+
+- Fig. 47 : any comment on the wiggles observed on the low-end side of the i filter?  
+♐ Not quite sure what you have in mind here. Oscillations in the passbands of interference filters are common.
+### 5.3. Final uncertainty budget
+- Table 3. "wl cal" -> wavelength calibration ✅ done
+- "The telescope is then used to follow CALSPEC standard stars and
+precisely measure their broadband fluxes."
+  - my (wrong?) understanding is that StarDICE follows CALSPEC standards to validate the calibration with artificial stars (LEDs), if so this should be explained properly. ✅ It is indeed wrong, I propose: “The telescope is then used to observe CALSPEC standard stars and precisely measure their broadband
+fluxes, anchoring them to the LEDs absolute calibration.” is it clearer ?
+
+
+- "In contrast, the sensitivity to wavelength calibration generally increases..."
+  - I propose to remove this paragraph that is a point of detail of possible issues that can be tackled with StarDICE, but is not important to mention here.
+♐ This paragraph is necessary to interpret Table 4 which supports the main conclusion of the paper. Namely that the measurement performs matches the requirements of the StarDICE experiment in band griz and is not helpful in the remaining two bands. 
+
+
+## Conclusion
+- "by illuminating a calibrated pho-diode" 
+  - I think it's worth mentioning that it's a solar cell, it's probably the first time that a "dumb" solar cell is used for a very precise flux calibration? ✅ done ♐ The solar cell is by many standards a way more sophisticated device than the hamamatsu photodiodes. The amount of engineering that went into bumping its quantum efficiency just shy of 98% (to be compared to the mere 60% of Si photodiodes) is remarquable.
+- "the response of the photometric instrument"
+  - of the StarDICE telescope ✅ done
+- "response of the instrument to illumination"
+  - instrument -> telescope ✅ done
+- "Most notably, (1), (2), (3)"
+  - this way of writing does not quite work, since you have extensive details to give for each point. May be just use bullet points? or write 3 clean short paragraphs. ♐Bullet points are not allowed by the journal yet I want the enumeration.
+- "As a result we expect"
+  - As a results, we were able to show through simulations that… ✅ done
+- "Providing the necessary amount of calibration time, similar num-
+bers are to be expected for the determination of LSST passbands"
+  - May be that part could be better explained, to say, that a specific CBP has been designed for the Rubin telescope, that scaling from a 16" to an 8 m telescope is challenging, etc…  
+## Ghost photometry
+- It would be nice to give values for Rccd and Rwin, so that the reader can immediately be convinced that only the first order ghost matters. ✅ I added plot of these quantities
+________________
+Chris Stubbs
+
+
+July 7, 2024
+C. Stubbs
+
+
+First of all, many thanks for all the time and effort and care that has gone into this excellent paper! It’s been great to work in partnership on this with you all. Here are my comments: 
+
+
+1. Rather than Department of Astronomy, a better affiliation for the Harvard people is Department of Physics. ✅ done
+2. Can we please add our DOE award to the acknowledgments? “CWS, EU, and SB are grateful to the US Department of Energy for support under Cosmic Frontier award DE- SC0007881”.         ✅ done
+3. Abstract, ‘context’ portion line 3: upcoming SN surveys require improved precision, not improved accuracy. (All SN cosmology distance modulus measurements are relative)  ✅ done
+4. Abstract: ‘aims’ section final sentence- make it ‘filters’? (plural)  ✅ done
+5. Abstract ‘conclusions’- spelling typo in ‘characterizing’, the ‘h’ is missing. Also we should be consistent with either the British (with an ‘s’) or US spelling (with a ‘z’). Title has it one way, it’s the other way here.  ✅ done
+6.  Second paragraph of the introduction- last phrase should say precision rather than accuracy. Those words are not interchangeable.  ✅ done
+7. Regarding this part of the third paragraph of introduction:   
+I don’t think it’s enough to know the effective central wavelength. I contend we need to know  S(lamba), the full photon sensitivity function.  ✅ I changed the sentence to be more precise: “(ii) the survey filters transmissions as a function of wavelength, with a particular attention given to the bandpasses edges wavelength position.”
+
+
+   8.  Here on page 2: 
+  
+Both Hassleblad and Richey-Chretien are not spelled correctly. There are other spelling errors that can be found by running a spell-checking program on the file. Let me know if I can help with that. I’m not going to flag spelling from here onward…  ✅ done
+
+
+      9. Section 2.2 I think the basic pulsed laser runs at 1.06 um not 532 nm.  ✅ done
+
+
+      10. On page 3, here: 
+  
+In my view the main reason we use the integrating sphere is to ‘scramble’ any wavelength-dependent phase space (i.e. angular emission) dependence.  ✅ I changed the sentence: “The integrating sphere dilutes the flux, breaks the laser light coherence, and eliminates  any spatial dependance to achieve a uniform surface brightness.”
+
+
+         11.  Section 3.1.1 should alt be -6? Telecope was pointing down… ❌ When aiming the solar cell the telescope is approximately horizontal, I do not recall exactly if it as pointing down or up, but looking at the Figure 2-left, I would say that +6° seems correct. Anyway the sign of the coordinates is not important, here the message is more that we aligned the CBP+solar cell for collecting the maximal amount of light. 
+
+
+         12. Doesn’t Figure 9 imply some light spilled off the edge of the STARDICE primary? There is no flat spot in altitude.. ✅ This is the alignment scan on the solar cell. I rework the caption to make this clearer. We know from the geometry that the beam fit in the solar cell, but a better sampling would definitely be needed to show that convincingly.
+
+
+         13. Equation 9 needs a period ✅ done
+         14. Bottom on page 12, ‘sinusoidal’ functions. ✅ done
+         15. The text right after Figure 20 seems to be missing part of it?  ✅ removed
+         16. Section 3.6.1, let’s stick to nm rather than using Angstroms? ✅ agreed, I homogenized it
+         17.  Yikes! Sorry about integrating sphere fluorescence. ✅ a funny feature !        
+         18. Page 21: should this flux-calibration conclusion go in the abstract?  ✅ agreed, I added it
+  
+         19. Page 26: Table 4 looks rather weird with all those 0.0’s and a few 0.1’s.  ✅ Not sure what looks weird about it ? I replaced the 0.0 with <0.1 but it does not look better.
+
+
+Elana Urbach
+
+
+One small thing I might change is twice on page 3 you say you measure something at a 'rate of' and then quote a time in seconds. Rates should generally be in Hz, so you should with either convert the value from s to Hz, or change 'rate' to 'integration time' or something like that. ✅ done
+
+
+
+
+
+________________
+
+
+Kélian Sommer
+
+
+Abstract:
+- sentence 1 : "Serves as a mean" seems weird. I will say "Measurements of Type Ia supernovae magnitudes provide...". ✅ done
+- aims aiming for sub-percent : forgot whitespace ✅ done
+
+
+Introduction:
+- "Type Ia supernovae (SNe Ia) are standard candles, a class of objects with predictable luminosity that are used as probes to characterize dark energy" : maybe add "in the recent Universe" ou "late Universe" ✅ done
+- "ones supplied by the NIST" : defined the NIST acronym here for the first appearance in the text ✅ done
+- "and finally port this calibration to on-sky sources": transfer instead of port ✅ done
+- "high wavelength resolution": high spectral resolution ❌ I prefer the term “wavelength” as we are talking about filter transmission, and “spectral” seems less suitable here for me
+- StarDICE telescope throughput and "ugrizy": was in italic before, keep the same formatting ✅ done
+- "to play the role of pathfinder for the future measurement of the LSST telescope with its own CBP version": to serve as a pathfinder for the future measurement of the LSST telescope using its dedicated version of CBP ✅ what a good english
+
+
+2.
+- " replaced the Hasselblade" : replacing to keep with the previous bullet points  ✅ done
+
+
+2.1
+- "A 9-slots 28.5 mm filter-wheel in front of the camera fea- tures 6 interference filters in the ugrizy photometric system, a Star Analyser 200 diffraction grating, and a 0.2 mm pinhole." : verb is lacking, "placed or positioned in front of the camera" ✅ done
+
+
+- "non-coated fused-silica window": i think we say "uncoated" ❌ After checking both are acceptable, I think I prefer the original term
+- "−70°C, delivering a median dark-current of 0.15 e− /sec for the 1s exposures" : I'm surprised by this high-level of dark-current with this kind of expensive high-quality CCD sensor and at this temperature. When I look at the manufacturer specifications (given in attached file), I see more reassuring levels of dark current noise (0.0003 e/px/sec @ -80°C up to 0.01700 e/px/sector the deep depletion version). Are you sure about what you give here ? If so, what a lie from ANDOR. ♐ The number given here are all perfectly in line with the camera booklet 0.15e-/s/pixel @-70°C 0.018@-80 down to 0.0007@-98°C. We opted for operation @-70°C at which the dark current can be neglected for our purpose. 
+
+
+2.2
+- "The Collimated Beam Projector (CBP) general setup needs the following:" I will say something like "general(minimal? you mean?) setup requires the following components" ✅ done
+- "This laser is composed of three stages to operate". I will say "This laser operates in three stages (from 335 to 669 nm, from 670 to 1064 nm, and above 1064 nm), resulting in three different regimes of power and light contamination in the CBP." ✅ already modified according to Johan B. comment
+- "This laser was chosen for the offered wide wavelength range and the high pulse energy, as source power is an important criteria for the CBP calibration with the solar cell." I will say "This laser was chosen for its wide wavelength range and high pulse energy, as source power is a crucial criterion for CBP calibration with the solar cell." ✅ done
+
+
+
+
+2.3.1
+- "The uncertainty cited is from the RMS of the current measurements." I will say "The cited uncertainty arises from the RMS of the current measurements." ✅ done
+- "5e-4 per degree" write with 10 power as others ✅ done
+- "The solar cell was aligned perpendicalular to the CBP output". I will say "The solar cell was aligned perpendicular to the CBP output beam with a precision better than 1° and remained stationary throughout the entire measurement campaign." ✅ partially done, I don’t like the “stationary”
+
+
+2.3.2
+"Due to the low resistance of the solar cell, we observed a quite strong current even in dark condition". I will say "Due to the low resistance of the solar cell, we observed a relatively high current of approximately 20 nA even in dark conditions." ✅ done
+- "After cancelling the dark current drift, the analysis of the ..." : precise that you analyze it in Fourier space or that you compute the power spectrum at the first sentence of the paragraph   ✅ done
+- "with the highest shunt resistance we had" : at our disposal  ✅ done
+
+
+
+
+2.5
+- "Table 1 sum up the three quantities". I will say summarize  ✅ done
+
+
+
+
+2.6
+Naive question maybe. You say "To check the uniformity of the StarDICE focal plane, a measurement of Rtel (λ) at 16 different positions on the focal plane has been performed.". If for any reason, the rotation angle of the camera changed, would it be possible to recover the throughput information without redoing the experiment ? ♐ The conclusion of the focal plane scan is that the camera is fairly uniform, so at first it does not matter. In practice the focal plane uniformity will be remeasured on stars.
+
+
+3.2
+"During a solar cell measurement run, the laser wavelengths
+range between 350 nm and 1100 nm included with steps of 1 nm,
+but are randomly chosen to avoid that long-range 1/ f mode in
+the solar cell dark current correlates neighboured data points of
+the CBP response."
+Très habile. C'est du dithering, mais spectral ;) ✅ 
+
+
+3.3.1
+eq (6) : c'est sigma_{G}/G = 0.7%
+je pinaille sûrement mais "compatible" sans donner d'ordre de grandeur reste peu précis. Mettre les valeurs dans la phrase ou bien dans un tableau avec une colonne pour vos valeurs et une colonne pour celle du fabricant ou bien une footnote avec l'url de la spec du fabricant. 
+🔄 https://yiqi-oss.oss-cn-hangzhou.aliyuncs.com/aliyun/900101234/technical_file/file_97805.pdf je trouve la spec pour le readout ici mais pas pour le gain
+
+
+3.4.1:
+dernière phrase : manque une ponctuation ou autre ✅ removed
+
+
+3.5:
+"interpolatino" : tu parli italiano amico mio ✅ Mi sto formando per il mio post-doc 
+
+
+3.6.2
+"in particular the laser light leaks during operation": i will say "specifically" ✅ done
+
+
+4.1
+"integrated in an aperture of radius r, writes:" i will say "is written" ✅ done
+
+
+4.5
+"shooting at a fix mirror and focal plane position": "fixed" ✅ done
+
+
+Table 4: the notation for the SC quantum efficiency from the one given in Equation (1) ✅ done
+
+
+Fig. 10: bottom rows : maybe set y-axis in log to see the level of master dark and bias compared to the flux peak ? ❌Log scale degrades a lot the readability of the plot. Master dark and bias are indeed very low compared to signal level
+
+
+________________
+
+
+Johann Cohen-Tanugi
+
+
+Abstract
+
+
+“forsub-percent” ✅ done
+“synthesized”, pas très clair ❌ I don’t see any other formulation
+
+
+Du coup le point central de l’article c’est StarDICE ou le CBP ? ♐ La mesure de StarDICE par le CBP
+
+
+            1. Introduction
+
+
+“SN Ia” plus haut ✅ done
+
+
+“such as the AuxTel” → “such as Rubin’s Auxiliary Telescope” ✅ done
+
+
+“consists of” →  “consists in” ✅ changed
+
+
+remove “see” in article references ✅ done
+
+
+remove comma → “Several steps are needed, to calibrate…” ✅ done
+
+
+“and some prototypes have been” → “and prototypes have been” ✅ done
+
+
+“This study has two major intents: (i) to provide a first measurement of the StarDICE filter
+transmission to contribute to the metrology chain of the experiment, and (ii) to play the role of pathfinder for the future measurement of the LSST telescope with its own CBP version.” → à remonter dans l’abstract 
+❌ Je préfère dans l’intro
+
+
+“The following sections of this paper” → “The following sections of the paper” ✅ done
+
+
+“replaced” → “replacing” ✅ done
+
+
+2.1
+“build” → “built” ✅ done
+“note” → “note.” ✅ done
+“cooled-down” → “cooled down” (remove “-”) ✅ done
+“altazimutal” → “altazimuth” ✅ done
+
+
+2.2
+remove “namely” ❌ I like it
+“The second one send packets” → “sends” ✅ changed
+“between 1ms to 1s” → “1ms and 1s” ✅ done
+“75µm, 2mm 5mm” → “75µm, 2mm, and 5mm” ✅ done
+
+
+2.3.1
+It’s present in the 5 runs ? c’est vraiment un glitch ? 🔄 Waiting for Elana’s answer
+change “5e-4” in “5x10-4” or “0.0005”  ✅ done
+“perpendicular” → “perpendicularly” ?  ✅ done
+Fig. 5 → remove the high uncertainty dot ? ❌ Why ?
+2.4
+“can be” →  “is” ✅ done
+“throughout” → “for” ❌ 
+Table 1 → ajouter unité dans le nom et enlever de la description ✅ done
+
+
+2.5
+Solar cell QE → “How about fig.3?” ✅ it was a mistake, corrected
+
+
+2.6
+“Table2” space ✅ done
+
+
+3.1.1
+“is taken at” → “is taken” ✅ modified
+
+
+3.2
+“without saturations” → “without saturation” ✅ done
+“and limit the impact of dark current fluctuations” : pas le bon sujet dans la phrase ✅ done
+“which is the common instrument” : je ne comprends pas la phrase ? le “which” peut s’appliquer à tout le reste ✅ rephrased
+
+
+Fig.9 → Bimodal ? dire qqch sur le fait que changer le setting sur le plateau n’a pas d’incidence ✅ Reworked the caption
+
+
+
+
+“hole with the largest laser power mode” → “hole and the largest laser power mode,” ✅ done
+“is checked by varying the laser power as discussed in Section 3.6.5” ✅ done
+
+
+3.3.2
+“An example of a stacked spectra” → “stacked spectrum” ✅ done
+
+
+
+
+3.3.3
+the line flux and checked → the line flux and we checked ✅ done
+“even if beforehand, we checked the fibre placement in the spectrograph was very reproducible and did not change the wavelength scale” → pb de phrase ✅ removed
+
+
+“Finally, the wavelength uncertainty on lambda_c” → remove indentation ✅ done
+“lambda_cs” → s à enlever ✅ done
+
+
+3.4.2
+Fig.19 → flèche (?) ❌ pas compris
+“as shown in Figure 20” → ? (?) ❌ pas compris
+“interpolatino” ✅ done
+“If we compute a mean CBP response” → phrase non finie ✅ removed
+
+
+3.6.1
+“sigma_lambda^cal” ✅ done
+Fig.22 → je n’arrive pas à voir la moindre différence ✅   There is no noticeable differences despite the different experimental conditions. I add in the text For the three runs presented in Figure~\ref{fig:wavelength_error_budget}, there is no noticeable differences despite the different experimental conditions.
+
+
+
+
+3.6.2
+“This correction is the main contribution to instrumental non-linearity we identified.” → Du coup c’est légitime de le mettre dans la section systématiques ?  ♐ On mesure et on corrige l’effet, c’est l’erreur sur la correction qui finit dans les systématiques.
+
+
+3.6.3
+Fig. 24 label → (je n’arrive pas à lire le commentaire) ❌ pas compris
+“Both corrections’ impact is” → “are” ✅ done
+
+
+3.6.4
+“This correction’s impact” → indentation ✅ done
+
+
+3.6.5
+“namely, QSW” → “namely QSW” ✅ done
+
+
+3.6.8
+“All uncertainties” → indentation ✅ done
+“In the far infrared” → not in the picture ✅ I replace by near infrared
+Fig.31 → pas très clair (total systematics) ✅ I added a sentence, indeed total syst are all the CBP cyst (so no stat, no solar cell)
+Fig.32 → à nouveau c’est pas clair d’où vient cette contrib dominante 
+
+
+4
+while the first forms → “former” ✅ done
+4.1
+around a mechanical iris → around the mechanical iris ✅ done
+
+
+4.2
+ylabel + put 2 colors ? ✅ done
+
+
+4.5.2
+Fig.41 → grating results ✅ pouf, ils sont de retour !
+“The most striking feature” → et la courbe jaune nettement au-dessus ? ✅ j’ai rajouté une phrase à ce sujet
+“could not be determined with sufficient precision.” → conséquences ? ✅ I added reference to the uncertainty section
+
+
+5.1
+homogénéiser T entre Eq.42 et le texte ✅ done
+“transmission of the r filters for the sample” → “r filter” ✅ done
+“This represents an improvement by an order of magnitude…” → Important sauf que là je ne sais plus à quoi on fait référence ✅ j’ai rephrasé
+
+
+5.2
+1er paragraphe → sauf qu’on a donc un pb avec les 4 quadrants (fig.42) ♐ oui, et cet impact est reporté dans la partie incertitudes
+
+
+5.3.1
+“payed” → “paid” ✅ done
+Fig.47 → où est discutée la légère perte de transmissions ? fig.41 semble dire mieux, non ? ♐ A priori non, tu regardes une courbe en particulier ?
+“max of 7% in wavelength” → “maximum”  ✅ done
+
+
+6
+“Most notably, (1) the laser beam must be filtered to improve the purity of its wavelength composition. Even with the mitigation measures we adopted, unavoidable contamination had to be subtracted in the analysis” → is it worth mentioning the use of a lamp rather than a laser as in the tCBP ✅ I added a reference to the tCBP in the last paragraph        
+
+
+“to fight hight level of pink noise.” → “high level”, 1/f ?  ✅ done
+
+
+“is closer to” → “close” ✅ done
+“This survey” → “This dataset” ✅ done
+“by the Rubin CBP, allowing accurate” → removing comma ✅ changed
+
+
+References
+Betoule, M 2022 → github ? ✅ done
+
+
+Appendix
+Fig.A.2 → ylabel ✅ done

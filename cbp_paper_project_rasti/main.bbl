@@ -1,0 +1,413 @@
+\begin{thebibliography}{28}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{Betoule } et~al.(2023){Betoule }, {Antier, Sarah}, {Bertin,
+  Emmanuel}, {Blanc, Pierre Éric}, {Bongard, Sébastien}, {Cohen Tanugi,
+  Johann}, {Dagoret-Campagne, Sylvie}, {Feinstein, Fabrice}, {Hardin,
+  Delphine}, {Juramy, Claire}, {Le Guillou, Laurent}, {Le Van Suu, Auguste},
+  {Moniez, Marc}, {Neveu, Jérémy}, {Nuss, Éric}, {Plez, Bertrand},
+  {Regnault, Nicolas}, {Sepulveda, Eduardo}, {Sommer, Kélian}, {Souverin,
+  Thierry}, \& {Wang, Xiao Feng}]{Betoule_2023}
+{Betoule }, {Antier, Sarah}, {Bertin, Emmanuel}, {Blanc, Pierre Éric},
+  {Bongard, Sébastien}, {Cohen Tanugi, Johann}, {Dagoret-Campagne, Sylvie},
+  {Feinstein, Fabrice}, {Hardin, Delphine}, {Juramy, Claire}, {Le Guillou,
+  Laurent}, {Le Van Suu, Auguste}, {Moniez, Marc}, {Neveu, Jérémy}, {Nuss,
+  Éric}, {Plez, Bertrand}, {Regnault, Nicolas}, {Sepulveda, Eduardo}, {Sommer,
+  Kélian}, {Souverin, Thierry}, \& {Wang, Xiao Feng}, 2023.
+\newblock Stardice - i. sensor calibration bench and absolute photometric
+  calibration of a sony imx411 sensor, {\it A\&A\/}, {\bf 670}, A119.
+
+\bibitem[Betoule(2022)]{logic_timer}
+Betoule, M., 2022.
+\newblock betoule/logic\_timer: v1.0.1.
+
+\bibitem[Betoule et~al.(2014)Betoule, Kessler, Guy, Mosher, Hardin, Biswas,
+  Astier, El-Hage, Konig, Kuhlmann, Marriner, Pain, Regnault, Balland, Bassett,
+  Brown, Campbell, Carlberg, Cellier-Holzem, Cinabro, Conley, D’Andrea,
+  DePoy, Doi, Ellis, Fabbro, Filippenko, Foley, Frieman, Fouchez, Galbany,
+  Goobar, Gupta, Hill, Hlozek, Hogan, Hook, Howell, Jha, Le~Guillou, Leloudas,
+  Lidman, Marshall, Möller, Mourão, Neveu, Nichol, Olmstead,
+  Palanque-Delabrouille, Perlmutter, Prieto, Pritchet, Richmond, Riess,
+  Ruhlmann-Kleider, Sako, Schahmaneche, Schneider, Smith, Sollerman, Sullivan,
+  Walton, \& Wheeler]{Betoule_2014}
+Betoule, M., Kessler, R., Guy, J., Mosher, J., Hardin, D., Biswas, R., Astier,
+  P., El-Hage, P., Konig, M., Kuhlmann, S., Marriner, J., Pain, R., Regnault,
+  N., Balland, C., Bassett, B.~A., Brown, P.~J., Campbell, H., Carlberg, R.~G.,
+  Cellier-Holzem, F., Cinabro, D., Conley, A., D’Andrea, C.~B., DePoy, D.~L.,
+  Doi, M., Ellis, R.~S., Fabbro, S., Filippenko, A.~V., Foley, R.~J., Frieman,
+  J.~A., Fouchez, D., Galbany, L., Goobar, A., Gupta, R.~R., Hill, G.~J.,
+  Hlozek, R., Hogan, C.~J., Hook, I.~M., Howell, D.~A., Jha, S.~W., Le~Guillou,
+  L., Leloudas, G., Lidman, C., Marshall, J.~L., Möller, A., Mourão, A.~M.,
+  Neveu, J., Nichol, R., Olmstead, M.~D., Palanque-Delabrouille, N.,
+  Perlmutter, S., Prieto, J.~L., Pritchet, C.~J., Richmond, M., Riess, A.~G.,
+  Ruhlmann-Kleider, V., Sako, M., Schahmaneche, K., Schneider, D.~P., Smith,
+  M., Sollerman, J., Sullivan, M., Walton, N.~A., \& Wheeler, C.~J., 2014.
+\newblock Improved cosmological constraints from a joint analysis of the
+  sdss-ii and snls supernova samples, {\it Astronomy \& Astrophysics\/}, {\bf
+  568}, A22.
+
+\bibitem[{Bohlin} et~al.(2020){Bohlin}, {Hubeny}, \& {Rauch}]{Bohlin_2020}
+{Bohlin}, R.~C., {Hubeny}, I., \& {Rauch}, T., 2020.
+\newblock {New Grids of Pure-hydrogen White Dwarf NLTE Model Atmospheres and
+  the HST/STIS Flux Calibration}, {\it \aj\/}, {\bf 160}(1), 21.
+
+\bibitem[{Brout} et~al.(2019){Brout}, {Sako}, {Scolnic}, {Kessler}, {D'Andrea},
+  {Davis}, {Hinton}, {Kim}, {Lasker}, {Macaulay}, {M{\"o}ller}, {Nichol},
+  {Smith}, {Sullivan}, {Wolf}, {Allam}, {Bassett}, {Brown}, {Castander},
+  {Childress}, {Foley}, {Galbany}, {Herner}, {Kasai}, {March}, {Morganson},
+  {Nugent}, {Pan}, {Thomas}, {Tucker}, {Wester}, {Abbott}, {Annis}, {Avila},
+  {Bertin}, {Brooks}, {Burke}, {Carnero Rosell}, {Carrasco Kind}, {Carretero},
+  {Crocce}, {Cunha}, {da Costa}, {Davis}, {De Vicente}, {Desai}, {Diehl},
+  {Doel}, {Eifler}, {Flaugher}, {Fosalba}, {Frieman}, {Garc{\'\i}a-Bellido},
+  {Gaztanaga}, {Gerdes}, {Goldstein}, {Gruen}, {Gruendl}, {Gschwend},
+  {Gutierrez}, {Hartley}, {Hollowood}, {Honscheid}, {James}, {Kuehn},
+  {Kuropatkin}, {Lahav}, {Li}, {Lima}, {Marshall}, {Martini}, {Miquel}, {Nord},
+  {Plazas}, {Roodman}, {Rykoff}, {Sanchez}, {Scarpine}, {Schindler},
+  {Schubnell}, {Serrano}, {Sevilla-Noarbe}, {Soares-Santos}, {Sobreira},
+  {Suchyta}, {Swanson}, {Tarle}, {Thomas}, {Tucker}, {Walker}, {Yanny},
+  {Zhang}, \& {DES COLLABORATION}]{Brout_2019}
+{Brout}, D., {Sako}, M., {Scolnic}, D., {Kessler}, R., {D'Andrea}, C.~B.,
+  {Davis}, T.~M., {Hinton}, S.~R., {Kim}, A.~G., {Lasker}, J., {Macaulay}, E.,
+  {M{\"o}ller}, A., {Nichol}, R.~C., {Smith}, M., {Sullivan}, M., {Wolf},
+  R.~C., {Allam}, S., {Bassett}, B.~A., {Brown}, P., {Castander}, F.~J.,
+  {Childress}, M., {Foley}, R.~J., {Galbany}, L., {Herner}, K., {Kasai}, E.,
+  {March}, M., {Morganson}, E., {Nugent}, P., {Pan}, Y.~C., {Thomas}, R.~C.,
+  {Tucker}, B.~E., {Wester}, W., {Abbott}, T.~M.~C., {Annis}, J., {Avila}, S.,
+  {Bertin}, E., {Brooks}, D., {Burke}, D.~L., {Carnero Rosell}, A., {Carrasco
+  Kind}, M., {Carretero}, J., {Crocce}, M., {Cunha}, C.~E., {da Costa}, L.~N.,
+  {Davis}, C., {De Vicente}, J., {Desai}, S., {Diehl}, H.~T., {Doel}, P.,
+  {Eifler}, T.~F., {Flaugher}, B., {Fosalba}, P., {Frieman}, J.,
+  {Garc{\'\i}a-Bellido}, J., {Gaztanaga}, E., {Gerdes}, D.~W., {Goldstein},
+  D.~A., {Gruen}, D., {Gruendl}, R.~A., {Gschwend}, J., {Gutierrez}, G.,
+  {Hartley}, W.~G., {Hollowood}, D.~L., {Honscheid}, K., {James}, D.~J.,
+  {Kuehn}, K., {Kuropatkin}, N., {Lahav}, O., {Li}, T.~S., {Lima}, M.,
+  {Marshall}, J.~L., {Martini}, P., {Miquel}, R., {Nord}, B., {Plazas}, A.~A.,
+  {Roodman}, A., {Rykoff}, E.~S., {Sanchez}, E., {Scarpine}, V., {Schindler},
+  R., {Schubnell}, M., {Serrano}, S., {Sevilla-Noarbe}, I., {Soares-Santos},
+  M., {Sobreira}, F., {Suchyta}, E., {Swanson}, M.~E.~C., {Tarle}, G.,
+  {Thomas}, D., {Tucker}, D.~L., {Walker}, A.~R., {Yanny}, B., {Zhang}, Y., \&
+  {DES COLLABORATION}, 2019.
+\newblock {First Cosmology Results Using Type Ia Supernovae from the Dark
+  Energy Survey: Photometric Pipeline and Light-curve Data Release}, {\it
+  \apj\/}, {\bf 874}(1), 106.
+
+\bibitem[Brout et~al.(2022)Brout, Scolnic, Popovic, Riess, Carr, Zuntz,
+  Kessler, Davis, Hinton, Jones, Kenworthy, Peterson, Said, Taylor, Ali,
+  Armstrong, Charvu, Dwomoh, Meldorf, Palmese, Qu, Rose, Sanchez, Stubbs,
+  Vincenzi, Wood, Brown, Chen, Chambers, Coulter, Dai, Dimitriadis, Filippenko,
+  Foley, Jha, Kelsey, Kirshner, Möller, Muir, Nadathur, Pan, Rest,
+  Rojas-Bravo, Sako, Siebert, Smith, Stahl, \& Wiseman]{Brout_2022}
+Brout, D., Scolnic, D., Popovic, B., Riess, A.~G., Carr, A., Zuntz, J.,
+  Kessler, R., Davis, T.~M., Hinton, S., Jones, D., Kenworthy, W.~D., Peterson,
+  E.~R., Said, K., Taylor, G., Ali, N., Armstrong, P., Charvu, P., Dwomoh, A.,
+  Meldorf, C., Palmese, A., Qu, H., Rose, B.~M., Sanchez, B., Stubbs, C.~W.,
+  Vincenzi, M., Wood, C.~M., Brown, P.~J., Chen, R., Chambers, K., Coulter,
+  D.~A., Dai, M., Dimitriadis, G., Filippenko, A.~V., Foley, R.~J., Jha, S.~W.,
+  Kelsey, L., Kirshner, R.~P., Möller, A., Muir, J., Nadathur, S., Pan, Y.-C.,
+  Rest, A., Rojas-Bravo, C., Sako, M., Siebert, M.~R., Smith, M., Stahl, B.~E.,
+  \& Wiseman, P., 2022.
+\newblock The pantheon+ analysis: Cosmological constraints, {\it The
+  Astrophysical Journal\/}, {\bf 938}(2), 110.
+
+\bibitem[{Brownsberger} et~al.(2022){Brownsberger}, {Zhang}, {Andrade}, \&
+  {Stubbs}]{solarcell}
+{Brownsberger}, S., {Zhang}, L., {Andrade}, D., \& {Stubbs}, C.~W., 2022.
+\newblock {Characterization and Quantum Efficiency Determination of
+  Monocrystalline Silicon Solar Cells as Sensors for Precise Flux Calibration},
+  {\it Journal of Astronomical Instrumentation\/}, {\bf 11}(1), 2250002--574.
+
+\bibitem[{Coughlin} et~al.(2016){Coughlin}, {Abbott}, {Brannon}, {Claver},
+  {Doherty}, {Fisher-Levine}, {Ingraham}, {Lupton}, {Mondrik}, \&
+  {Stubbs}]{coughlin2016}
+{Coughlin}, M., {Abbott}, T.~M.~C., {Brannon}, K., {Claver}, C., {Doherty}, P.,
+  {Fisher-Levine}, M., {Ingraham}, P., {Lupton}, R., {Mondrik}, N., \&
+  {Stubbs}, C., 2016.
+\newblock {A collimated beam projector for precise telescope calibration}, in
+  {\em Observatory Operations: Strategies, Processes, and Systems VI\/}, vol.
+  9910 of {\bf Society of Photo-Optical Instrumentation Engineers (SPIE)
+  Conference Series}, p. 99100V.
+
+\bibitem[Coughlin et~al.(2018)Coughlin, Deustua, Guyonnet, Mondrik, Rice,
+  Stubbs, \& Woodward]{coughlin2018}
+Coughlin, M., Deustua, S., Guyonnet, A., Mondrik, N., Rice, J., Stubbs, C., \&
+  Woodward, J., 2018.
+\newblock Testing of the lsst's photometric calibration strategy at the ctio
+  0.9 meter telescope, in {\em Observatory Operations: Strategies, Processes,
+  and Systems VII\/}.
+
+\bibitem[{Dhawan} et~al.(2022){Dhawan}, {Goobar}, {Smith}, {Johansson},
+  {Rigault}, {Nordin}, {Biswas}, {Goldstein}, {Nugent}, {Kim}, {Miller},
+  {Graham}, {Medford}, {Kasliwal}, {Kulkarni}, {Duev}, {Bellm}, {Rosnet},
+  {Riddle}, \& {Sollerman}]{ztf_2022}
+{Dhawan}, S., {Goobar}, A., {Smith}, M., {Johansson}, J., {Rigault}, M.,
+  {Nordin}, J., {Biswas}, R., {Goldstein}, D., {Nugent}, P., {Kim}, Y.~L.,
+  {Miller}, A.~A., {Graham}, M.~J., {Medford}, M., {Kasliwal}, M.~M.,
+  {Kulkarni}, S.~R., {Duev}, D.~A., {Bellm}, E., {Rosnet}, P., {Riddle}, R., \&
+  {Sollerman}, J., 2022.
+\newblock {The Zwicky Transient Facility Type Ia supernova survey: first data
+  release and results}, {\it \mnras\/}, {\bf 510}(2), 2228--2241.
+
+\bibitem[Green(2008)]{Green_2008}
+Green, M.~A., 2008.
+\newblock Self-consistent optical parameters of intrinsic silicon at 300k
+  including temperature coefficients, {\it Solar Energy Materials and Solar
+  Cells\/}, {\bf 92}(11), 1305--1310.
+
+\bibitem[Houston(2008)]{houston2008detectors}
+Houston, J.~M., 2008.
+\newblock Detectors for spectral power, {\it NIST Special Publication\/}, {\bf
+  250}, 41.
+
+\bibitem[Ingraham et~al.(2016)Ingraham, Stubbs, Claver, Lupton, Araujo, Liang,
+  Andrew, Barr, Brannon, Coughlin, Fisher-Levine, Gressler, Sebag, Thomas,
+  Wiecha, \& Yoachim]{ingraham2016}
+Ingraham, P., Stubbs, C.~W., Claver, C., Lupton, R., Araujo, C., Liang, M.,
+  Andrew, J., Barr, J., Brannon, K., Coughlin, M., Fisher-Levine, M., Gressler,
+  W., Sebag, J., Thomas, S., Wiecha, O., \& Yoachim, P., 2016.
+\newblock {The LSST calibration hardware system design and development}, in
+  {\em Ground-based and Airborne Telescopes VI\/}, vol. 9906, p. 99060O,
+  International Society for Optics and Photonics, SPIE.
+
+\bibitem[{Lochner} et~al.(2022){Lochner}, {Scolnic}, {Almoubayyed}, {Anguita},
+  {Awan}, {Gawiser}, {A Gontcho}, {Graham}, {Gris}, {Huber}, {Jha}, {Lynne
+  Jones}, {Kim}, {Mandelbaum}, {Marshall}, {Petrushevska}, {Regnault},
+  {Setzer}, {Suyu}, {Yoachim}, {Biswas}, {Blaineau}, {Hook}, {Moniez},
+  {Neilsen}, {Peiris}, {Rothchild}, {Stubbs}, \& {LSST Dark Energy Science
+  Collaboration}]{lsst_2022}
+{Lochner}, M., {Scolnic}, D., {Almoubayyed}, H., {Anguita}, T., {Awan}, H.,
+  {Gawiser}, E., {A Gontcho}, S.~G., {Graham}, M.~L., {Gris}, P., {Huber}, S.,
+  {Jha}, S.~W., {Lynne Jones}, R., {Kim}, A.~G., {Mandelbaum}, R., {Marshall},
+  P., {Petrushevska}, T., {Regnault}, N., {Setzer}, C.~N., {Suyu}, S.~H.,
+  {Yoachim}, P., {Biswas}, R., {Blaineau}, T., {Hook}, I., {Moniez}, M.,
+  {Neilsen}, E., {Peiris}, H., {Rothchild}, D., {Stubbs}, C., \& {LSST Dark
+  Energy Science Collaboration}, 2022.
+\newblock {The Impact of Observing Strategy on Cosmological Constraints with
+  LSST}, {\it \apjs\/}, {\bf 259}(2), 58.
+
+\bibitem[Lombardo et~al.(2017)Lombardo, Küsters, Kowalski, Aldering,
+  Antilogus, Bailey, Baltay, Barbary, Baugh, Bongard, Boone, Buton, Chen,
+  Chotard, Copin, Dixon, Fagrelius, Feindt, Fouchez, Gangler, Hayden,
+  Hillebrandt, Hoffmann, Kim, Leget, McKay, Nordin, Pain, Pécontal, Pereira,
+  Perlmutter, Rabinowitz, Reif, Rigault, Rubin, Runge, Saunders, Smadja,
+  Suzuki, Taubenberger, Tao, \& Thomas]{Lombardo_2017}
+Lombardo, S., Küsters, D., Kowalski, M., Aldering, G., Antilogus, P., Bailey,
+  S., Baltay, C., Barbary, K., Baugh, D., Bongard, S., Boone, K., Buton, C.,
+  Chen, J., Chotard, N., Copin, Y., Dixon, S., Fagrelius, P., Feindt, U.,
+  Fouchez, D., Gangler, E., Hayden, B., Hillebrandt, W., Hoffmann, A., Kim,
+  A.~G., Leget, P.-F., McKay, L., Nordin, J., Pain, R., Pécontal, E., Pereira,
+  R., Perlmutter, S., Rabinowitz, D., Reif, K., Rigault, M., Rubin, D., Runge,
+  K., Saunders, C., Smadja, G., Suzuki, N., Taubenberger, S., Tao, C., \&
+  Thomas, R.~C., 2017.
+\newblock Scala: In situ calibration for integral field spectrographs, {\it
+  Astronomy \& Astrophysics\/}, {\bf 607}, A113.
+
+\bibitem[{LSST Science Collaboration} et~al.(2009){LSST Science Collaboration},
+  {Abell}, {Allison}, {Anderson}, {Andrew}, {Angel}, {Armus}, {Arnett},
+  {Asztalos}, {Axelrod}, {Bailey}, {Ballantyne}, {Bankert}, {Barkhouse},
+  {Barr}, {Barrientos}, {Barth}, {Bartlett}, {Becker}, {Becla}, {Beers},
+  {Bernstein}, {Biswas}, {Blanton}, {Bloom}, {Bochanski}, {Boeshaar}, {Borne},
+  {Bradac}, {Brandt}, {Bridge}, {Brown}, {Brunner}, {Bullock}, {Burgasser},
+  {Burge}, {Burke}, {Cargile}, {Chandrasekharan}, {Chartas}, {Chesley}, {Chu},
+  {Cinabro}, {Claire}, {Claver}, {Clowe}, {Connolly}, {Cook}, {Cooke},
+  {Cooray}, {Covey}, {Culliton}, {de Jong}, {de Vries}, {Debattista},
+  {Delgado}, {Dell'Antonio}, {Dhital}, {Di Stefano}, {Dickinson}, {Dilday},
+  {Djorgovski}, {Dobler}, {Donalek}, {Dubois-Felsmann}, {Durech},
+  {Eliasdottir}, {Eracleous}, {Eyer}, {Falco}, {Fan}, {Fassnacht}, {Ferguson},
+  {Fernandez}, {Fields}, {Finkbeiner}, {Figueroa}, {Fox}, {Francke}, {Frank},
+  {Frieman}, {Fromenteau}, {Furqan}, {Galaz}, {Gal-Yam}, {Garnavich},
+  {Gawiser}, {Geary}, {Gee}, {Gibson}, {Gilmore}, {Grace}, {Green}, {Gressler},
+  {Grillmair}, {Habib}, {Haggerty}, {Hamuy}, {Harris}, {Hawley}, {Heavens},
+  {Hebb}, {Henry}, {Hileman}, {Hilton}, {Hoadley}, {Holberg}, {Holman},
+  {Howell}, {Infante}, {Ivezic}, {Jacoby}, {Jain}, {R}, {Jedicke}, {Jee},
+  {Garrett Jernigan}, {Jha}, {Johnston}, {Jones}, {Juric}, {Kaasalainen},
+  {Styliani}, {Kafka}, {Kahn}, {Kaib}, {Kalirai}, {Kantor}, {Kasliwal},
+  {Keeton}, {Kessler}, {Knezevic}, {Kowalski}, {Krabbendam}, {Krughoff},
+  {Kulkarni}, {Kuhlman}, {Lacy}, {Lepine}, {Liang}, {Lien}, {Lira}, {Long},
+  {Lorenz}, {Lotz}, {Lupton}, {Lutz}, {Macri}, {Mahabal}, {Mandelbaum},
+  {Marshall}, {May}, {McGehee}, {Meadows}, {Meert}, {Milani}, {Miller},
+  {Miller}, {Mills}, {Minniti}, {Monet}, {Mukadam}, {Nakar}, {Neill}, {Newman},
+  {Nikolaev}, {Nordby}, {O'Connor}, {Oguri}, {Oliver}, {Olivier}, {Olsen},
+  {Olsen}, {Olszewski}, {Oluseyi}, {Padilla}, {Parker}, {Pepper}, {Peterson},
+  {Petry}, {Pinto}, {Pizagno}, {Popescu}, {Prsa}, {Radcka}, {Raddick},
+  {Rasmussen}, {Rau}, {Rho}, {Rhoads}, {Richards}, {Ridgway}, {Robertson},
+  {Roskar}, {Saha}, {Sarajedini}, {Scannapieco}, {Schalk}, {Schindler},
+  {Schmidt}, {Schmidt}, {Schneider}, {Schumacher}, {Scranton}, {Sebag},
+  {Seppala}, {Shemmer}, {Simon}, {Sivertz}, {Smith}, {Allyn Smith}, {Smith},
+  {Spitz}, {Stanford}, {Stassun}, {Strader}, {Strauss}, {Stubbs}, {Sweeney},
+  {Szalay}, {Szkody}, {Takada}, {Thorman}, {Trilling}, {Trimble}, {Tyson}, {Van
+  Berg}, {Vanden Berk}, {VanderPlas}, {Verde}, {Vrsnak}, {Walkowicz},
+  {Wandelt}, {Wang}, {Wang}, {Warner}, {Wechsler}, {West}, {Wiecha},
+  {Williams}, {Willman}, {Wittman}, {Wolff}, {Wood-Vasey}, {Wozniak}, {Young},
+  {Zentner}, \& {Zhan}]{lsst}
+{LSST Science Collaboration}, {Abell}, P.~A., {Allison}, J., {Anderson}, S.~F.,
+  {Andrew}, J.~R., {Angel}, J. R.~P., {Armus}, L., {Arnett}, D., {Asztalos},
+  S.~J., {Axelrod}, T.~S., {Bailey}, S., {Ballantyne}, D.~R., {Bankert}, J.~R.,
+  {Barkhouse}, W.~A., {Barr}, J.~D., {Barrientos}, L.~F., {Barth}, A.~J.,
+  {Bartlett}, J.~G., {Becker}, A.~C., {Becla}, J., {Beers}, T.~C., {Bernstein},
+  J.~P., {Biswas}, R., {Blanton}, M.~R., {Bloom}, J.~S., {Bochanski}, J.~J.,
+  {Boeshaar}, P., {Borne}, K.~D., {Bradac}, M., {Brandt}, W.~N., {Bridge},
+  C.~R., {Brown}, M.~E., {Brunner}, R.~J., {Bullock}, J.~S., {Burgasser},
+  A.~J., {Burge}, J.~H., {Burke}, D.~L., {Cargile}, P.~A., {Chandrasekharan},
+  S., {Chartas}, G., {Chesley}, S.~R., {Chu}, Y.-H., {Cinabro}, D., {Claire},
+  M.~W., {Claver}, C.~F., {Clowe}, D., {Connolly}, A.~J., {Cook}, K.~H.,
+  {Cooke}, J., {Cooray}, A., {Covey}, K.~R., {Culliton}, C.~S., {de Jong}, R.,
+  {de Vries}, W.~H., {Debattista}, V.~P., {Delgado}, F., {Dell'Antonio}, I.~P.,
+  {Dhital}, S., {Di Stefano}, R., {Dickinson}, M., {Dilday}, B., {Djorgovski},
+  S.~G., {Dobler}, G., {Donalek}, C., {Dubois-Felsmann}, G., {Durech}, J.,
+  {Eliasdottir}, A., {Eracleous}, M., {Eyer}, L., {Falco}, E.~E., {Fan}, X.,
+  {Fassnacht}, C.~D., {Ferguson}, H.~C., {Fernandez}, Y.~R., {Fields}, B.~D.,
+  {Finkbeiner}, D., {Figueroa}, E.~E., {Fox}, D.~B., {Francke}, H., {Frank},
+  J.~S., {Frieman}, J., {Fromenteau}, S., {Furqan}, M., {Galaz}, G., {Gal-Yam},
+  A., {Garnavich}, P., {Gawiser}, E., {Geary}, J., {Gee}, P., {Gibson}, R.~R.,
+  {Gilmore}, K., {Grace}, E.~A., {Green}, R.~F., {Gressler}, W.~J.,
+  {Grillmair}, C.~J., {Habib}, S., {Haggerty}, J.~S., {Hamuy}, M., {Harris},
+  A.~W., {Hawley}, S.~L., {Heavens}, A.~F., {Hebb}, L., {Henry}, T.~J.,
+  {Hileman}, E., {Hilton}, E.~J., {Hoadley}, K., {Holberg}, J.~B., {Holman},
+  M.~J., {Howell}, S.~B., {Infante}, L., {Ivezic}, Z., {Jacoby}, S.~H., {Jain},
+  B., {R}, {Jedicke}, {Jee}, M.~J., {Garrett Jernigan}, J., {Jha}, S.~W.,
+  {Johnston}, K.~V., {Jones}, R.~L., {Juric}, M., {Kaasalainen}, M.,
+  {Styliani}, {Kafka}, {Kahn}, S.~M., {Kaib}, N.~A., {Kalirai}, J., {Kantor},
+  J., {Kasliwal}, M.~M., {Keeton}, C.~R., {Kessler}, R., {Knezevic}, Z.,
+  {Kowalski}, A., {Krabbendam}, V.~L., {Krughoff}, K.~S., {Kulkarni}, S.,
+  {Kuhlman}, S., {Lacy}, M., {Lepine}, S., {Liang}, M., {Lien}, A., {Lira}, P.,
+  {Long}, K.~S., {Lorenz}, S., {Lotz}, J.~M., {Lupton}, R.~H., {Lutz}, J.,
+  {Macri}, L.~M., {Mahabal}, A.~A., {Mandelbaum}, R., {Marshall}, P., {May},
+  M., {McGehee}, P.~M., {Meadows}, B.~T., {Meert}, A., {Milani}, A., {Miller},
+  C.~J., {Miller}, M., {Mills}, D., {Minniti}, D., {Monet}, D., {Mukadam},
+  A.~S., {Nakar}, E., {Neill}, D.~R., {Newman}, J.~A., {Nikolaev}, S.,
+  {Nordby}, M., {O'Connor}, P., {Oguri}, M., {Oliver}, J., {Olivier}, S.~S.,
+  {Olsen}, J.~K., {Olsen}, K., {Olszewski}, E.~W., {Oluseyi}, H., {Padilla},
+  N.~D., {Parker}, A., {Pepper}, J., {Peterson}, J.~R., {Petry}, C., {Pinto},
+  P.~A., {Pizagno}, J.~L., {Popescu}, B., {Prsa}, A., {Radcka}, V., {Raddick},
+  M.~J., {Rasmussen}, A., {Rau}, A., {Rho}, J., {Rhoads}, J.~E., {Richards},
+  G.~T., {Ridgway}, S.~T., {Robertson}, B.~E., {Roskar}, R., {Saha}, A.,
+  {Sarajedini}, A., {Scannapieco}, E., {Schalk}, T., {Schindler}, R.,
+  {Schmidt}, S., {Schmidt}, S., {Schneider}, D.~P., {Schumacher}, G.,
+  {Scranton}, R., {Sebag}, J., {Seppala}, L.~G., {Shemmer}, O., {Simon}, J.~D.,
+  {Sivertz}, M., {Smith}, H.~A., {Allyn Smith}, J., {Smith}, N., {Spitz},
+  A.~H., {Stanford}, A., {Stassun}, K.~G., {Strader}, J., {Strauss}, M.~A.,
+  {Stubbs}, C.~W., {Sweeney}, D.~W., {Szalay}, A., {Szkody}, P., {Takada}, M.,
+  {Thorman}, P., {Trilling}, D.~E., {Trimble}, V., {Tyson}, A., {Van Berg}, R.,
+  {Vanden Berk}, D., {VanderPlas}, J., {Verde}, L., {Vrsnak}, B., {Walkowicz},
+  L.~M., {Wandelt}, B.~D., {Wang}, S., {Wang}, Y., {Warner}, M., {Wechsler},
+  R.~H., {West}, A.~A., {Wiecha}, O., {Williams}, B.~F., {Willman}, B.,
+  {Wittman}, D., {Wolff}, S.~C., {Wood-Vasey}, W.~M., {Wozniak}, P., {Young},
+  P., {Zentner}, A., \& {Zhan}, H., 2009.
+\newblock {LSST Science Book, Version 2.0}, {\it arXiv e-prints\/}, p.
+  arXiv:0912.0201.
+
+\bibitem[{Marshall} et~al.(2013){Marshall}, {Rheault}, {DePoy}, {Prochaska},
+  {Allen}, {Behm}, {Martin}, {Veal}, {Villanueva}, {Williams}, \&
+  {Wise}]{marshall2013}
+{Marshall}, J.~L., {Rheault}, J.-P., {DePoy}, D.~L., {Prochaska}, T., {Allen},
+  R., {Behm}, T.~W., {Martin}, E.~C., {Veal}, B., {Villanueva}, Steven, J.,
+  {Williams}, P., \& {Wise}, J., 2013.
+\newblock {DECal: A Spectrophotometric Calibration System For DECam}, {\it
+  arXiv e-prints\/}, p. arXiv:1302.5720.
+
+\bibitem[{Moffat}(1969)]{moffat}
+{Moffat}, A.~F.~J., 1969.
+\newblock {A Theoretical Investigation of Focal Stellar Images in the
+  Photographic Emulsion and Application to Photographic Photometry}, {\it
+  \aap\/}, {\bf 3}, 455.
+
+\bibitem[Mondrik et~al.(2023)Mondrik, Coughlin, Betoule, Bongard, Rice, Shaw,
+  Stubbs, Woodward, \& Collaboration]{Mondrik_2023}
+Mondrik, N., Coughlin, M., Betoule, M., Bongard, S., Rice, J.~P., Shaw, P.-S.,
+  Stubbs, C.~W., Woodward, J.~T., \& Collaboration, L. D. E.~S., 2023.
+\newblock Measurement of telescope transmission using a collimated beam
+  projector, {\it Publications of the Astronomical Society of the Pacific\/},
+  {\bf 135}(1045), 035001.
+
+\bibitem[Narayan et~al.(2019)Narayan, Matheson, Saha, Axelrod, Calamida,
+  Olszewski, Claver, Mandel, Bohlin, Holberg, Deustua, Rest, Stubbs, Shanahan,
+  Vaz, Zenteno, Strampelli, Hubeny, Points, Sabbi, \& Mackenty]{Narayan_2019}
+Narayan, G., Matheson, T., Saha, A., Axelrod, T., Calamida, A., Olszewski, E.,
+  Claver, J., Mandel, K.~S., Bohlin, R.~C., Holberg, J.~B., Deustua, S., Rest,
+  A., Stubbs, C.~W., Shanahan, C.~E., Vaz, A.~L., Zenteno, A., Strampelli, G.,
+  Hubeny, I., Points, S., Sabbi, E., \& Mackenty, J., 2019.
+\newblock Subpercent photometry: Faint da white dwarf spectrophotometric
+  standards for astrophysical observatories, {\it The Astrophysical Journal
+  Supplement Series\/}, {\bf 241}(2), 20.
+
+\bibitem[{Neveu} et~al.(2024){Neveu}, {Br{\'e}maud}, {Antilogus}, {Barret},
+  {Bongard}, {Copin}, {Dagoret-Campagne}, {Juramy}, {Le Guillou}, {Moniez},
+  {Sepulveda}, \& {LSST Dark Energy Science Collaboration}]{Neveu_2024}
+{Neveu}, J., {Br{\'e}maud}, V., {Antilogus}, P., {Barret}, F., {Bongard}, S.,
+  {Copin}, Y., {Dagoret-Campagne}, S., {Juramy}, C., {Le Guillou}, L.,
+  {Moniez}, M., {Sepulveda}, E., \& {LSST Dark Energy Science Collaboration},
+  2024.
+\newblock {Slitless spectrophotometry with forward modelling: Principles and
+  application to measuring atmospheric transmission}, {\it \aap\/}, {\bf 684},
+  A21.
+
+\bibitem[Rubin et~al.(2023)Rubin, Aldering, Betoule, Fruchter, Huang, Kim,
+  Lidman, Linder, Perlmutter, Ruiz-Lapuente, \& Suzuki]{rubin2023union}
+Rubin, D., Aldering, G., Betoule, M., Fruchter, A., Huang, X., Kim, A.~G.,
+  Lidman, C., Linder, E., Perlmutter, S., Ruiz-Lapuente, P., \& Suzuki, N.,
+  2023.
+\newblock Union through unity: Cosmology with 2,000 sne using a unified
+  bayesian framework.
+
+\bibitem[{Scolnic} et~al.(2018){Scolnic}, {Jones}, {Rest}, {Pan}, {Chornock},
+  {Foley}, {Huber}, {Kessler}, {Narayan}, {Riess}, {Rodney}, {Berger}, {Brout},
+  {Challis}, {Drout}, {Finkbeiner}, {Lunnan}, {Kirshner}, {Sanders},
+  {Schlafly}, {Smartt}, {Stubbs}, {Tonry}, {Wood-Vasey}, {Foley}, {Hand},
+  {Johnson}, {Burgett}, {Chambers}, {Draper}, {Hodapp}, {Kaiser}, {Kudritzki},
+  {Magnier}, {Metcalfe}, {Bresolin}, {Gall}, {Kotak}, {McCrum}, \&
+  {Smith}]{Scolnic_2018}
+{Scolnic}, D.~M., {Jones}, D.~O., {Rest}, A., {Pan}, Y.~C., {Chornock}, R.,
+  {Foley}, R.~J., {Huber}, M.~E., {Kessler}, R., {Narayan}, G., {Riess}, A.~G.,
+  {Rodney}, S., {Berger}, E., {Brout}, D.~J., {Challis}, P.~J., {Drout}, M.,
+  {Finkbeiner}, D., {Lunnan}, R., {Kirshner}, R.~P., {Sanders}, N.~E.,
+  {Schlafly}, E., {Smartt}, S., {Stubbs}, C.~W., {Tonry}, J., {Wood-Vasey},
+  W.~M., {Foley}, M., {Hand}, J., {Johnson}, E., {Burgett}, W.~S., {Chambers},
+  K.~C., {Draper}, P.~W., {Hodapp}, K.~W., {Kaiser}, N., {Kudritzki}, R.~P.,
+  {Magnier}, E.~A., {Metcalfe}, N., {Bresolin}, F., {Gall}, E., {Kotak}, R.,
+  {McCrum}, M., \& {Smith}, K.~W., 2018.
+\newblock {The Complete Light-curve Sample of Spectroscopically Confirmed SNe
+  Ia from Pan-STARRS1 and Cosmological Constraints from the Combined Pantheon
+  Sample}, {\it \apj\/}, {\bf 859}(2), 101.
+
+\bibitem[Shaw et~al.(2007)Shaw, Li, Arp, \& Lykke]{shaw2007ultraviolet}
+Shaw, P.-S., Li, Z., Arp, U., \& Lykke, K.~R., 2007.
+\newblock Ultraviolet characterization of integrating spheres, {\it Applied
+  Optics\/}, {\bf 46}(22), 5119--5128.
+
+\bibitem[{Sommer} et~al.(2024){Sommer}, {Cohen-Tanugi}, {Plez}, {Betoule},
+  {Bongard}, {Le Guillou}, {Neveu}, {Nuss}, {Sepulveda}, {Souverin}, {Moniez},
+  \& {Stubbs}]{2024RASTI...3..125S}
+{Sommer}, K., {Cohen-Tanugi}, J., {Plez}, B., {Betoule}, M., {Bongard}, S., {Le
+  Guillou}, L., {Neveu}, J., {Nuss}, E., {Sepulveda}, E., {Souverin}, T.,
+  {Moniez}, M., \& {Stubbs}, C.~W., 2024.
+\newblock {Design and performance of a collimated beam projector for telescope
+  transmission measurement using a broad-band light source}, {\it RAS
+  Techniques and Instruments\/}, {\bf 3}(1), 125--142.
+
+\bibitem[{Stubbs} \& {Tonry}(2006)]{stubbs2006}
+{Stubbs}, C.~W. \& {Tonry}, J.~L., 2006.
+\newblock {Toward 1\% Photometry: End-to-End Calibration of Astronomical
+  Telescopes and Detectors}, {\it \apj\/}, {\bf 646}(2), 1436--1444.
+
+\bibitem[Woodward et~al.(2018)Woodward, Shaw, Yoon, Zong, Brown, \&
+  Lykke]{woodward2018}
+Woodward, J.~T., Shaw, P.-S., Yoon, H.~W., Zong, Y., Brown, S.~W., \& Lykke,
+  K.~R., 2018.
+\newblock Invited article: Advances in tunable laser-based radiometric
+  calibration applications at the national institute of standards and
+  technology, usa, {\it Review of Scientific Instruments\/}, {\bf 89}(9),
+  091301.
+
+\bibitem[{Yasuda} et~al.(2019){Yasuda}, {Tanaka}, {Tominaga}, {Jiang},
+  {Moriya}, {Morokuma}, {Suzuki}, {Takahashi}, {Yamaguchi}, {Maeda}, {Sako},
+  {Ikeda}, {Kimura}, {Morii}, {Ueda}, {Yoshida}, {Lee}, {Suyu}, {Komiyama},
+  {Regnault}, \& {Rubin}]{hsc_2019}
+{Yasuda}, N., {Tanaka}, M., {Tominaga}, N., {Jiang}, J.-a., {Moriya}, T.~J.,
+  {Morokuma}, T., {Suzuki}, N., {Takahashi}, I., {Yamaguchi}, M.~S., {Maeda},
+  K., {Sako}, M., {Ikeda}, S., {Kimura}, A., {Morii}, M., {Ueda}, N.,
+  {Yoshida}, N., {Lee}, C.-H., {Suyu}, S.~H., {Komiyama}, Y., {Regnault}, N.,
+  \& {Rubin}, D., 2019.
+\newblock {The Hyper Suprime-Cam SSP transient survey in COSMOS: Overview},
+  {\it \pasj\/}, {\bf 71}(4), 74.
+
+\end{thebibliography}
