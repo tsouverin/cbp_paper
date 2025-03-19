@@ -4,7 +4,7 @@
 
 This section presents the measurement of the \SD{} telescope response $\Rtel(\lambda)$ from CBP shoots using the \spinhole pinhole. One difficulty is the inter-calibration between the \spinhole pinhole and the \bpinhole pinhole with which the CBP transmission has been determined in the previous section. Both produce images that are contained in the \SD sensor as shown in Fig.~\ref{fig:ccd_examples}, but the latter form an image of about 250 pixels in radius while the former form an image of about 4 pixels in radius. Their photometry is thus very differently affected by issues such as ghost reflection and light scattered in the tails of the PSF. In this section, we start by building a model of the PSF of \SD+ CBP, including light's reflection in the optics. We use this model to correct the inter-calibration ratio between the two pinhole sizes, measured with run No.~8 data. We then describe the generic photometry method applied to all other runs using the \spinhole pinhole data and present the resulting response measurements.   
 
-\begin{figure}[h]
+\begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{fig/ccd_examples.pdf}
     \caption{Examples of images obtained when the CBP shoots in the \SD telescope at $\lambda_L=\SI{450}{\nm}$ with the \bpinhole pinhole on the right and \spinhole pinhole on the left. The ghost reflection is visible for both images at the left of the main spot. In the \bpinhole pinhole image, a large annulus around the main spot is visible and corresponds to light diffusion around the mechanical iris at the input of the CBP.}
@@ -18,7 +18,7 @@ This section presents the measurement of the \SD{} telescope response $\Rtel(\la
 
 Fig.~\ref{fig:ghost_contrast} shows stacks of images obtained with the \spinhole pinhole without any filter. The illumination of a section of the primary StarDICE mirror results in a superimposition of the \SD telescope PSF and a set of additional fainter images that we call ghosts. The ghosts result from undesired but unavoidable reflections on optical surfaces. The most visible ones come from the beam reflection on the CCD surface and back reflection on its covering window, as described in Fig.~\ref{fig:schema_ghost}.\\
 
-\begin{figure}[h]
+\begin{figure}
     \centering
     \includegraphics[width=\columnwidth]{fig/ghost_contrast.pdf}
     \caption{Stack of images at different wavelengths, with one image per nanometer. \textit{Left:} Stack of images between \SI{350}{\nano\meter} and \SI{450}{\nano\meter}. The scale is set on the ZScale from IRAF to make faint features visible. The spot of interest $G_0$ is at the center, and the ghost reflections are at its left. The circles correspond to the aperture photometry at different radii. When an annulus contains a ghost contribution, it is colored according to the ghost's order. The red area around the 1$\up{st}$ order ghost represents the area where the photometry of the ghost is measured. \textit{Right:} Same image but for a stack of images between \SI{1000}{\nano\meter} and \SI{1100}{\nano\meter}. We note that the 2$\up{nd}$ order ghost is not visible for the stack in the UV, where the 1$\up{st}$ order is maximal, while it is visible in the IR, where the 1$\up{st}$ order is lower.}
@@ -253,7 +253,7 @@ Since the CBP only illuminates a portion of the primary mirror, we need several 
 %Figure \ref {fig:radial_positions} displays the results of the transmission measurements at different radii (Dataset No.~2) on its left panel and the variations over the focal plane (Dataset No.~12) on its right panel.
 Figure \ref{fig:radial_positions} is divided into two panels. The left panel exhibits the results of transmission measurements taken at various radii (corresponding to dataset No.~2). In contrast, the right panel displays the spatial variations in these measurements across the focal plane (representing dataset No.~12).
 
-\begin{figure*}[h!]
+\begin{figure*}
     \centering
     \includegraphics[width=\columnwidth]{fig/radial_positions.pdf}
     \includegraphics[width=\columnwidth]{fig/ccd_positions.pdf}
